@@ -17,16 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: baileyjm02/markdown-to-pdf@v1
-        with:
-          input_dir: paper
-          output_dir: pdfs
-          images_dir: paper/images
-          # for example <img src="./images/file-name.png">
-          image_import: ./images
-          # Default is true, can set to false to only get PDF files
-          build_html: false
+      - name:
+        run: |
+          sudo apt-get install pandoc pandoc-citeproc texlive-latex-extra
+          cd paper
+          pandoc --filter pandoc-citeproc --bibliography=paper.bib --variable classoption=twocolumn --variable papersize=a4paper -s paper.md -o paper.pdf
       - uses: actions/upload-artifact@v1
         with:
           name: paper
-          path: pdfs
+          path: pdf
