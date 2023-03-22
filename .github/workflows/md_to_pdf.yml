@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name:
+      - name: Install Pandoc and Build
         run: |
           sudo apt-get install pandoc pandoc-citeproc texlive-latex-extra
           cd paper
@@ -25,4 +25,4 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: paper
-          path: pdf
+          path: paper.pdf
