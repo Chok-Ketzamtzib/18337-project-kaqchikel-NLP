@@ -1,7 +1,7 @@
 ---
-title: "Pizza - A Carbohydrate Based Substrate For Tomato Delivery"
-date: "May 2017"
-author: "Maxwell Ogden, Pizza Enthusiasts Institute"
+title: "Your Paper Title Here"
+date: "March 2023"
+author: "Spaghetti Monster, Flying - MIT"
 ---
 
 # Abstract
@@ -10,7 +10,7 @@ Pizza (@pizza2000identification) is an understudied yet widely utilized implemen
 
 # Diagram
 
-![It's Pizza](https://github.com/JacksonBurns/XTBTSScreener/blob/main/paper/images/pizza.png?raw=true)
+![It's Pizza](https://github.com/JacksonBurns/18337-project-template/blob/main/paper/images/pizza.png?raw=true)
 
 # Algorithm
 
