@@ -10,7 +10,7 @@ Pizza (@pizza2000identification) is an understudied yet widely utilized implemen
 
 # Diagram
 
-![It's Pizza](https://gist.github.com/maxogden/97190db73ac19fc6c1d9beee1a6e4fc8/raw/adaaa9b5c19460d3be42021ef0c1b8e11a8d38fe/pizza.png)
+![It's Pizza](https://github.com/JacksonBurns/XTBTSScreener/blob/main/paper/images/pizza.png)
 
 # Algorithm
 
