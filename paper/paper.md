@@ -11,6 +11,7 @@ Kaqchikel is a language in the Mayan language family, spoken in Guatemala by abo
 
 # NLP Pipeline
 
+![NLP Pipeline](https://github.com/JacksonBurns/18337-project-template/blob/main/paper/images/pipeline.png?raw=true)
 
 # Plan
 
