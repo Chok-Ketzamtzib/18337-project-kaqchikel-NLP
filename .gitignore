@@ -25,3 +25,6 @@ Manifest.toml
 
 # Other Files
 .DS_store
+
+#Other Folders to ignore
+src/datasets/TangBennett_WrittenCorpus_Release_V01_April142023
