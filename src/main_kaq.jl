@@ -25,12 +25,14 @@ sd = StringDocument(path)
 
 # Now CSV/Matrix Stuff 
 kaq_matrix = readdlm(path, ' ', String, '\n')
-kaq_matrix2 = readdlm(path2, '.', String, '.')
+kiwujil_matrix = readdlm(path2, '.', String, '.')
 kaq_csv = CSV.File(path; delim=' ', ignorerepeated=false)
-kaq_csv2 = CSV.File(path2; delim='.', ignorerepeated=false)
+kiwujil_csv = CSV.File(path2; delim='.', ignorerepeated=false)
 CSV.write(joinpath((@__DIR__),"datasets","teng_kaq.csv"), kaq_csv)
-CSV.write(joinpath((@__DIR__),"datasets","Kiwujil.csv"), kaq_csv2)
-# file = CSV.File(IOBuffer(path))
+CSV.write(joinpath((@__DIR__),"datasets","Kiwujil.csv"), kiwujil_csv)
+file = CSV.File(IOBuffer(read(path2, String)))
+CSV.write(joinpath((@__DIR__),"datasets","Kiwujil_2.csv"), file)
+
 
 wordlengths = zeros(Int64,0)
 @time wordlengths = [length(x) for x in kaq_matrix];
