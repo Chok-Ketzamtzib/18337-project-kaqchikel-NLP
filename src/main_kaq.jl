@@ -7,35 +7,99 @@ using Chain
 using Pipe
 using StableRNGs
 using DelimitedFiles
+using Plots
+using Statistics
+using TextSearch
+using Languages
 
-# Converting the text to CSV
+````
+Converting the text to CSV
+````
 
 path = joinpath((@__DIR__),"datasets","TangBennett_WrittenCorpus_Release_V01_April142023","April142023", "tang_bennett_2018_corpus_v01_14042023.txt")
+path2 = joinpath((@__DIR__),"datasets","kiwujil xajila' final edit text ruk'isib'al q'ij 2022.txt")
 
-readdlm(path, " ", '\n')
+# let's try converting to a FileDocument from TextAnalysis.jl package
+fd = FileDocument(read(path, String))
+sd = StringDocument(path)
+
+# Now CSV/Matrix Stuff 
+kaq_matrix = readdlm(path, ' ', String, '\n')
+kaq_matrix2 = readdlm(path2, '.', String, '.')
 kaq_csv = CSV.File(path; delim=' ', ignorerepeated=false)
+kaq_csv2 = CSV.File(path2; delim='.', ignorerepeated=false)
+CSV.write(joinpath((@__DIR__),"datasets","teng_kaq.csv"), kaq_csv)
+CSV.write(joinpath((@__DIR__),"datasets","Kiwujil.csv"), kaq_csv2)
 # file = CSV.File(IOBuffer(path))
 
-# importing the dataset
+wordlengths = zeros(Int64,0)
+@time wordlengths = [length(x) for x in kaq_matrix];
+lrange = minimum(wordlengths),maximum(wordlengths)
+histogram(wordlengths,
+    bins=20,
+    xaxis=("WORD LENGTH"),
+    yaxis=("COUNT"),
+    xticks=([1:1:20;]),
+    yticks=([0:400;],["$(x)k" for x=0:5:390]),
+    label=("Word count"),
+    xguidefontsize=8, yguidefontsize=8,
+    margin=5mm,
+    framestyle = :box,
+    fill = (0,0.5,:green),
+    size=(800,420))
+```` 
+Simple Naive Bayes Implementation of Subset of Dataset
+````
+# split matrix into vectors
 
-df = CSV.read(path, DataFrames.DataFrame)
-first(df, 10) |> pretty
+tokens = tokenize(Tokenizer(TextConfig()), "HI!! this is fun!! http://something")
 
+x1 = kaq_matrix2[1, 1]
+x2 = kaq_matrix2[2, 1]
+x3 = kaq_matrix2[3, 1]
+x4 = kaq_matrix2[4, 1]
+y = kaq_matrix2[:, 5]
+
+# identify unique elements
+
+uniq_x1 = unique(x1)
+uniq_x2 = unique(x2)
+uniq_x3 = unique(x3)
+uniq_x4 = unique(x4)
+
+uniq_y = unique(y)
+
+
+```` 
+Convert into DataFrame
+````
+df = DataFrame(kaq_matrix, :auto)
+df2 = DataFrame(kaq_matrix2, :auto)
+```` 
+Understand DataFrame
+````
+describe(df)
+
+
+# df = CSV.read(kaq_matrix, DataFrames.DataFrame)
+first(df, 1) |> pretty
+@view df[1:5,1:7]
 # converting the dataframe type
 
 df = @chain df begin
-    DataFrames.transform(:Message => ByRow(x -> StringDocument(x)) => :Message2)
+    DataFrames.transform(:1 => ByRow(x -> StringDocument(x)) => :Message)
 end
 
+@view df[1:5, 1628:1630]
 # Text Preprocessing 
 
-remove_case!.(df[:, :Message2])
-prepare!.(df[:, :Message2], strip_html_tags| strip_punctuation| strip_numbers)
-stem!.(df[:, :Message2])
+# remove_case!.(df[:, :Message])
+prepare!.(df[:, :Message], strip_html_tags| strip_punctuation| strip_numbers)
+stem!.(df[:, :Message])
 
 # Preparing Corpus
 
-crps = Corpus(df[:, :Message2])
+crps = Corpus(df[:, :Message])
 
 # Build the vocabulary
 

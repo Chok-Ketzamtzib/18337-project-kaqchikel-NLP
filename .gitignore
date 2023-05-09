@@ -28,3 +28,7 @@ Manifest.toml
 
 #Other Folders to ignore
 src/datasets/TangBennett_WrittenCorpus_Release_V01_April142023
+src/Languages.jl/
+
+# Teng's Dataset to remove
+teng_kaq.csv
