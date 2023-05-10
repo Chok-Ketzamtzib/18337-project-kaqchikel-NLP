@@ -98,7 +98,11 @@ first(df_kiw, 1) |> pretty
 # Try stacking all columns into one columns
 df_kiw = stack(df_kiw, 1:96)
 rows_with_sentences = completecases(df_kiw) # see number of rows with sentences
-dropmissing(df_kiw)
+df_kiw = dropmissing(df_kiw)
+df_kiw[!, :Sentiment] .= String
+df_kiw = filter(ByRow -> !(df_kiw.value == "0"), df_kiw )
+df_kiw = select!(df_kiw, Not(:variable))
+
 CSV.write(joinpath((@__DIR__),"datasets","Kiwujil_from_df.csv"), df_kiw)
 df = @chain df begin
     DataFrames.transform(:1 => ByRow(x -> StringDocument(x)) => :Message)
