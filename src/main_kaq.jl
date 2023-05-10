@@ -26,11 +26,16 @@ sd = StringDocument(path)
 # Now CSV/Matrix Stuff 
 kaq_matrix = readdlm(path, ' ', String, '\n')
 kiwujil_matrix = readdlm(path2, '.', String, '.')
-kaq_csv = CSV.File(path; delim=' ', ignorerepeated=false)
-kiwujil_csv = CSV.File(path2; delim='.', ignorerepeated=false)
+
+kaq_csv = CSV.File(path; delim=' ', ignorerepeated=false, header=false)
+kiwujil_csv = CSV.File(path2; delim='.', ignorerepeated=true, header=false, quoted=false)
+
 CSV.write(joinpath((@__DIR__),"datasets","teng_kaq.csv"), kaq_csv)
 CSV.write(joinpath((@__DIR__),"datasets","Kiwujil.csv"), kiwujil_csv)
-file = CSV.File(IOBuffer(read(path2, String)))
+
+kiwujil_string = read(path2, String)
+file = CSV.File(IOBuffer(kiwujil_string))
+
 CSV.write(joinpath((@__DIR__),"datasets","Kiwujil_2.csv"), file)
 
 
@@ -77,17 +82,22 @@ Convert into DataFrame
 ````
 df = DataFrame(kaq_matrix, :auto)
 df2 = DataFrame(kaq_matrix2, :auto)
+
+df_kiw = kiwujil_csv |> DataFrame
 ```` 
 Understand DataFrame
 ````
-describe(df)
+describe(df_kiw)
 
-
+deleteat!(df_kiw, [1])
 # df = CSV.read(kaq_matrix, DataFrames.DataFrame)
-first(df, 1) |> pretty
-@view df[1:5,1:7]
+first(df_kiw, 1) |> pretty
+@view df_kiw[1:5,1]
 # converting the dataframe type
 
+# Try stacking all columns into one columns
+df_kiw = stack(df_kiw, 1:96)
+CSV.write(joinpath((@__DIR__),"datasets","Kiwujil_from_df.csv"), df_kiw)
 df = @chain df begin
     DataFrames.transform(:1 => ByRow(x -> StringDocument(x)) => :Message)
 end
