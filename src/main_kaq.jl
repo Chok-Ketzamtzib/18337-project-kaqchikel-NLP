@@ -24,8 +24,8 @@ fd = FileDocument(read(path, String))
 sd = StringDocument(path)
 
 # Now CSV/Matrix Stuff 
-kaq_matrix = readdlm(path, ' ', String, '\n')
-kiwujil_matrix = readdlm(path2, '.', String, '.')
+#kaq_matrix = readdlm(path, ' ', String, '\n')
+#kiwujil_matrix = readdlm(path2, '.', String, '.')
 
 kaq_csv = CSV.File(path; delim=' ', ignorerepeated=false, header=false)
 kiwujil_csv = CSV.File(path2; delim='.', ignorerepeated=true, header=false, quoted=false)
@@ -33,27 +33,28 @@ kiwujil_csv = CSV.File(path2; delim='.', ignorerepeated=true, header=false, quot
 CSV.write(joinpath((@__DIR__),"datasets","teng_kaq.csv"), kaq_csv)
 CSV.write(joinpath((@__DIR__),"datasets","Kiwujil.csv"), kiwujil_csv)
 
-kiwujil_string = read(path2, String)
-file = CSV.File(IOBuffer(kiwujil_string))
+# kiwujil_string = read(path2, String)
+# file = CSV.File(IOBuffer(kiwujil_string))
 
-CSV.write(joinpath((@__DIR__),"datasets","Kiwujil_2.csv"), file)
+# CSV.write(joinpath((@__DIR__),"datasets","Kiwujil_2.csv"), file)
 
 
-wordlengths = zeros(Int64,0)
-@time wordlengths = [length(x) for x in kaq_matrix];
-lrange = minimum(wordlengths),maximum(wordlengths)
-histogram(wordlengths,
-    bins=20,
-    xaxis=("WORD LENGTH"),
-    yaxis=("COUNT"),
-    xticks=([1:1:20;]),
-    yticks=([0:400;],["$(x)k" for x=0:5:390]),
-    label=("Word count"),
-    xguidefontsize=8, yguidefontsize=8,
-    margin=5mm,
-    framestyle = :box,
-    fill = (0,0.5,:green),
-    size=(800,420))
+# wordlengths = zeros(Int64,0)
+# @time wordlengths = [length(x) for x in kaq_matrix];
+# lrange = minimum(wordlengths),maximum(wordlengths)
+# histogram(wordlengths,
+#     bins=20,
+#     xaxis=("WORD LENGTH"),
+#     yaxis=("COUNT"),
+#     xticks=([1:1:20;]),
+#     yticks=([0:400;],["$(x)k" for x=0:5:390]),
+#     label=("Word count"),
+#     xguidefontsize=8, yguidefontsize=8,
+#     margin=5mm,
+#     framestyle = :box,
+#     fill = (0,0.5,:green),
+#     size=(800,420))
+    
 ```` 
 Simple Naive Bayes Implementation of Subset of Dataset
 ````
@@ -80,30 +81,34 @@ uniq_y = unique(y)
 ```` 
 Convert into DataFrame
 ````
-df = DataFrame(kaq_matrix, :auto)
-df2 = DataFrame(kaq_matrix2, :auto)
+# df = DataFrame(kaq_matrix, :auto)
+# df2 = DataFrame(kaq_matrix2, :auto)
 
 df_kiw = kiwujil_csv |> DataFrame
+
 ```` 
 Understand DataFrame
 ````
 describe(df_kiw)
-
-deleteat!(df_kiw, [1])
-# df = CSV.read(kaq_matrix, DataFrames.DataFrame)
 first(df_kiw, 1) |> pretty
 @view df_kiw[1:5,1]
+
+# Start cleaning dataframe for manual labeling
+deleteat!(df_kiw, [1])
+
 # converting the dataframe type
 
 # Try stacking all columns into one columns
 df_kiw = stack(df_kiw, 1:96)
 rows_with_sentences = completecases(df_kiw) # see number of rows with sentences
 df_kiw = dropmissing(df_kiw)
-df_kiw[!, :Sentiment] .= String
-df_kiw = filter(ByRow -> !(df_kiw.value == "0"), df_kiw )
 df_kiw = select!(df_kiw, Not(:variable))
+df_kiw[!, :Sentiment] .= String
+rename!(df_kiw,:value => :Sentence)
+df_kiw = filter(:Sentence => n -> !(n == "  "), df_kiw ) # Remove blank rows
+df_kiw = filter(:Sentence => n -> !(n == " "), df_kiw ) # remove blank rows
 
-CSV.write(joinpath((@__DIR__),"datasets","Kiwujil_from_df.csv"), df_kiw)
+CSV.write(joinpath((@__DIR__),"datasets","Kiwujil.csv"), df_kiw)
 df = @chain df begin
     DataFrames.transform(:1 => ByRow(x -> StringDocument(x)) => :Message)
 end
