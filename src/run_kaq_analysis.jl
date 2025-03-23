@@ -4,6 +4,7 @@ using TextAnalysis
 using Chain
 using Statistics
 using StatsBase
+using SparseArrays
 
 println("Loading Kaqchikel text data...")
 
@@ -88,6 +89,38 @@ end
 sorted_terms = sort(collect(term_counts), by=x->x[2], rev=true)
 for (i, (term, count)) in enumerate(sorted_terms[1:min(10, length(sorted_terms))])
     println("  $i. $term: $count")
+end
+
+# TF-IDF Matrix Calculation
+println("\nCalculating Document-Term Matrix...")
+m = DocumentTermMatrix(crps)
+println("DTM dimensions: $(size(m.dtm))")
+
+println("\nCalculating TF-IDF Matrix...")
+tfidf_mat = tf_idf(m)
+println("TF-IDF matrix dimensions: $(size(tfidf_mat))")
+
+# Find most important terms by TF-IDF scores
+println("\nMost important terms by TF-IDF scores:")
+
+# Calculate the sum of TF-IDF scores for each term
+tfidf_sums = zeros(length(m.terms))
+for j in 1:length(m.terms)
+    for i in 1:size(tfidf_mat, 1)
+        tfidf_sums[j] += tfidf_mat[i, j]
+    end
+end
+
+# Create a dictionary of terms and their total TF-IDF scores
+term_importance = Dict{String, Float64}()
+for (i, term) in enumerate(m.terms)
+    term_importance[term] = tfidf_sums[i]
+end
+
+# Sort and print the most important terms
+sorted_importance = sort(collect(term_importance), by=x->x[2], rev=true)
+for (i, (term, score)) in enumerate(sorted_importance[1:min(15, length(sorted_importance))])
+    println("  $i. $term: $(round(score, digits=4))")
 end
 
 # Check for sentiment column (if it exists)
