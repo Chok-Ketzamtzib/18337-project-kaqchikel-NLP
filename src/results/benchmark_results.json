@@ -1,0 +1,28 @@
+{
+    "naive_bayes_train_seconds": {
+        "4": 0.01499058,
+        "1": 0.025097639999999997,
+        "2": 0.09566934,
+        "8": 0.00778802
+    },
+    "feature_extraction_seconds": {
+        "4": 0.18561778,
+        "1": 0.28063472,
+        "2": 0.262643,
+        "8": 0.19457154000000002
+    },
+    "naive_bayes_speedup_vs_serial": {
+        "4": 1.6742274148165046,
+        "1": 1,
+        "2": 0.26233733816915633,
+        "8": 3.222595730365356
+    },
+    "threads_available": 8,
+    "scaling_plot": "C:\\Users\\wakef\\Documents\\Mayanist\\mayan-coding-sandbox\\18337-project-kaqchikel-NLP\\src\\..\\paper\\images\\thread_scaling.png",
+    "worker_counts": [
+        1,
+        2,
+        4,
+        8
+    ]
+}

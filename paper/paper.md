@@ -1,66 +1,114 @@
 ---
-title: "Performant Text Classification with Naive Bayes for the Kaqchikel Mayan language"
-date: "March 2023"
+title: "Performant Text Classification with Naive Bayes for Kaqchikel Maya: Project Wrap-Up"
+date: "July 2026"
 author: "William J. Wakefield"
 github: https://github.com/Chok-Ketzamtzib/18337-project-kaqchikel-NLP
 ---
 
 # Abstract
 
-Kaqchikel is a language in the Mayan language family, spoken in Guatemala by about 410,000 people. As of this writing, there are no existing Natural Language Processing (NLP) application for this Mayan language, which leads to a lack of tools that could be implemented to help preserve the language in an advancing and globalized world. The text classification will use a Term Frequency- Inverse Document Frequency (TF-IDF) parallel model and a parallel Naive Bayes algorithm to be evaluated on the Kaqchikel Chronicles, a collection or rare pre-colonial texts. The NLP pipeline developed may make contributions to TextAnalysis.jl, MLJ.jl, and within the Julia NLP ecosystem in general. The code can be found [here](https://github.com/Chok-Ketzamtzib/18337-project-kaqchikel-NLP). 
+This project began as a 2023 proposal to build a performant Julia NLP pipeline for Kaqchikel Maya using TF-IDF and Naive Bayes. The original task framing was sentiment analysis, but manual sentiment labeling became the primary blocker. The wrap-up in 2026 reframes the task to avoid that bottleneck while preserving the original computational goals: classify **classical** Kaqchikel Chronicle text versus **modern** written Kaqchikel from the Tang/Bennett corpus. The final pipeline is implemented in Julia, includes reproducible data preparation, hand-rolled multinomial Naive Bayes, character trigram and word unigram TF-IDF features, and serial-vs-threaded timing experiments. On a balanced 8,026-sample dataset (6,420 train / 1,606 test), unigram TF-IDF reaches 94.3% test accuracy and character trigrams reach 98.9%. This closes the class project with working code, measurable outputs, and a clearer path to future work in modern low-resource NLP.
 
 # NLP Pipeline
 
 ![NLP Pipeline](https://raw.githubusercontent.com/Chok-Ketzamtzib/18337-project-kaqchikel-NLP/main/paper/images/pipeline.png)
 
-# Corpus
+# Context and Related Work
 
-The corpus used involves one novel corpus which "was constructed from existing religious texts, spoken transcripts, government documents, medical handbooks, and other educational books written in Kaqchikel" [11][12]. As from the metadate of the corpus, it contains approximately 0.7 million word tokens and 29,355 word types[11][12]. While the novel corpus is great as a huge potential for data mining purposes thank to the large extent of word tokens available, labeling the corpus for sentiment analysis and ensuring proper translation was not able to be done in time for the scope of the project. Instead,  labeling sentiment and ensuring a one-to-one mapping for translation purposes, the other corpus used is the Kaqchikel Chronicles [7]. The issue with the Kaqchikel chronicles to note is that since it is mostly a religious and historical texts with a lot of it written in a poetic way in Kaqchikel and more formal, it would not be as accurate to how the modern Kaqchikel Maya speak as it would have done with examples of speeches from the novel corpus from Dr. Tang and Dr. Bennett. If you would like to view the novel corpus itself, please reach out to Dr. Tang and Dr. Bennett at [11] or [12].
+Kaqchikel NLP is no longer empty space. Recent work includes MayaVoice (Spanish<->14 Mayan MT) [@regalado2025mayavoice], FLORES+ Mayas benchmark/dataset construction [@floresmayas2025], and broad low-resource shared tasks through AmericasNLP [@degibert2025americasnlp]. Monolingual baselines now exist as well, including Goldfish models for `cak_latn` [@chang2026goldfish].  
+
+However, the specific corpus used in this project (Kaqchikel Chronicles) remains useful as a historical register resource and as a compact testbed for reproducible Julia-based methods.
+
+# Corpora and Data Constraints
+
+Two corpora are used:
+
+1. **Kaqchikel Chronicle / Kiwujil text** (classical register) [@maxwell2006chronicles]
+2. **Tang/Bennett written corpus** (modern register) [@tang2018predictability; @bennett2018stop]
+
+The Tang/Bennett readme explicitly disallows redistribution, so this repository stores only:
+
+- local path configuration,
+- sentence index manifests,
+- aggregate metrics.
+
+No Tang/Bennett text is committed.
+
+# Why the Task Was Reframed
+
+The original sentiment-labeling objective was not completed in 2023. The previous CSV had a placeholder bug (`Sentiment = String` on almost all rows), making supervised sentiment training impossible without major annotation effort.  
+
+For project completion, the label is generated from data provenance:
+
+- `classical` if sentence source is Chronicle,
+- `modern` if sentence source is Tang/Bennett.
+
+This preserves the main computational objective (TF-IDF + Naive Bayes + parallelization) while removing manual labeling dependency.
 
 # Procedure
 
-1. Create a Kaqchikel Database from dictionaries or existing databases
-2. Perform text preprocessing by removing cases, numbers, HTML tags and punctuation (except glottals?)
-3. Create the TF-IDF matrix with [TextAnalysis.jl](https://github.com/JuliaText/TextAnalysis.jl)
-4. Create the Corpus object from the matrix
-5. Pass Corpus object to default Naive Bayes Classifier from [TextAnalysis.jl](https://github.com/JuliaText/TextAnalysis.jl)
-6. Evaluate the Pipeline
-7. Parallelize and optimize the TF-IDF matrix portion in terms of feature extraction [5]
-8. Parallelize and optimize the TF-IDF matrix portion in terms of feature extraction [5]
-9. Compare results with the new pipeline with previous pipeline
+1. Regenerate Chronicle CSV from source text (`Sentence` only).
+2. Load Tang/Bennett corpus locally and filter lines by token count.
+3. Build a balanced sample between classes.
+4. Create a stratified train/test split (seed = 42).
+5. Build feature matrices:
+   - word unigram TF-IDF (TextAnalysis.jl),
+   - character trigram TF-IDF (custom sparse construction).
+6. Train hand-rolled multinomial Naive Bayes (Laplace smoothing).
+7. Evaluate on held-out test set.
+8. Benchmark serial vs threaded feature extraction and training.
 
 # Parallel Naive Bayes Classifier
 
 $$P(c|x) = P(x|c) * P(c) / P(x)$$ 
 
-The idea for the parallel Naive Bayes Classifier comes from source [5] and [10]. 
+The implementation follows the standard multinomial Naive Bayes formulation with log priors and log likelihoods, and applies worker-level parallelism during aggregation of per-class feature statistics, inspired by prior parallel NB literature [@amazal2018parallelnb].
 
-# Contributions to the Julia Text Ecosystem
+# Results
 
-While still in the initial stages, here is the pull request for adding Kaqchikel data to the Julia NLP libraries [here](https://github.com/JuliaText/Languages.jl/pull/43). The pull request will allow [TextAnalysis.jl](https://github.com/JuliaText/TextAnalysis.jl) to then perform the TF-IDF matrix and use the naive bayes classifier function on Kaqchikel. 
+## Data Preparation Summary
+
+- Chronicle rows after regeneration: **4013**
+- Modern rows after filtering: **43535**
+- Balanced dataset: **8026**
+- Split: **6420 train / 1606 test**
+
+## Classification Performance
+
+- **Word unigram TF-IDF + multinomial NB**: 0.9433 test accuracy
+- **Character trigram TF-IDF + multinomial NB**: 0.9894 test accuracy
+
+The class boundary is strong, which is expected because historical chronicle style differs heavily from modern written register.
+
+## Benchmark Summary (8-thread run)
+
+- Character trigram feature extraction:
+  - serial: 0.2806s
+  - 8 workers: 0.1946s
+- Naive Bayes training:
+  - serial: 0.0251s
+  - best observed: 0.0078s (8 workers)
+
+Measured speedups are not monotonic at every worker count; this is common at small workloads where scheduling overhead can dominate.
+
+![Thread scaling](images/thread_scaling.png)
+
+# Contributions to Julia Text Ecosystem
+
+The project also contributed Kaqchikel support to `Languages.jl` through PR #43 (initial addition) and PR #46 (trigram fix), making language detection support practical for downstream Julia NLP workflows.
+
+# Discussion
+
+This project demonstrates an important lesson for low-resource NLP: **labeling is not always the right first bottleneck to solve**.  
+
+When labels are expensive, useful alternatives include:
+
+- weak labels from source metadata (used here),
+- self-supervised objectives,
+- multilingual transfer from related languages.
+
+For future work, Python/Hugging Face tooling is likely better for modern LLM workflows, while Julia remains an effective environment for transparent, reproducible algorithmic baselines and performance experiments.
 
 # References
 
-[1] TextAnalysis.jl documentation by Julia Hub — https://docs.juliahub.com/TextAnalysis/5Mwet/0.7.3/
-
-[2] Vectorize everything with Julia by Bence Komarniczky — https://towardsdatascience.com/vectorize-everything-with-julia-ad04a1696944
-
-[3] MLJ framework — a machine learning framework of Julia: https://alan-turing-institute.github.io/MLJ.jl/dev/
-
-[4] MLJ Data Interpretation and Scitypes: https://juliaai.github.io/DataScienceTutorials.jl/data/scitype/
-
-[5] Houda Amazal, Mohammed Ramdani, and Mohamed Kissi. 2018. A Text Classification Approach using Parallel Naive Bayes in Big Data Context. In Proceedings of the 12th International Conference on Intelligent Systems: Theories and Applications (SITA'18). Association for Computing Machinery, New York, NY, USA, Article 36, 1–6. https://doi.org/10.1145/3289402.3289536
-
-[6] Annals of the Cakchiqueles https://www.gutenberg.org/files/20775/20775-h/20775-h.htm#THE_ANNALS
-
-[7] Maxwell, Judith M. and Robert M., II Hill. Kaqchikel Chronicles: The Definitive Edition. University of Texas Press, 2006. Project MUSE muse.jhu.edu/book/45051.
-
-[8] Naive Bayes Example https://www.geeksforgeeks.org/applying-multinomial-naive-bayes-to-nlp-problems/
-
-[9] [A corpus of K’iche’ annotated for morphosyntactic structure](https://aclanthology.org/2021.americasnlp-1.2) (Tyers & Henderson, AmericasNLP 2021)
-
-[10] Mapreduce function in Julia to parallelize the preprocessing and naive bayes classifier (https://docs.julialang.org/en/v1/base/collections/#Base.mapreduce-Tuple{Any,%20Any,%20Any})
-
-[11] Tang, K., & Bennett, R. (2018). Contextual predictability influences word and morpheme duration in a morphologically complex language (Kaqchikel Mayan). The Journal of the Acoustical Society of America, 144(2), 997-1017.
-
-[12] Bennett, R., Tang, K., & Sian, J. A. (2018). Statistical and acoustic effects on the perception of stop consonants in Kaqchikel (Mayan). Laboratory Phonology, 9(1), 9-9.
+Citations are maintained in `paper/paper.bib`.
