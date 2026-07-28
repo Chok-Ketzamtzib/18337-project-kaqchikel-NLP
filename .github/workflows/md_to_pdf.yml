@@ -20,9 +20,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Pandoc and Build
         run: |
-          sudo apt-get install pandoc pandoc-citeproc texlive-latex-extra
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-latex-extra
           cd paper
-          pandoc --filter pandoc-citeproc --bibliography=paper.bib --variable classoption=twocolumn --variable papersize=a4paper -s paper.md -o paper.pdf
+          pandoc --citeproc --bibliography=paper.bib --variable classoption=twocolumn --variable papersize=a4paper -s paper.md -o paper.pdf
       - uses: actions/upload-artifact@v4
         with:
           name: paper
