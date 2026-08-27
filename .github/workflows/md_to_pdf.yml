@@ -56,7 +56,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y pandoc texlive-latex-extra
           cd paper
-          pandoc --citeproc --bibliography=paper.bib --variable classoption=twocolumn --variable papersize=a4paper -s paper.md -o paper.pdf
+          # Single column: pandoc renders markdown tables as longtable, which
+          # cannot typeset in two-column mode.
+          pandoc --citeproc --bibliography=paper.bib --variable papersize=a4paper -s paper.md -o paper.pdf
 
       - uses: actions/upload-artifact@v4
         with:
