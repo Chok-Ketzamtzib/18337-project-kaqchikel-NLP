@@ -1,10 +1,10 @@
 {
-    "kiwujil_rows": 4013,
-    "classical_rows": 4013,
     "modern_rows": 43535,
-    "balanced_rows": 8026,
+    "classical_rows": 4013,
     "train_rows": 6420,
     "test_rows": 1606,
-    "manifest_path": "C:\\Users\\wakef\\Documents\\Mayanist\\mayan-coding-sandbox\\18337-project-kaqchikel-NLP\\src\\datasets\\register_manifest.csv",
-    "kiwujil_csv_path": "C:\\Users\\wakef\\Documents\\Mayanist\\mayan-coding-sandbox\\18337-project-kaqchikel-NLP\\src\\datasets\\Kiwujil.csv"
+    "balanced_rows": 8026,
+    "manifest_path": "src/datasets/register_manifest.csv",
+    "kiwujil_csv_path": "src/datasets/Kiwujil.csv",
+    "kiwujil_rows": 4013
 }

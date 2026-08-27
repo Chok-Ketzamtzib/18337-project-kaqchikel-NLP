@@ -30,7 +30,9 @@ function _textanalysis_cross_check(train_texts, train_labels, test_texts, test_l
             fit!(model, lowercase(text), label)
         end
         raw_preds = [predict(model, lowercase(text)) for text in test_texts]
-        preds = [string(p) for p in raw_preds]
+        # predict returns a Dict of class => probability, so the predicted label
+        # is the argmax key. Stringifying the Dict itself never matches a label.
+        preds = [string(argmax(p)) for p in raw_preds]
         acc = count(preds .== test_labels) / length(test_labels)
         status = acc == 0.0 ? "warning" : "ok"
         msg = acc == 0.0 ? "Classifier executed but output labels do not align with manifest labels." : "TextAnalysis NaiveBayesClassifier executed."
@@ -75,7 +77,7 @@ function run_feature_experiment(feature_name::String, X::SparseMatrixCSC{Float64
 end
 
 function main()
-    tang_path = arg_or_default("--tang-path", KaqPipeline.DEFAULT_TANG_PATH)
+    tang_path = arg_or_default("--tang-path", KaqPipeline.default_tang_path())
     manifest_path = arg_or_default("--manifest", KaqPipeline.DEFAULT_MANIFEST_CSV)
 
     println("Loading manifest and corpus sources...")
@@ -107,7 +109,7 @@ function main()
     textanalysis_check = _textanalysis_cross_check(y_train, l_train, y_test, l_test)
 
     results = Dict(
-        "manifest_path" => manifest_path,
+        "manifest_path" => KaqPipeline.repo_relpath(manifest_path),
         "sample_count" => length(texts),
         "train_count" => length(train_idx),
         "test_count" => length(test_idx),

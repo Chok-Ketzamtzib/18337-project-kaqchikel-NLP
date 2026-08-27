@@ -8,12 +8,43 @@ using SparseArrays
 using StatsBase
 using Statistics
 using TextAnalysis
+using TOML
 using Base.Threads
 
 const DEFAULT_KIWUJIL_TXT = joinpath(@__DIR__, "datasets", "kiwujil xajila' final edit text ruk'isib'al q'ij 2022.txt")
 const DEFAULT_KIWUJIL_CSV = joinpath(@__DIR__, "datasets", "Kiwujil.csv")
 const DEFAULT_MANIFEST_CSV = joinpath(@__DIR__, "datasets", "register_manifest.csv")
-const DEFAULT_TANG_PATH = raw"C:\Users\wakef\Documents\Mayanist\TangBennett_WrittenCorpus_Release_V01_April142023\April142023\tang_bennett_2018_corpus_v01_14042023.txt"
+# Machine-specific corpus location. Resolution order:
+#   1. KAQ_TANG_PATH environment variable
+#   2. src/local_config.toml  (gitignored)
+#   3. the legacy hardcoded development path
+# The Tang/Bennett licence forbids redistribution, so this file is never
+# committed and CI resolves to a surrogate corpus instead.
+const LEGACY_TANG_PATH = raw"C:\Users\wakef\Documents\Mayanist\TangBennett_WrittenCorpus_Release_V01_April142023\April142023\tang_bennett_2018_corpus_v01_14042023.txt"
+
+function default_tang_path()
+    env = get(ENV, "KAQ_TANG_PATH", "")
+    isempty(env) || return env
+
+    cfg = joinpath(@__DIR__, "local_config.toml")
+    if isfile(cfg)
+        parsed = TOML.parsefile(cfg)
+        path = get(parsed, "tang_path", "")
+        path isa AbstractString && !isempty(path) && return String(path)
+    end
+
+    return LEGACY_TANG_PATH
+end
+
+const DEFAULT_TANG_PATH = default_tang_path()
+
+"""
+Path relative to the repository root, with `/` separators so that JSON
+artifacts written on Windows and Linux are byte-comparable.
+"""
+function repo_relpath(path::AbstractString)::String
+    return replace(relpath(path, joinpath(@__DIR__, "..")), '\\' => '/')
+end
 
 function read_text_with_fallback(path::AbstractString)::String
     raw = read(path)
@@ -424,6 +455,8 @@ export DEFAULT_KIWUJIL_TXT
 export DEFAULT_KIWUJIL_CSV
 export DEFAULT_MANIFEST_CSV
 export DEFAULT_TANG_PATH
+export default_tang_path
+export repo_relpath
 export prepare_datasets
 export load_manifest_texts
 export word_tfidf_matrix

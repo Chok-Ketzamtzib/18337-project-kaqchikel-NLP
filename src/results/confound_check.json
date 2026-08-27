@@ -1,0 +1,750 @@
+{
+    "accuracy_delta_raw_minus_stripped": 0.06351183063511823,
+    "orthography": [
+        {
+            "apostrophes_per_1k_chars": 73.1381533668997,
+            "U+2019": 15982,
+            "commas_per_1k_chars": 15.190893613938494,
+            "n_sentences": 4013,
+            "U+0027": 171,
+            "corpus": "classical_chronicle",
+            "total_punct": 3610,
+            "curly_share_of_apostrophes": 0.9894137311954436,
+            "comma": 3355,
+            "U+2018": 0,
+            "U+0060": 0,
+            "n_chars": 220856,
+            "U+02BC": 0
+        },
+        {
+            "apostrophes_per_1k_chars": 67.58978805753148,
+            "U+2019": 0,
+            "commas_per_1k_chars": 0,
+            "n_sentences": 43535,
+            "U+0027": 269074,
+            "corpus": "modern_tang_bennett",
+            "total_punct": 0,
+            "curly_share_of_apostrophes": 0,
+            "comma": 0,
+            "U+2018": 0,
+            "U+0060": 0,
+            "n_chars": 3980986,
+            "U+02BC": 0
+        }
+    ],
+    "regimes": [
+        {
+            "top_terms_total": 50,
+            "test_accuracy": 0.9894146948941469,
+            "top_terms": {
+                "’, ": {
+                    "log_odds_delta": 8.176789615663566,
+                    "favor_class": "classical"
+                },
+                "ub’": {
+                    "log_odds_delta": 7.532519757616052,
+                    "favor_class": "classical"
+                },
+                "’ x": {
+                    "log_odds_delta": 8.05970353990299,
+                    "favor_class": "classical"
+                },
+                "ik’": {
+                    "log_odds_delta": 7.869108284382847,
+                    "favor_class": "classical"
+                },
+                ", r": {
+                    "log_odds_delta": 7.916244380010084,
+                    "favor_class": "classical"
+                },
+                "’ c": {
+                    "log_odds_delta": 7.769746144419085,
+                    "favor_class": "classical"
+                },
+                "l, ": {
+                    "log_odds_delta": 7.747442794982069,
+                    "favor_class": "classical"
+                },
+                "b’e": {
+                    "log_odds_delta": 7.851226795064794,
+                    "favor_class": "classical"
+                },
+                "b’i": {
+                    "log_odds_delta": 7.574173126757422,
+                    "favor_class": "classical"
+                },
+                " k’": {
+                    "log_odds_delta": 8.372113141300396,
+                    "favor_class": "classical"
+                },
+                "tz’": {
+                    "log_odds_delta": 7.903243599997733,
+                    "favor_class": "classical"
+                },
+                "je’": {
+                    "log_odds_delta": 7.416133182089081,
+                    "favor_class": "classical"
+                },
+                "q’i": {
+                    "log_odds_delta": 7.919003363501404,
+                    "favor_class": "classical"
+                },
+                "’a ": {
+                    "log_odds_delta": 8.131157699544776,
+                    "favor_class": "classical"
+                },
+                "aq’": {
+                    "log_odds_delta": 7.777680058854088,
+                    "favor_class": "classical"
+                },
+                "ab’": {
+                    "log_odds_delta": 8.070028805816612,
+                    "favor_class": "classical"
+                },
+                "e’ ": {
+                    "log_odds_delta": 8.34178759612946,
+                    "favor_class": "classical"
+                },
+                "he’": {
+                    "log_odds_delta": 7.44134152067744,
+                    "favor_class": "classical"
+                },
+                "ri’": {
+                    "log_odds_delta": 7.884439731221325,
+                    "favor_class": "classical"
+                },
+                "a’$": {
+                    "log_odds_delta": 7.557659925992431,
+                    "favor_class": "classical"
+                },
+                "’in": {
+                    "log_odds_delta": 7.543963295878722,
+                    "favor_class": "classical"
+                },
+                "b’a": {
+                    "log_odds_delta": 8.313013326196831,
+                    "favor_class": "classical"
+                },
+                "’aj": {
+                    "log_odds_delta": 7.736301029740158,
+                    "favor_class": "classical"
+                },
+                "uk’": {
+                    "log_odds_delta": 7.906465958348465,
+                    "favor_class": "classical"
+                },
+                ", x": {
+                    "log_odds_delta": 7.994386182199655,
+                    "favor_class": "classical"
+                },
+                "h’a": {
+                    "log_odds_delta": 7.4171981242185,
+                    "favor_class": "classical"
+                },
+                "ib’": {
+                    "log_odds_delta": 7.67654038012892,
+                    "favor_class": "classical"
+                },
+                "’an": {
+                    "log_odds_delta": 7.578265054091942,
+                    "favor_class": "classical"
+                },
+                "’i’": {
+                    "log_odds_delta": 7.651425847907288,
+                    "favor_class": "classical"
+                },
+                "re’": {
+                    "log_odds_delta": 7.645963544283429,
+                    "favor_class": "classical"
+                },
+                "k’i": {
+                    "log_odds_delta": 7.820117833286385,
+                    "favor_class": "classical"
+                },
+                "k’o": {
+                    "log_odds_delta": 7.656440575712956,
+                    "favor_class": "classical"
+                },
+                "a’ ": {
+                    "log_odds_delta": 8.52508713478992,
+                    "favor_class": "classical"
+                },
+                "’a’": {
+                    "log_odds_delta": 7.568131180658231,
+                    "favor_class": "classical"
+                },
+                "j, ": {
+                    "log_odds_delta": 7.470704781309744,
+                    "favor_class": "classical"
+                },
+                "’ r": {
+                    "log_odds_delta": 8.169306040799164,
+                    "favor_class": "classical"
+                },
+                "ch’": {
+                    "log_odds_delta": 7.809613534277797,
+                    "favor_class": "classical"
+                },
+                " q’": {
+                    "log_odds_delta": 8.14993480833225,
+                    "favor_class": "classical"
+                },
+                "’ij": {
+                    "log_odds_delta": 7.953031350870352,
+                    "favor_class": "classical"
+                },
+                "ya’": {
+                    "log_odds_delta": 7.417256766458228,
+                    "favor_class": "classical"
+                },
+                "i’ ": {
+                    "log_odds_delta": 8.477893559456643,
+                    "favor_class": "classical"
+                },
+                "xe’": {
+                    "log_odds_delta": 7.448684079237565,
+                    "favor_class": "classical"
+                },
+                "k’a": {
+                    "log_odds_delta": 8.604261739889875,
+                    "favor_class": "classical"
+                },
+                "a’,": {
+                    "log_odds_delta": 7.4362077342840385,
+                    "favor_class": "classical"
+                },
+                "’al": {
+                    "log_odds_delta": 7.96987442607255,
+                    "favor_class": "classical"
+                },
+                "q’a": {
+                    "log_odds_delta": 8.020582045812482,
+                    "favor_class": "classical"
+                },
+                ", k": {
+                    "log_odds_delta": 7.465002929102804,
+                    "favor_class": "classical"
+                },
+                "’ k": {
+                    "log_odds_delta": 7.872820507978512,
+                    "favor_class": "classical"
+                },
+                "ub'": {
+                    "log_odds_delta": -7.727368918966149,
+                    "favor_class": "modern"
+                },
+                "na’": {
+                    "log_odds_delta": 7.637409720755347,
+                    "favor_class": "classical"
+                }
+            },
+            "classes": [
+                "classical",
+                "modern"
+            ],
+            "regime": "A_raw",
+            "confusion_matrix": [
+                798,
+                12,
+                5,
+                791
+            ],
+            "per_class": {
+                "modern": {
+                    "support": 803,
+                    "precision": 0.9937185929648241,
+                    "recall": 0.9850560398505604
+                },
+                "classical": {
+                    "support": 803,
+                    "precision": 0.9851851851851852,
+                    "recall": 0.9937733499377335
+                }
+            },
+            "top_k": 50,
+            "top_terms_punct_fraction": 1,
+            "vocabulary_size": 7784,
+            "top_terms_class_skew": {
+                "modern": 1,
+                "classical": 49
+            },
+            "top_terms_punct_bearing": 50
+        },
+        {
+            "top_terms_total": 50,
+            "test_accuracy": 0.9439601494396015,
+            "top_terms": {
+                "il,": {
+                    "log_odds_delta": 6.729255843023041,
+                    "favor_class": "classical"
+                },
+                "ová": {
+                    "log_odds_delta": -6.5585304131778726,
+                    "favor_class": "modern"
+                },
+                "', ": {
+                    "log_odds_delta": 8.2044172746523,
+                    "favor_class": "classical"
+                },
+                "ay,": {
+                    "log_odds_delta": 6.413775824872664,
+                    "favor_class": "classical"
+                },
+                "q, ": {
+                    "log_odds_delta": 6.572404349993171,
+                    "favor_class": "classical"
+                },
+                ", n": {
+                    "log_odds_delta": 6.352188170560543,
+                    "favor_class": "classical"
+                },
+                ", r": {
+                    "log_odds_delta": 7.9307697805058,
+                    "favor_class": "classical"
+                },
+                "l, ": {
+                    "log_odds_delta": 7.7619681954777855,
+                    "favor_class": "classical"
+                },
+                "k, ": {
+                    "log_odds_delta": 6.584354475652422,
+                    "favor_class": "classical"
+                },
+                "z, ": {
+                    "log_odds_delta": 6.753344619015039,
+                    "favor_class": "classical"
+                },
+                "an,": {
+                    "log_odds_delta": 6.506411346108843,
+                    "favor_class": "classical"
+                },
+                ", ï": {
+                    "log_odds_delta": 6.6245778523530285,
+                    "favor_class": "classical"
+                },
+                ", p": {
+                    "log_odds_delta": 6.779871326515121,
+                    "favor_class": "classical"
+                },
+                "eho": {
+                    "log_odds_delta": -6.570728804631528,
+                    "favor_class": "modern"
+                },
+                "jeh": {
+                    "log_odds_delta": -6.564654732364216,
+                    "favor_class": "modern"
+                },
+                "vá ": {
+                    "log_odds_delta": -6.349745732664993,
+                    "favor_class": "modern"
+                },
+                "y, ": {
+                    "log_odds_delta": 6.7782885134171424,
+                    "favor_class": "classical"
+                },
+                "hri": {
+                    "log_odds_delta": 7.1291488954309346,
+                    "favor_class": "classical"
+                },
+                ": “": {
+                    "log_odds_delta": 6.470796541414979,
+                    "favor_class": "classical"
+                },
+                "a',": {
+                    "log_odds_delta": 7.471123091700112,
+                    "favor_class": "classical"
+                },
+                ", x": {
+                    "log_odds_delta": 8.00891158269537,
+                    "favor_class": "classical"
+                },
+                "^” ": {
+                    "log_odds_delta": 6.23834203585751,
+                    "favor_class": "classical"
+                },
+                " o ": {
+                    "log_odds_delta": -6.202917850183165,
+                    "favor_class": "modern"
+                },
+                ", a": {
+                    "log_odds_delta": 7.080223212489776,
+                    "favor_class": "classical"
+                },
+                "q',": {
+                    "log_odds_delta": 6.409283412169319,
+                    "favor_class": "classical"
+                },
+                " i ": {
+                    "log_odds_delta": -6.253502851404875,
+                    "favor_class": "modern"
+                },
+                ", s": {
+                    "log_odds_delta": 6.259566923139241,
+                    "favor_class": "classical"
+                },
+                ", m": {
+                    "log_odds_delta": 6.817768941424796,
+                    "favor_class": "classical"
+                },
+                "al,": {
+                    "log_odds_delta": 7.154115079026933,
+                    "favor_class": "classical"
+                },
+                "n, ": {
+                    "log_odds_delta": 7.313251480627015,
+                    "favor_class": "classical"
+                },
+                "” x": {
+                    "log_odds_delta": 6.835641518022234,
+                    "favor_class": "classical"
+                },
+                "t, ": {
+                    "log_odds_delta": 6.5251506379989985,
+                    "favor_class": "classical"
+                },
+                ", c": {
+                    "log_odds_delta": 7.106154159342854,
+                    "favor_class": "classical"
+                },
+                "j, ": {
+                    "log_odds_delta": 7.485230181805459,
+                    "favor_class": "classical"
+                },
+                ", j": {
+                    "log_odds_delta": 6.933138548213931,
+                    "favor_class": "classical"
+                },
+                "m, ": {
+                    "log_odds_delta": 6.6717719757546075,
+                    "favor_class": "classical"
+                },
+                "hov": {
+                    "log_odds_delta": -6.5585304131778726,
+                    "favor_class": "modern"
+                },
+                "ij,": {
+                    "log_odds_delta": 6.320791034035012,
+                    "favor_class": "classical"
+                },
+                "s, ": {
+                    "log_odds_delta": 6.278985155156948,
+                    "favor_class": "classical"
+                },
+                ", t": {
+                    "log_odds_delta": 6.914642942456599,
+                    "favor_class": "classical"
+                },
+                ",” ": {
+                    "log_odds_delta": 6.594128640740164,
+                    "favor_class": "classical"
+                },
+                "e',": {
+                    "log_odds_delta": 6.739373266563176,
+                    "favor_class": "classical"
+                },
+                " 15": {
+                    "log_odds_delta": 6.193349111750552,
+                    "favor_class": "classical"
+                },
+                "x, ": {
+                    "log_odds_delta": 6.368283788838047,
+                    "favor_class": "classical"
+                },
+                "ez,": {
+                    "log_odds_delta": 6.46998815765336,
+                    "favor_class": "classical"
+                },
+                "a, ": {
+                    "log_odds_delta": 6.582218854395597,
+                    "favor_class": "classical"
+                },
+                ", k": {
+                    "log_odds_delta": 7.47952832959852,
+                    "favor_class": "classical"
+                },
+                ", q": {
+                    "log_odds_delta": 6.83543846405974,
+                    "favor_class": "classical"
+                },
+                "o, ": {
+                    "log_odds_delta": 6.769002775425942,
+                    "favor_class": "classical"
+                },
+                "i',": {
+                    "log_odds_delta": 7.025260034788916,
+                    "favor_class": "classical"
+                }
+            },
+            "classes": [
+                "classical",
+                "modern"
+            ],
+            "regime": "B_apostrophe_fold",
+            "confusion_matrix": [
+                756,
+                43,
+                47,
+                760
+            ],
+            "per_class": {
+                "modern": {
+                    "support": 803,
+                    "precision": 0.9417596034696406,
+                    "recall": 0.9464508094645081
+                },
+                "classical": {
+                    "support": 803,
+                    "precision": 0.9461827284105131,
+                    "recall": 0.9414694894146949
+                }
+            },
+            "top_k": 50,
+            "top_terms_punct_fraction": 0.78,
+            "vocabulary_size": 7359,
+            "top_terms_class_skew": {
+                "modern": 7,
+                "classical": 43
+            },
+            "top_terms_punct_bearing": 39
+        },
+        {
+            "top_terms_total": 50,
+            "test_accuracy": 0.9259028642590287,
+            "top_terms": {
+                "ová": {
+                    "log_odds_delta": -6.526298592059218,
+                    "favor_class": "modern"
+                },
+                " a ": {
+                    "log_odds_delta": -5.6489929704666,
+                    "favor_class": "modern"
+                },
+                "' ”": {
+                    "log_odds_delta": 5.414943058982351,
+                    "favor_class": "classical"
+                },
+                "'üc": {
+                    "log_odds_delta": 5.402343536637243,
+                    "favor_class": "classical"
+                },
+                "lel": {
+                    "log_odds_delta": 6.020433769959764,
+                    "favor_class": "classical"
+                },
+                "oxm": {
+                    "log_odds_delta": 5.4390502772418134,
+                    "favor_class": "classical"
+                },
+                "jax": {
+                    "log_odds_delta": 5.837203184972823,
+                    "favor_class": "classical"
+                },
+                "vá$": {
+                    "log_odds_delta": -5.373758741650189,
+                    "favor_class": "modern"
+                },
+                "pad": {
+                    "log_odds_delta": 6.224472480195788,
+                    "favor_class": "classical"
+                },
+                "xtq": {
+                    "log_odds_delta": -5.418199240429564,
+                    "favor_class": "modern"
+                },
+                "kte": {
+                    "log_odds_delta": 5.385031287608905,
+                    "favor_class": "classical"
+                },
+                "sca": {
+                    "log_odds_delta": 5.364335896996559,
+                    "favor_class": "classical"
+                },
+                "sús": {
+                    "log_odds_delta": -6.006541152044686,
+                    "favor_class": "modern"
+                },
+                "eho": {
+                    "log_odds_delta": -6.538496983512873,
+                    "favor_class": "modern"
+                },
+                "jeh": {
+                    "log_odds_delta": -6.532422911245561,
+                    "favor_class": "modern"
+                },
+                "vá ": {
+                    "log_odds_delta": -6.317513911546338,
+                    "favor_class": "modern"
+                },
+                "hri": {
+                    "log_odds_delta": 7.1613807165495915,
+                    "favor_class": "classical"
+                },
+                "yub": {
+                    "log_odds_delta": 5.357613880210716,
+                    "favor_class": "classical"
+                },
+                "pok": {
+                    "log_odds_delta": 5.735892199799377,
+                    "favor_class": "classical"
+                },
+                " ” ": {
+                    "log_odds_delta": 6.62636046185882,
+                    "favor_class": "classical"
+                },
+                "chr": {
+                    "log_odds_delta": 5.445792251237577,
+                    "favor_class": "classical"
+                },
+                "' “": {
+                    "log_odds_delta": 5.374379977159716,
+                    "favor_class": "classical"
+                },
+                "nxi": {
+                    "log_odds_delta": 5.597757845844347,
+                    "favor_class": "classical"
+                },
+                "' 1": {
+                    "log_odds_delta": 6.1899950060899,
+                    "favor_class": "classical"
+                },
+                "esú": {
+                    "log_odds_delta": -6.006541152044686,
+                    "favor_class": "modern"
+                },
+                "kob": {
+                    "log_odds_delta": 5.671437679341544,
+                    "favor_class": "classical"
+                },
+                "^” ": {
+                    "log_odds_delta": 6.270573856976166,
+                    "favor_class": "classical"
+                },
+                " o ": {
+                    "log_odds_delta": -6.17068602906451,
+                    "favor_class": "modern"
+                },
+                " y ": {
+                    "log_odds_delta": -5.853386341626567,
+                    "favor_class": "modern"
+                },
+                " i ": {
+                    "log_odds_delta": -6.2212710302862195,
+                    "favor_class": "modern"
+                },
+                "l ”": {
+                    "log_odds_delta": 5.3963772239853025,
+                    "favor_class": "classical"
+                },
+                "jri": {
+                    "log_odds_delta": -5.782557800526769,
+                    "favor_class": "modern"
+                },
+                "gob": {
+                    "log_odds_delta": 5.862445103908033,
+                    "favor_class": "classical"
+                },
+                "gid": {
+                    "log_odds_delta": 5.807493139105064,
+                    "favor_class": "classical"
+                },
+                "” x": {
+                    "log_odds_delta": 6.86787333914089,
+                    "favor_class": "classical"
+                },
+                "íaz": {
+                    "log_odds_delta": 5.680062376535751,
+                    "favor_class": "classical"
+                },
+                "158": {
+                    "log_odds_delta": 5.585964658892561,
+                    "favor_class": "classical"
+                },
+                " má": {
+                    "log_odds_delta": -5.834293269360319,
+                    "favor_class": "modern"
+                },
+                "mi ": {
+                    "log_odds_delta": -5.8096086788117605,
+                    "favor_class": "modern"
+                },
+                "hov": {
+                    "log_odds_delta": -6.526298592059218,
+                    "favor_class": "modern"
+                },
+                "iw$": {
+                    "log_odds_delta": 5.571862472773406,
+                    "favor_class": "classical"
+                },
+                "akt": {
+                    "log_odds_delta": 5.42281328822394,
+                    "favor_class": "classical"
+                },
+                "“xa": {
+                    "log_odds_delta": 5.364028363322127,
+                    "favor_class": "classical"
+                },
+                " ' ": {
+                    "log_odds_delta": -5.574307251891757,
+                    "favor_class": "modern"
+                },
+                " 15": {
+                    "log_odds_delta": 6.225580932869208,
+                    "favor_class": "classical"
+                },
+                "ús ": {
+                    "log_odds_delta": -5.816638877905767,
+                    "favor_class": "modern"
+                },
+                "orr": {
+                    "log_odds_delta": 5.706337015408822,
+                    "favor_class": "classical"
+                },
+                "nez": {
+                    "log_odds_delta": 5.535874812353368,
+                    "favor_class": "classical"
+                },
+                "e'ë": {
+                    "log_odds_delta": 5.887971899276126,
+                    "favor_class": "classical"
+                },
+                "íre": {
+                    "log_odds_delta": 5.860441095853027,
+                    "favor_class": "classical"
+                }
+            },
+            "classes": [
+                "classical",
+                "modern"
+            ],
+            "regime": "C_fold_and_strip",
+            "confusion_matrix": [
+                744,
+                60,
+                59,
+                743
+            ],
+            "per_class": {
+                "modern": {
+                    "support": 803,
+                    "precision": 0.92643391521197,
+                    "recall": 0.925280199252802
+                },
+                "classical": {
+                    "support": 803,
+                    "precision": 0.9253731343283582,
+                    "recall": 0.9265255292652553
+                }
+            },
+            "top_k": 50,
+            "top_terms_punct_fraction": 0.12,
+            "vocabulary_size": 6942,
+            "top_terms_class_skew": {
+                "modern": 18,
+                "classical": 32
+            },
+            "top_terms_punct_bearing": 6
+        }
+    ],
+    "curly_share_divergence": 0.9894137311954436,
+    "interpretation_note": "Regime C approximates what the word-unigram path sees. If C ≈ 0.9433, the char-trigram advantage is orthographic, not linguistic."
+}

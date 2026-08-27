@@ -1,24 +1,104 @@
 {
-    "naive_bayes_train_seconds": {
-        "4": 0.01499058,
-        "1": 0.025097639999999997,
-        "2": 0.09566934,
-        "8": 0.00778802
-    },
-    "feature_extraction_seconds": {
-        "4": 0.18561778,
-        "1": 0.28063472,
-        "2": 0.262643,
-        "8": 0.19457154000000002
+    "corpus_mode": "manifest",
+    "timing_method": "BenchmarkTools @benchmark, warmup excluded, median reported",
+    "feature_matrix_nnz": 387213,
+    "feature_extraction": {
+        "4": {
+            "q25_seconds": 0.089941675,
+            "samples": 30,
+            "median_seconds": 0.11138685000000001,
+            "allocations": 1728134,
+            "minimum_seconds": 0.0837838,
+            "memory_bytes": 159279966,
+            "q75_seconds": 0.14809715
+        },
+        "1": {
+            "q25_seconds": 0.143839475,
+            "samples": 30,
+            "median_seconds": 0.16165505,
+            "allocations": 1595325,
+            "minimum_seconds": 0.1326312,
+            "memory_bytes": 153853674,
+            "q75_seconds": 0.22857577499999998
+        },
+        "2": {
+            "q25_seconds": 0.116645225,
+            "samples": 30,
+            "median_seconds": 0.13304745,
+            "allocations": 1680195,
+            "minimum_seconds": 0.1026367,
+            "memory_bytes": 157096020,
+            "q75_seconds": 0.17480795
+        },
+        "8": {
+            "q25_seconds": 0.0865098,
+            "samples": 30,
+            "median_seconds": 0.09693245,
+            "allocations": 1802020,
+            "minimum_seconds": 0.0782169,
+            "memory_bytes": 162988850,
+            "q75_seconds": 0.139107775
+        }
     },
     "naive_bayes_speedup_vs_serial": {
-        "4": 1.6742274148165046,
+        "4": 0.9945950381013918,
         "1": 1,
-        "2": 0.26233733816915633,
-        "8": 3.222595730365356
+        "2": 0.9974697085021909,
+        "8": 0.9465043872063403
+    },
+    "feature_speedup_vs_serial": {
+        "4": 1.4512938466255216,
+        "1": 1,
+        "2": 1.2150180255239764,
+        "8": 1.6677082855122303
     },
     "threads_available": 8,
-    "scaling_plot": "C:\\Users\\wakef\\Documents\\Mayanist\\mayan-coding-sandbox\\18337-project-kaqchikel-NLP\\src\\..\\paper\\images\\thread_scaling.png",
+    "vocabulary_size": 7442,
+    "scaling_plot_png": "paper/images/thread_scaling.png",
+    "scaling_plot_svg": "paper/images/thread_scaling.svg",
+    "feature_matrix_shape": [
+        6420,
+        7442
+    ],
+    "naive_bayes_train": {
+        "4": {
+            "q25_seconds": 0.0046741000000000005,
+            "samples": 30,
+            "median_seconds": 0.00487515,
+            "allocations": 78,
+            "minimum_seconds": 0.0044807,
+            "memory_bytes": 7017174,
+            "q75_seconds": 0.00552565
+        },
+        "1": {
+            "q25_seconds": 0.004542275,
+            "samples": 30,
+            "median_seconds": 0.0048488,
+            "allocations": 37,
+            "minimum_seconds": 0.0042392,
+            "memory_bytes": 6538138,
+            "q75_seconds": 0.0052781500000000005
+        },
+        "2": {
+            "q25_seconds": 0.00476495,
+            "samples": 30,
+            "median_seconds": 0.0048611,
+            "allocations": 59,
+            "minimum_seconds": 0.0044,
+            "memory_bytes": 6777672,
+            "q75_seconds": 0.00572295
+        },
+        "8": {
+            "q25_seconds": 0.00480665,
+            "samples": 30,
+            "median_seconds": 0.00512285,
+            "allocations": 114,
+            "minimum_seconds": 0.0045785,
+            "memory_bytes": 7495858,
+            "q75_seconds": 0.005342775000000001
+        }
+    },
+    "corpus_rows": 6420,
     "worker_counts": [
         1,
         2,

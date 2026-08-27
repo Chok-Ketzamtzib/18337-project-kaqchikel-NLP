@@ -26,9 +26,19 @@ This keeps the project aligned with the original class goals:
   - Evaluates accuracy, confusion matrix, precision/recall, top discriminative terms.
   - Writes metrics to `src/results/train_metrics.json`.
 - `src/benchmark.jl`
-  - Benchmarks serial vs threaded feature extraction and NB training.
+  - Benchmarks serial vs threaded feature extraction and NB training with
+    BenchmarkTools, using an explicit warmup so JIT compilation is excluded.
   - Writes metrics to `src/results/benchmark_results.json`.
-  - Saves scaling plot to `paper/images/thread_scaling.png`.
+  - Saves scaling plot to `paper/images/thread_scaling.{svg,png}`.
+  - Falls back to a size-matched surrogate corpus built from the committed
+    Chronicle text when Tang/Bennett is absent, so scaling numbers are
+    reproducible in CI. `corpus_mode` in the JSON records which was used.
+- `src/confound_check.jl`
+  - Diagnostic: tests whether the char trigram advantage is linguistic or
+    orthographic. Profiles apostrophe/punctuation conventions per corpus, then
+    retrains under three normalization regimes.
+  - Requires **both** corpora, so it cannot run in CI.
+  - Writes `src/results/confound_check.json`.
 
 ## Current Results (Seed 42)
 
@@ -39,15 +49,27 @@ This keeps the project aligned with the original class goals:
 - Test accuracy:
   - word unigram TF-IDF NB: `0.9433`
   - char trigram TF-IDF NB: `0.9894`
-- Benchmark (8-thread run on this machine):
-  - char trigram feature extraction: `0.2806s` serial vs `0.1946s` at 8 workers
-  - NB training: `0.0251s` serial vs `0.0078s` at 8 workers (best observed)
+  - TextAnalysis.jl `NaiveBayesClassifier` cross-check: `0.9900`
+- Orthographic ablation (char trigrams) — **the 0.9894 figure is confounded**:
+  - raw: `0.9894`
+  - apostrophe variants folded to `U+0027`: `0.9440`
+  - folded + punctuation stripped: `0.9259`
+  - The Chronicle writes the glottal stop as `U+2019` (15,982 times) and
+    Tang/Bennett as `U+0027` (269,074 times, with zero other punctuation).
+    Since labels come from provenance, encoding leaks the label. Normalizing it
+    puts char trigrams level with the `0.9433` word unigram baseline.
+- Benchmark (8-thread run on this machine, medians of 30 samples, warmup excluded):
+  - char trigram feature extraction: `0.16166s` serial vs `0.09693s` at 8 workers (`1.67x`)
+  - NB training: `0.004849s` serial vs `0.005123s` at 8 workers (`0.95x`, i.e. no speedup)
+  - The parallelized region is a small fraction of `train_multinomial_nb`; the
+    serial `sparse(transpose(X))` and log-likelihood loop dominate.
 
 ## Reproducibility
 
 Install Julia, then run from repo root:
 
 ```bash
+julia --project=src -e 'using Pkg; Pkg.instantiate()'
 julia --project=src src/data_prep.jl
 julia --project=src src/train_classifier.jl
 julia --project=src src/benchmark.jl
@@ -60,6 +82,14 @@ JULIA_NUM_THREADS=8 julia --project=src src/train_classifier.jl
 JULIA_NUM_THREADS=8 julia --project=src src/benchmark.jl
 ```
 
+The orthographic diagnostic needs both corpora present locally:
+
+```bash
+julia --project=src src/confound_check.jl
+```
+
+`src/benchmark.jl` accepts `--quick` to reduce sample counts, which is what CI uses.
+
 ## Data and Licensing Notes
 
 - The Tang/Bennett corpus is **not redistributed** here.
@@ -67,7 +97,18 @@ JULIA_NUM_THREADS=8 julia --project=src src/benchmark.jl
   - source path configuration
   - index manifest
   - aggregate metrics
-- The default local corpus path is encoded in `src/kaq_pipeline.jl` and can be overridden via `--tang-path`.
+- The corpus location is resolved in this order, so no machine-specific path
+  needs to be committed:
+  1. the `--tang-path` command-line flag
+  2. the `KAQ_TANG_PATH` environment variable
+  3. `src/local_config.toml` (gitignored)
+  4. a legacy hardcoded development path, as a last resort
+
+  To set up locally, create `src/local_config.toml`:
+
+  ```toml
+  tang_path = "C:/path/to/tang_bennett_2018_corpus_v01_14042023.txt"
+  ```
 
 ## Julia Ecosystem Contribution
 

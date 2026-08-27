@@ -110,11 +110,11 @@
     },
     "textanalysis_cross_check": {
         "sample_prediction": "Dict(\"modern\" => 1.2590032526631682e-34, \"classical\" => 1.0)",
-        "status": "warning",
-        "message": "Classifier executed but output labels do not align with manifest labels.",
-        "accuracy": 0
+        "status": "ok",
+        "message": "TextAnalysis NaiveBayesClassifier executed.",
+        "accuracy": 0.9900373599003736
     },
-    "manifest_path": "C:\\Users\\wakef\\Documents\\Mayanist\\mayan-coding-sandbox\\18337-project-kaqchikel-NLP\\src\\datasets\\register_manifest.csv",
+    "manifest_path": "src/datasets/register_manifest.csv",
     "word_unigram": {
         "test_accuracy_threaded": 0.9433374844333748,
         "feature_set": "word_unigram",

@@ -28,7 +28,7 @@ function float_arg_or_default(flag::String, default::Float64)
 end
 
 function main()
-    tang_path = arg_or_default("--tang-path", KaqPipeline.DEFAULT_TANG_PATH)
+    tang_path = arg_or_default("--tang-path", KaqPipeline.default_tang_path())
     seed = int_arg_or_default("--seed", 42)
     min_tokens = int_arg_or_default("--min-tokens", 3)
     test_fraction = float_arg_or_default("--test-fraction", 0.2)
@@ -55,10 +55,14 @@ function main()
     println("  Test rows: $(stats.test_rows)")
     println("  Manifest: $(stats.manifest_path)")
 
+    summary = Dict{String, Any}(string(k) => v for (k, v) in pairs(stats))
+    summary["manifest_path"] = KaqPipeline.repo_relpath(stats.manifest_path)
+    summary["kiwujil_csv_path"] = KaqPipeline.repo_relpath(stats.kiwujil_csv_path)
+
     summary_path = joinpath(@__DIR__, "results", "data_prep_summary.json")
     mkpath(dirname(summary_path))
     open(summary_path, "w") do io
-        JSON3.pretty(io, stats)
+        JSON3.pretty(io, summary)
     end
     println("  Summary JSON: $summary_path")
 end
