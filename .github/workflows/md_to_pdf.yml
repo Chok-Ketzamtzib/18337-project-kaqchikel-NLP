@@ -60,6 +60,51 @@ jobs:
           # cannot typeset in two-column mode.
           pandoc --citeproc --bibliography=paper.bib --variable papersize=a4paper -s paper.md -o paper.pdf
 
+      # region agent log
+      - name: "[debug-664783] Figure diagnostics"
+        continue-on-error: true
+        run: |
+          sudo apt-get install -y poppler-utils graphviz
+          cd paper
+          pdfimages -list paper.pdf > /tmp/imgs.txt
+          pdftotext -bbox paper.pdf /tmp/bbox.html
+          pandoc -s -t latex --variable papersize=a4paper paper.md | grep -nE 'includegraphics|setkeys\{Gin|geometry' > /tmp/incl.txt || true
+          dot -Tpdf images/pipeline.dot -o /tmp/pipeline_vec.pdf
+          pdfinfo /tmp/pipeline_vec.pdf > /tmp/vecinfo.txt
+          pdffonts /tmp/pipeline_vec.pdf > /tmp/vecfonts.txt
+          fc-match Helvetica > /tmp/fcmatch.txt
+          python3 - <<'EOF'
+          import json, re, time
+          def log(h, msg, data):
+              with open("../debug-664783.log", "a") as f:
+                  f.write(json.dumps({"sessionId": "664783", "runId": "ci-pre-fix", "hypothesisId": h, "location": ".github/workflows/md_to_pdf.yml:figure-diagnostics", "message": msg, "data": data, "timestamp": int(time.time() * 1000)}) + "\n")
+          imgs = []
+          for line in open("/tmp/imgs.txt").read().splitlines()[2:]:
+              c = line.split()
+              if len(c) >= 14:
+                  imgs.append({"page": int(c[0]), "type": c[2], "w_px": int(c[3]), "h_px": int(c[4]), "enc": c[8], "x_ppi": int(c[12]), "y_ppi": int(c[13]), "placed_w_pt": round(int(c[3]) / max(int(c[12]), 1) * 72, 1)})
+          log("A", "raster images embedded in paper.pdf", {"images": imgs})
+          png = open("images/pipeline.png", "rb").read()
+          log("B", "source PNG metadata and pandoc image sizing", {"has_pHYs": b"pHYs" in png, "w_px": int.from_bytes(png[16:20], "big"), "h_px": int.from_bytes(png[20:24], "big"), "latex": open("/tmp/incl.txt").read().splitlines()})
+          words = []
+          for pi, pg in enumerate(re.split(r"<page ", open("/tmp/bbox.html", encoding="utf-8").read())[1:], 1):
+              for m in re.finditer(r'<word xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="([\d.]+)">([^<]*)</word>', pg):
+                  if m.group(5) in ("segmentation", "Multinomial", "balancing", "Figure", "Abstract"):
+                      words.append({"page": pi, "word": m.group(5), "h_pt": round(float(m.group(4)) - float(m.group(2)), 2)})
+          log("C", "glyph-box heights in paper.pdf (diagram words absent => diagram is raster)", {"words": words})
+          m = re.search(r"Page size:\s+([\d.]+) x ([\d.]+) pts", open("/tmp/vecinfo.txt").read())
+          log("C", "vector dot -Tpdf natural size and fonts", {"w_pt": float(m.group(1)) if m else None, "h_pt": float(m.group(2)) if m else None, "fonts": open("/tmp/vecfonts.txt").read().splitlines()[2:], "fc_match_helvetica": open("/tmp/fcmatch.txt").read().strip()})
+          EOF
+          cat ../debug-664783.log
+
+      - name: "[debug-664783] Upload diagnostics log"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-664783
+          path: debug-664783.log
+      # endregion
+
       - uses: actions/upload-artifact@v4
         with:
           name: paper
