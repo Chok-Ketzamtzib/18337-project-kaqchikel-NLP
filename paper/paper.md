@@ -1,5 +1,5 @@
 ---
-title: "Performant Text Classification with Naive Bayes for Kaqchikel Maya: Project Wrap-Up"
+title: "Performant Text Classification with Naive Bayes for Kaqchikel Maya"
 date: "July 2026"
 author: "William J. Wakefield"
 github: https://github.com/Chok-Ketzamtzib/18337-project-kaqchikel-NLP
@@ -7,7 +7,7 @@ github: https://github.com/Chok-Ketzamtzib/18337-project-kaqchikel-NLP
 
 # Abstract
 
-This project began as a 2023 proposal to build a performant Julia NLP pipeline for Kaqchikel Maya using TF-IDF and Naive Bayes. The original task framing was sentiment analysis, but manual sentiment labeling became the primary blocker. The wrap-up in 2026 reframes the task to avoid that bottleneck while preserving the original computational goals: classify **classical** Kaqchikel Chronicle text versus **modern** written Kaqchikel from the Tang/Bennett corpus. The final pipeline is implemented in Julia, includes reproducible data preparation, hand-rolled multinomial Naive Bayes, character trigram and word unigram TF-IDF features, and serial-vs-threaded timing experiments. On a balanced 8,026-sample dataset (6,420 train / 1,606 test), unigram TF-IDF reaches 94.3% test accuracy and character trigrams reach 98.9%. An ablation reported below shows that the character trigram advantage is **orthographic rather than linguistic**: the two source corpora encode the glottal stop differently, and normalizing that single convention collapses trigram accuracy to 94.4%, indistinguishable from the word unigram baseline. This closes the class project with working code, measurable outputs, a documented label-leakage failure mode, and a clearer path to future work in modern low-resource NLP.
+This project began as a 2023 proposal to build a performant Julia NLP pipeline for Kaqchikel Maya using TF-IDF and Naive Bayes. The original task framing was sentiment analysis, but manual sentiment labeling became the primary blocker. The 2026 revision reframes the task to avoid that bottleneck while preserving the original computational goals: distinguish sentences from the Kaqchikel Chronicle (labeled **classical**) from sentences in the Tang/Bennett written corpus (labeled **modern**). Because the labels come from provenance, the task is strictly source identification; register is one of several differences between the two sources. The pipeline is implemented in Julia and includes reproducible data preparation, hand-rolled multinomial Naive Bayes, character trigram and word unigram TF-IDF features, and serial-vs-threaded timing experiments. On a balanced 8,026-sample dataset (6,420 train / 1,606 test), word unigrams reach 94.3% test accuracy and character trigrams reach 98.9%. An ablation shows that the character trigram advantage is **orthographic rather than linguistic**. The two corpora encode the glottal stop differently and differ in punctuation, digits, and quotation marks, so a one-line rule that flags any character never seen in modern training text already reaches 98.2%. Folding apostrophes to one encoding brings trigrams level with word unigrams (94.4%; exact McNemar p = 1.0), and restricting both corpora to their shared character set drops trigrams to 92.7%, significantly below word unigrams (p = 0.009). The project closes with working code, measurable outputs, a documented label-leakage failure mode, and a clearer path to future work in modern low-resource NLP.
 
 # NLP Pipeline
 
@@ -23,8 +23,8 @@ However, the specific corpus used in this project (Kaqchikel Chronicles) remains
 
 Two corpora are used:
 
-1. **Kaqchikel Chronicle / Kiwujil text** (classical register) [@maxwell2006chronicles]
-2. **Tang/Bennett written corpus** (modern register) [@tang2018predictability; @bennett2018stop]
+1. **Kaqchikel Chronicle / Kiwujil text** (labeled `classical`) [@maxwell2006chronicles]
+2. **Tang/Bennett written corpus** (labeled `modern`) [@tang2018predictability; @bennett2018stop]
 
 The Tang/Bennett readme explicitly disallows redistribution, so this repository stores only:
 
@@ -33,6 +33,11 @@ The Tang/Bennett readme explicitly disallows redistribution, so this repository 
 - aggregate metrics.
 
 No Tang/Bennett text is committed.
+
+The Chronicle text used here is a 2022 edited transcription written in modern
+orthographic conventions, including diaeresis-marked vowels (ä, ë, ï, ö, ü) that
+also appear throughout Tang/Bennett. The `classical` label therefore refers to the
+text's age and content, not to colonial-era spelling.
 
 # Why the Task Was Reframed
 
@@ -44,6 +49,12 @@ For project completion, the label is generated from data provenance:
 - `modern` if sentence source is Tang/Bennett.
 
 This preserves the main computational objective (TF-IDF + Naive Bayes + parallelization) while removing manual labeling dependency.
+
+Provenance labels make this a source-identification task. The two sources differ
+in register, but also in topic, genre, editorial conventions, and how sentences
+were segmented, and a classifier may exploit any of these. The results below
+measure how far orthography alone explains the separation; the Limitations
+section covers the rest.
 
 # Procedure
 
@@ -57,13 +68,15 @@ This preserves the main computational objective (TF-IDF + Naive Bayes + parallel
 6. Train hand-rolled multinomial Naive Bayes (Laplace smoothing).
 7. Evaluate on held-out test set.
 8. Benchmark serial vs threaded feature extraction and training (`src/benchmark.jl`).
-9. Run an orthographic ablation to test whether the feature advantage is linguistic (`src/confound_check.jl`).
+9. Run an orthographic ablation, with no-model baselines and paired significance tests, to test whether the feature advantage is linguistic (`src/confound_check.jl`).
 
 # Parallel Naive Bayes Classifier
 
-$$P(c|x) = P(x|c) * P(c) / P(x)$$ 
+Each sentence is assigned the class with the highest log posterior:
 
-The implementation follows the standard multinomial Naive Bayes formulation with log priors and log likelihoods, and applies worker-level parallelism during aggregation of per-class feature statistics, inspired by prior parallel NB literature [@amazal2018parallelnb].
+$$\hat{c} = \arg\max_{c} \Big[ \log P(c) + \sum_{f} x_f \log \hat{\theta}_{c,f} \Big], \qquad \hat{\theta}_{c,f} = \frac{N_{c,f} + \alpha}{\sum_{f'} N_{c,f'} + \alpha\,|V|}$$
+
+where $x_f$ is the sentence's TF-IDF weight for feature $f$, $N_{c,f}$ is the sum of those weights over training sentences of class $c$, $|V|$ is the vocabulary size, and $\alpha = 1$ (Laplace smoothing). The implementation applies thread-level parallelism (`Threads.@spawn`) to the accumulation of $N_{c,f}$, inspired by prior parallel NB literature [@amazal2018parallelnb].
 
 # Results
 
@@ -80,11 +93,13 @@ The implementation follows the standard multinomial Naive Bayes formulation with
 - **Character trigram TF-IDF + multinomial NB**: 0.9894 test accuracy
 - **TextAnalysis.jl `NaiveBayesClassifier` cross-check**: 0.9900 test accuracy
 
-The cross-check trains an independent implementation on raw text and lands within
-0.001 of the hand-rolled character trigram model, so the 0.9894 figure is not an
-artifact of the custom sparse construction. The class boundary is genuinely
-separable. The next section establishes *what* separates it, which turns out not
-to be register.
+The cross-check is not independent evidence that the 0.9894 figure reflects the
+language. `NaiveBayesClassifier` tokenizes with WordTokenizers, which splits
+`q’ij, k’a` into `q`, `’`, `ij`, `,`, `k`, `’`, `a`: the curly apostrophe and the
+comma become standalone tokens that occur only in `classical` text. It agrees
+with the character trigram model because it sees the same leak, described in the
+next section. What the agreement does show is that the leak is not specific to
+one feature construction or one implementation.
 
 ## The Character Trigram Advantage Is Orthographic
 
@@ -112,27 +127,61 @@ Because the labels are derived from provenance, and provenance perfectly predict
 encoding, any character trigram containing U+2019 or a comma is a flawless
 `classical` detector. This is label leakage through the digitization pipeline.
 
-Retraining the character trigram model under three normalization regimes
-isolates the effect:
+The leak extends beyond the apostrophe. In the training split, 22 characters
+occur in Chronicle sentences and never in Tang/Bennett sentences: the curly
+apostrophe, curly double quotes, commas and other punctuation, all ten digits, the
+underscore, and the en dash. No character occurs only in Tang/Bennett. A rule
+with no model at all — predict `classical` if and only if a sentence contains one
+of those 22 characters — flags 96.4% of Chronicle test sentences and reaches
+**0.9819** test accuracy, within a point of the trained trigram model. For
+comparison, the best single sentence-length threshold (13 tokens or more
+predicts `modern`) reaches only 0.6220, so length is a weak cue.
 
-| Regime | Accuracy | Punct. in top 50 |
-|---|---|---|
-| A. Raw (as originally reported) | 0.9894 | 50/50 |
-| B. Apostrophes folded to U+0027 | 0.9440 | 39/50 |
-| C. Folded, punctuation stripped | 0.9259 | 6/50 |
-| *word unigram baseline* | *0.9433* | — |
+Retraining the character trigram model under four normalization regimes isolates
+the effect. Regime D keeps only characters that appear in the training text of
+*both* classes, which removes every Chronicle-only character, including those
+that Regime C's fixed punctuation list misses. Intervals are 95% Wilson intervals
+on the 1,606 test sentences; *p* is an exact McNemar test of paired predictions
+against the word unigram model.
+
+| Regime | Accuracy (95% CI) | vs. word unigram | Top-50 with non-letters |
+|---|---|---|---|
+| A. Raw (as originally reported) | 0.9894 (0.983–0.993) | +4.6 pts, $p < 10^{-15}$ | 49/50 |
+| B. Apostrophes folded to U+0027 | 0.9440 (0.932–0.954) | +0.1 pts, *p* = 1.0 | 42/50 |
+| C. Folded, fixed punctuation list stripped | 0.9259 (0.912–0.938) | -1.7 pts, *p* = 0.007 | 10/50 |
+| D. Folded, shared character set only | 0.9265 (0.913–0.938) | -1.7 pts, *p* = 0.009 | 0/50 |
+| *Word unigram baseline* | *0.9433 (0.931–0.954)* | — | — |
+| *Exclusive-character rule (no model)* | *0.9819 (0.974–0.987)* | — | — |
+
+The last column counts top-50 trigrams containing any character other than a
+letter, a space, or U+0027. Straight U+0027 is treated as a letter here because it
+is how both corpora, once folded, write the glottal stop.
 
 Regime B preserves the glottal stop as a linguistic segment and changes only its
-encoding. That alone erases the entire advantage: 0.9440 against a word unigram
-baseline of 0.9433, a difference of 0.0007. Regime C, which approximates what the
-word path sees after `strip_punctuation`, falls to 0.9259 — *below* the word
-baseline. Once orthographic cues are removed, character trigrams are slightly
-worse than word unigrams on this task.
+encoding. That alone erases the entire advantage: 0.9440 against 0.9433, with the
+two models disagreeing on roughly 100 sentences and splitting them 50 to 49. The
+commas, digits and quotation marks that still appear in 42 of Regime B's top 50
+trigrams add nothing once the apostrophe signal is gone. Regimes C and D remove
+the remaining non-letter cues, and character trigrams then fall *below* word
+unigrams by 1.7 points, a paired difference unlikely to be chance (*p* < 0.01).
+Once orthographic cues are removed, character trigrams are worse than word
+unigrams on this task.
 
-The defensible claim is therefore narrower than the headline number: classical
-and modern Kaqchikel registers are separable at roughly 94% with either feature
-set, and the apparent 98.9% is a measurement of which file a sentence was
-digitized into.
+What remains is not obviously register either. With no orthographic cues left,
+the strongest Regime D trigrams favouring `modern` spell Biblical names and
+Spanish function words (`jehová`, `jesús`, ` y `, ` o `, ` más`); the strongest
+favouring `classical` come from Spanish personal names and colonial titles
+(`lópez`, `díaz`, other `-ez` surnames, *gobernador*, *padre*). The word unigram model's top features
+tell the same story (`jehová`, `jesús`, `más` versus `kastilan`, `don`). Much of
+the residual separation is therefore topic and genre: a Christian-text-heavy
+modern corpus against a colonial-era historical narrative.
+
+The defensible claim is therefore narrower than the headline number. Sentences
+from these two sources can be told apart at roughly 93–94% once orthographic
+encoding is controlled, and the apparent 98.9% is largely a measurement of which
+file a sentence was digitized into. Whether any of the remaining signal is
+register, rather than topic, genre, or editorial convention, this experimental
+design cannot say (see Limitations).
 
 ## Benchmark Summary (8-thread run)
 
@@ -157,26 +206,41 @@ compilation of the serial path and the threaded numbers absorbed compilation of
 the `@spawn` path. The same flaw produced an apparent 0.26x "slowdown" at 2
 workers, which was JIT latency rather than scheduling overhead.
 
-With warmup excluded, **Naive Bayes training does not benefit from worker-level
-parallelism at all**, and degrades slightly at 8 workers. This is Amdahl's law
-rather than measurement noise. Only one region of `train_multinomial_nb` is
-parallelized — the per-class accumulation of `feature_sums` over the 387,213
-nonzeros — while two serial regions dominate the runtime: the
-`sparse(transpose(X))` materialization and the dense
-`n_classes × n_features` log-likelihood loop (2 × 7,442 logarithms). Allocation
-counts confirm the overhead is real, rising from 37 allocations and 6.5 MB at one
-worker to 114 allocations and 7.5 MB at eight.
+With warmup excluded, **Naive Bayes training shows no measurable speedup from
+thread-level parallelism.** The 8-thread median (5.12 ms) lies inside the
+interquartile range of the serial run (4.54–5.28 ms), so the data support neither
+a speedup nor a slowdown. The code structure is consistent with an Amdahl's-law
+limit, although the serial fraction was not profiled directly. Only one region of
+`train_multinomial_nb` is parallelized — the per-class accumulation of
+`feature_sums` over the 387,213 nonzeros — while two serial regions remain: the
+`sparse(transpose(X))` materialization and the dense `n_classes × n_features`
+log-likelihood loop (2 × 7,442 logarithms). At about 5 ms per call, task-spawn
+and reduction overhead are also a non-trivial share of the total. Allocations
+rise from 37 (6.5 MB) at one thread to 114 (7.5 MB) at eight.
 
-Feature extraction does scale, because chunked trigram counting is genuinely
-independent per document, but sublinearly: 1.67x on 8 threads. The per-chunk
-`Dict{String,Int}` merge is serial and grows with worker count, which caps the
-achievable speedup. Reducing that merge cost, for example by hashing trigrams to
-integer IDs and accumulating into preallocated arrays, is the obvious next
-optimization and would benefit both stages.
+Feature extraction does scale, because chunked trigram counting is independent
+per document, but sublinearly: 1.67x on 8 threads, with non-overlapping
+interquartile ranges against the serial run. Two plausible limits were not
+separated by profiling. The per-chunk `Dict{String,Int}` merge is serial and grows
+with thread count, and each call makes about 1.6 million allocations (about 150 MB),
+so garbage collection may also cap the speedup. Hashing trigrams to integer IDs
+and accumulating into preallocated arrays would reduce both, and is the obvious
+next optimization.
 
 # Contributions to Julia Text Ecosystem
 
-The project also contributed Kaqchikel support to `Languages.jl` through PR #43 (initial addition) and PR #46 (trigram fix), making language detection support practical for downstream Julia NLP workflows.
+The project added Kaqchikel (ISO 639-3 `cak`) to `Languages.jl`. In
+[PR #43](https://github.com/JuliaText/Languages.jl/pull/43) (merged May 2023), the
+author registered Kaqchikel as a language type and contributed its initial word
+lists (stopwords, pronouns, prepositions, articles) along with a Kaqchikel example
+sentence for the test suite. Merging it revealed that language detection had no
+trigram profile for Kaqchikel, so the new example was misclassified as Ilocano.
+The maintainer, Avik Sengupta, resolved this in
+[PR #46](https://github.com/JuliaText/Languages.jl/pull/46) by adding the Central
+Kaqchikel trigram profile from the `wooorm/trigrams` dataset, which derives its
+profiles from translations of the Universal Declaration of Human Rights. With both
+changes merged, Kaqchikel is supported by the package's word-list and
+language-detection functions.
 
 # Discussion
 
@@ -194,22 +258,63 @@ file and every `modern` example from another, any incidental difference between
 those files — encoding, punctuation policy, transcription era, editorial
 convention — becomes a free feature. Character n-grams are especially exposed,
 since they see exactly the surface detail that tokenization would discard. The
-word unigram path scored lower here precisely because TextAnalysis
-`strip_punctuation` happened to delete the leaking characters, which means the
-"weaker" feature set was the more honest one.
+word unigram path scored lower here because TextAnalysis `strip_punctuation`
+happened to delete most of the leaking characters: apostrophes, commas, quotation
+marks, and underscores. The "weaker" feature set was therefore the less exposed
+one, though not a leak-free one. Digits and en dashes survive
+`strip_punctuation`, and the same step deletes the glottal stop, which is a
+phoneme in Kaqchikel, merging words that differ only by a glottal stop.
 
-The practical safeguard is cheap: before interpreting a margin between feature
-sets, normalize the orthography and re-measure. A gap that vanishes under
-encoding normalization was never linguistic. For this corpus pair, that check
-costs one function and a few seconds of compute, and it changes the conclusion.
+The practical safeguard is cheap. Before interpreting a margin between feature
+sets, check what a no-model baseline achieves — here, a single set lookup
+reached 98.2% — then normalize the orthography and re-measure. A gap that
+vanishes under encoding normalization was never linguistic. For this corpus pair,
+that check costs one function and a few seconds of compute, and it changes the
+conclusion.
 
 A third lesson concerns performance measurement. The parallel speedup originally
 reported here was an artifact of timing first calls in a JIT-compiled language.
 Warmup is not a refinement in Julia benchmarking; without it, the measurement can
 invert the sign of the result.
 
-For future work, Python/Hugging Face tooling is likely better for modern LLM workflows, while Julia remains an effective environment for transparent, reproducible algorithmic baselines and performance experiments.
+# Limitations
+
+The results above should be read with the following constraints in mind. None
+changes the orthographic finding, but several bound how far the remaining ~93%
+figure can be interpreted.
+
+- **Source is not register.** Every `classical` sentence comes from one colonial-era
+  narrative and every `modern` sentence from one multi-source corpus. The classes
+  also differ in topic, genre, and editorial conventions, and the top residual
+  features suggest topic carries much of the remaining signal.
+- **Segmentation differs by source.** Chronicle sentences are split on `.`, `!`,
+  `?` and line breaks; Tang/Bennett sentences are its lines as distributed. Mean
+  length is 9.2 tokens against 16.0, although length alone predicts only 62% of
+  test labels.
+- **Evaluation design.** The TF-IDF vocabulary and IDF weights are computed over
+  all 8,026 sentences, including the test split. This uses no labels but is
+  transductive. 40 of the 1,606 test sentences (2.5%) also appear verbatim in the
+  training split. The split is random at sentence level, so neighbouring sentences
+  of the same narrative, which share names and events, fall on both sides of it.
+  All figures come from one seed and one split.
+- **Model choice.** TF-IDF weights are fed to multinomial Naive Bayes as
+  fractional counts, a common heuristic rather than the model's generative
+  assumption.
+- **Reproducibility.** The Tang/Bennett corpus cannot be redistributed, so the
+  accuracy and ablation figures can be reproduced only by readers who obtain it
+  from its authors.
+
+# Future Work
+
+- Replace provenance labels with a design that separates register from source:
+  several documents per period, matched for genre where possible.
+- Deduplicate before splitting, fit features on the training split only, hold out
+  contiguous blocks of each narrative, and report results across several seeds.
+- Evaluate `Languages.jl` language detection on both corpora, since its trigram
+  profile comes from a single modern document.
+- Port the pipeline to Python. Python/Hugging Face tooling is better suited to
+  modern language-model workflows, including the Goldfish `cak_latn` models, while
+  Julia remains an effective environment for transparent, reproducible algorithmic
+  baselines and performance experiments.
 
 # References
-
-Citations are maintained in `paper/paper.bib`.

@@ -4,6 +4,7 @@
         {
             "apostrophes_per_1k_chars": 73.1381533668997,
             "U+2019": 15982,
+            "digits": 340,
             "commas_per_1k_chars": 15.190893613938494,
             "n_sentences": 4013,
             "U+0027": 171,
@@ -19,6 +20,7 @@
         {
             "apostrophes_per_1k_chars": 67.58978805753148,
             "U+2019": 0,
+            "digits": 0,
             "commas_per_1k_chars": 0,
             "n_sentences": 43535,
             "U+0027": 269074,
@@ -32,6 +34,13 @@
             "U+02BC": 0
         }
     ],
+    "word_unigram_baseline": {
+        "test_accuracy_ci95": [
+            0.9309363915382073,
+            0.9536227631188977
+        ],
+        "test_accuracy": 0.9433374844333748
+    },
     "regimes": [
         {
             "top_terms_total": 50,
@@ -261,14 +270,23 @@
                     "recall": 0.9937733499377335
                 }
             },
+            "test_accuracy_ci95": [
+                0.983113072445587,
+                0.9933806010944193
+            ],
             "top_k": 50,
-            "top_terms_punct_fraction": 1,
             "vocabulary_size": 7784,
+            "mcnemar_vs_word_unigram": {
+                "a_only_correct": 83,
+                "b_only_correct": 9,
+                "p_value": 3.923298087974169e-16
+            },
+            "top_terms_nonletter": 49,
+            "top_terms_nonletter_fraction": 0.98,
             "top_terms_class_skew": {
                 "modern": 1,
                 "classical": 49
-            },
-            "top_terms_punct_bearing": 50
+            }
         },
         {
             "top_terms_total": 50,
@@ -498,14 +516,23 @@
                     "recall": 0.9414694894146949
                 }
             },
+            "test_accuracy_ci95": [
+                0.9316156937646112,
+                0.9541858192557764
+            ],
             "top_k": 50,
-            "top_terms_punct_fraction": 0.78,
             "vocabulary_size": 7359,
+            "mcnemar_vs_word_unigram": {
+                "a_only_correct": 50,
+                "b_only_correct": 49,
+                "p_value": 1
+            },
+            "top_terms_nonletter": 42,
+            "top_terms_nonletter_fraction": 0.84,
             "top_terms_class_skew": {
                 "modern": 7,
                 "classical": 43
-            },
-            "top_terms_punct_bearing": 39
+            }
         },
         {
             "top_terms_total": 50,
@@ -735,16 +762,298 @@
                     "recall": 0.9265255292652553
                 }
             },
+            "test_accuracy_ci95": [
+                0.9120512708673596,
+                0.9377218496178368
+            ],
             "top_k": 50,
-            "top_terms_punct_fraction": 0.12,
             "vocabulary_size": 6942,
+            "mcnemar_vs_word_unigram": {
+                "a_only_correct": 36,
+                "b_only_correct": 64,
+                "p_value": 0.006637120515926126
+            },
+            "top_terms_nonletter": 10,
+            "top_terms_nonletter_fraction": 0.2,
             "top_terms_class_skew": {
                 "modern": 18,
                 "classical": 32
+            }
+        },
+        {
+            "top_terms_total": 50,
+            "test_accuracy": 0.9265255292652553,
+            "top_terms": {
+                "ová": {
+                    "log_odds_delta": -6.51594496240746,
+                    "favor_class": "modern"
+                },
+                " a ": {
+                    "log_odds_delta": -5.638639340814842,
+                    "favor_class": "modern"
+                },
+                "'üc": {
+                    "log_odds_delta": 5.412697166289002,
+                    "favor_class": "classical"
+                },
+                "lel": {
+                    "log_odds_delta": 6.030787399611521,
+                    "favor_class": "classical"
+                },
+                "oxm": {
+                    "log_odds_delta": 5.449403906893572,
+                    "favor_class": "classical"
+                },
+                "myë": {
+                    "log_odds_delta": 5.355823251265662,
+                    "favor_class": "classical"
+                },
+                "jax": {
+                    "log_odds_delta": 5.84755681462458,
+                    "favor_class": "classical"
+                },
+                "vá$": {
+                    "log_odds_delta": -5.36340511199843,
+                    "favor_class": "modern"
+                },
+                "pad": {
+                    "log_odds_delta": 6.234826109847544,
+                    "favor_class": "classical"
+                },
+                "xtq": {
+                    "log_odds_delta": -5.407845610777805,
+                    "favor_class": "modern"
+                },
+                "kte": {
+                    "log_odds_delta": 5.395384917260662,
+                    "favor_class": "classical"
+                },
+                "sca": {
+                    "log_odds_delta": 5.374689526648316,
+                    "favor_class": "classical"
+                },
+                "sús": {
+                    "log_odds_delta": -5.996187522392927,
+                    "favor_class": "modern"
+                },
+                "eho": {
+                    "log_odds_delta": -6.528143353861115,
+                    "favor_class": "modern"
+                },
+                "jeh": {
+                    "log_odds_delta": -6.522069281593803,
+                    "favor_class": "modern"
+                },
+                "vá ": {
+                    "log_odds_delta": -6.307160281894579,
+                    "favor_class": "modern"
+                },
+                "hri": {
+                    "log_odds_delta": 7.171734346201348,
+                    "favor_class": "classical"
+                },
+                "yub": {
+                    "log_odds_delta": 5.367967509862472,
+                    "favor_class": "classical"
+                },
+                "pok": {
+                    "log_odds_delta": 5.746245829451135,
+                    "favor_class": "classical"
+                },
+                "mén": {
+                    "log_odds_delta": 5.334345902510174,
+                    "favor_class": "classical"
+                },
+                "chr": {
+                    "log_odds_delta": 5.456145880889335,
+                    "favor_class": "classical"
+                },
+                "pez": {
+                    "log_odds_delta": 5.34159480832507,
+                    "favor_class": "classical"
+                },
+                "nxi": {
+                    "log_odds_delta": 5.608111475496104,
+                    "favor_class": "classical"
+                },
+                "íne": {
+                    "log_odds_delta": 5.296423103580716,
+                    "favor_class": "classical"
+                },
+                "esú": {
+                    "log_odds_delta": -5.996187522392927,
+                    "favor_class": "modern"
+                },
+                "kob": {
+                    "log_odds_delta": 5.681791308993301,
+                    "favor_class": "classical"
+                },
+                " oi": {
+                    "log_odds_delta": 5.344481714987337,
+                    "favor_class": "classical"
+                },
+                " o ": {
+                    "log_odds_delta": -6.160332399412751,
+                    "favor_class": "modern"
+                },
+                " y ": {
+                    "log_odds_delta": -5.843032711974809,
+                    "favor_class": "modern"
+                },
+                " i ": {
+                    "log_odds_delta": -6.210917400634461,
+                    "favor_class": "modern"
+                },
+                "jri": {
+                    "log_odds_delta": -5.7722041708750105,
+                    "favor_class": "modern"
+                },
+                "oid": {
+                    "log_odds_delta": 5.350059476926747,
+                    "favor_class": "classical"
+                },
+                "gob": {
+                    "log_odds_delta": 5.87279873355979,
+                    "favor_class": "classical"
+                },
+                "lóp": {
+                    "log_odds_delta": 5.349179270658039,
+                    "favor_class": "classical"
+                },
+                " ló": {
+                    "log_odds_delta": 5.349179270658039,
+                    "favor_class": "classical"
+                },
+                "gid": {
+                    "log_odds_delta": 5.817846768756821,
+                    "favor_class": "classical"
+                },
+                "ópe": {
+                    "log_odds_delta": 5.349179270658039,
+                    "favor_class": "classical"
+                },
+                "íaz": {
+                    "log_odds_delta": 5.69041600618751,
+                    "favor_class": "classical"
+                },
+                " má": {
+                    "log_odds_delta": -5.82393963970856,
+                    "favor_class": "modern"
+                },
+                "mi ": {
+                    "log_odds_delta": -5.799255049160002,
+                    "favor_class": "modern"
+                },
+                "hov": {
+                    "log_odds_delta": -6.51594496240746,
+                    "favor_class": "modern"
+                },
+                "iw$": {
+                    "log_odds_delta": 5.582216102425162,
+                    "favor_class": "classical"
+                },
+                "akt": {
+                    "log_odds_delta": 5.433166917875699,
+                    "favor_class": "classical"
+                },
+                "yër": {
+                    "log_odds_delta": 5.355823251265662,
+                    "favor_class": "classical"
+                },
+                " ' ": {
+                    "log_odds_delta": -5.563953622239999,
+                    "favor_class": "modern"
+                },
+                "ús ": {
+                    "log_odds_delta": -5.806285248254009,
+                    "favor_class": "modern"
+                },
+                "orr": {
+                    "log_odds_delta": 5.716690645060579,
+                    "favor_class": "classical"
+                },
+                "nez": {
+                    "log_odds_delta": 5.546228442005125,
+                    "favor_class": "classical"
+                },
+                "e'ë": {
+                    "log_odds_delta": 5.898325528927884,
+                    "favor_class": "classical"
+                },
+                "íre": {
+                    "log_odds_delta": 5.870794725504785,
+                    "favor_class": "classical"
+                }
             },
-            "top_terms_punct_bearing": 6
+            "classes": [
+                "classical",
+                "modern"
+            ],
+            "regime": "D_shared_charset",
+            "confusion_matrix": [
+                745,
+                60,
+                58,
+                743
+            ],
+            "per_class": {
+                "modern": {
+                    "support": 803,
+                    "precision": 0.9275905118601748,
+                    "recall": 0.925280199252802
+                },
+                "classical": {
+                    "support": 803,
+                    "precision": 0.9254658385093167,
+                    "recall": 0.9277708592777086
+                }
+            },
+            "test_accuracy_ci95": [
+                0.9127217659928435,
+                0.9382937128556355
+            ],
+            "top_k": 50,
+            "vocabulary_size": 6615,
+            "mcnemar_vs_word_unigram": {
+                "a_only_correct": 37,
+                "b_only_correct": 64,
+                "p_value": 0.009335048120644802
+            },
+            "top_terms_nonletter": 0,
+            "top_terms_nonletter_fraction": 0,
+            "top_terms_class_skew": {
+                "modern": 18,
+                "classical": 32
+            }
         }
     ],
     "curly_share_divergence": 0.9894137311954436,
-    "interpretation_note": "Regime C approximates what the word-unigram path sees. If C ≈ 0.9433, the char-trigram advantage is orthographic, not linguistic."
+    "shared_charset": " 'abcdefghijklmnopqrstuvwxyzáäéëíïñóöúü",
+    "interpretation_note": "Regime D keeps only characters present in both classes' training text. If D is statistically indistinguishable from the word unigram baseline, the char-trigram advantage is orthographic, not linguistic.",
+    "trivial_baselines": {
+        "length_stump": {
+            "test_accuracy_ci95": [
+                0.5980635276406183,
+                0.6454387115627422
+            ],
+            "threshold_tokens": 13,
+            "test_accuracy": 0.6220423412204235,
+            "long_class": "modern"
+        },
+        "exclusive_char_rule": {
+            "test_accuracy_ci95": [
+                0.9741871276347522,
+                0.9873982455458648
+            ],
+            "test_accuracy": 0.9819427148194272,
+            "mcnemar_vs_word_unigram": {
+                "a_only_correct": 90,
+                "b_only_correct": 28,
+                "p_value": 8.91404529441691e-9
+            },
+            "classical_only_chars": "(),-0123456789:;_ÿ–’“”",
+            "classical_recall": 0.9638854296388543
+        }
+    },
+    "test_count": 1606
 }

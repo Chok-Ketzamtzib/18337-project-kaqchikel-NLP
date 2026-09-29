@@ -1,4 +1,4 @@
-# Wrap-Up: Kaqchikel Naive Bayes (MIT 18.337)
+# Performant Text Classification with Naive Bayes for Kaqchikel Maya (MIT 18.337)
 
 This repository is the completed wrap-up of an MIT 18.337 class project on NLP for Kaqchikel Maya.  
 The original sentiment-labeling path stalled, so the final system reframes the task as **register classification**:
@@ -35,8 +35,10 @@ This keeps the project aligned with the original class goals:
     reproducible in CI. `corpus_mode` in the JSON records which was used.
 - `src/confound_check.jl`
   - Diagnostic: tests whether the char trigram advantage is linguistic or
-    orthographic. Profiles apostrophe/punctuation conventions per corpus, then
-    retrains under three normalization regimes.
+    orthographic. Profiles apostrophe/punctuation conventions per corpus, fits
+    two no-model baselines (an exclusive-character rule and a length threshold),
+    then retrains under four normalization regimes and compares each to the word
+    unigram model with 95% Wilson intervals and exact McNemar tests.
   - Requires **both** corpora, so it cannot run in CI.
   - Writes `src/results/confound_check.json`.
 
@@ -52,17 +54,25 @@ This keeps the project aligned with the original class goals:
   - TextAnalysis.jl `NaiveBayesClassifier` cross-check: `0.9900`
 - Orthographic ablation (char trigrams) — **the 0.9894 figure is confounded**:
   - raw: `0.9894`
-  - apostrophe variants folded to `U+0027`: `0.9440`
-  - folded + punctuation stripped: `0.9259`
+  - apostrophe variants folded to `U+0027`: `0.9440` (vs word unigram: McNemar p = 1.0)
+  - folded + fixed punctuation list stripped: `0.9259` (p = 0.007)
+  - folded + restricted to characters shared by both corpora: `0.9265` (p = 0.009)
   - The Chronicle writes the glottal stop as `U+2019` (15,982 times) and
     Tang/Bennett as `U+0027` (269,074 times, with zero other punctuation).
     Since labels come from provenance, encoding leaks the label. Normalizing it
-    puts char trigrams level with the `0.9433` word unigram baseline.
+    puts char trigrams level with the `0.9433` word unigram baseline, and
+    removing all orthographic cues puts them significantly below it.
+  - No-model baseline: predicting `classical` whenever a sentence contains a
+    character never seen in modern training text scores `0.9819`.
+  - The labels identify the *source*, not register alone; the residual signal
+    is largely topic (e.g. `jehová`, `jesús` vs Spanish colonial names). See the
+    paper's Limitations section.
 - Benchmark (8-thread run on this machine, medians of 30 samples, warmup excluded):
   - char trigram feature extraction: `0.16166s` serial vs `0.09693s` at 8 workers (`1.67x`)
-  - NB training: `0.004849s` serial vs `0.005123s` at 8 workers (`0.95x`, i.e. no speedup)
-  - The parallelized region is a small fraction of `train_multinomial_nb`; the
-    serial `sparse(transpose(X))` and log-likelihood loop dominate.
+  - NB training: `0.004849s` serial vs `0.005123s` at 8 workers (`0.95x`,
+    within the serial run's interquartile range, i.e. no measurable speedup)
+  - Only the per-class accumulation in `train_multinomial_nb` is parallelized;
+    `sparse(transpose(X))` and the log-likelihood loop remain serial.
 
 ## Reproducibility
 
@@ -114,7 +124,11 @@ julia --project=src src/confound_check.jl
 
 Kaqchikel language support landed in `Languages.jl` through the sequence:
 
-- PR #43: initial Kaqchikel data contribution
-- PR #46: trigram fix for language detection
+- [PR #43](https://github.com/JuliaText/Languages.jl/pull/43) (this author):
+  Kaqchikel language type, initial word lists, and test example
+- [PR #46](https://github.com/JuliaText/Languages.jl/pull/46) (Avik Sengupta, maintainer):
+  added the Central Kaqchikel trigram profile from
+  [wooorm/trigrams](https://github.com/wooorm/trigrams) (UDHR-derived), enabling
+  language detection and completing #43
 
 That contribution remains a meaningful output of the project.
