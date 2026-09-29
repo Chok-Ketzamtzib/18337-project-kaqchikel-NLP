@@ -21,10 +21,11 @@ from itertools import combinations, product
 import numpy as np
 from manim import *
 
-from style import CLASSICAL, DATA_DIR, FONT, MODERN, MONO, RESULTS_DIR, SHARED, load_json
+from style import (
+    APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, MONO, RESULTS_DIR, SHARED, STRAIGHT,
+    load_json,
+)
 
-CURLY, STRAIGHT = "\u2019", "'"
-APOSTROPHE_STYLE = {"t2c": {STRAIGHT: MODERN, CURLY: CLASSICAL}, "t2f": {STRAIGHT: MONO, CURLY: MONO}}
 SIDE = 5.0
 HALF = SIDE / 2
 AXIS_NAMES = ("1st character", "2nd character", "3rd character")

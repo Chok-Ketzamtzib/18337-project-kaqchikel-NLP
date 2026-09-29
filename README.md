@@ -114,6 +114,12 @@ short explainer videos:
 - `scenes/trigram_cube.py`: every char trigram as a point in a cube whose axes
   are its three characters. Shows the `’`/`'` confound, then the accuracy after
   folding apostrophes and after dropping Chronicle-only characters.
+- `scenes/decision_boundary.py`: Naive Bayes is linear. Each test sentence's
+  score is split into apostrophe, punctuation, and letter trigrams, so the
+  decision boundary is a plane in 3D; seen edge-on it is the cut on a histogram
+  of scores, replayed for the raw, apostrophe-folded, and shared-character
+  regimes. Renders as `DecisionBoundary` (16:9) and `DecisionBoundaryVertical`
+  (3:4 portrait, 1080x1440 at `-qh`, for Instagram).
 
 [uv](https://docs.astral.sh/uv/) manages the Python environment (and installs
 Python 3.12 itself); LaTeX is not needed. From `animations/`:
@@ -122,6 +128,7 @@ Python 3.12 itself); LaTeX is not needed. From `animations/`:
 uv sync
 uv run manim -pql scenes/sparse_transpose.py SparseTranspose   # quick 480p preview
 uv run manim -pqh scenes/trigram_cube.py TrigramCube           # 1080p60 for posting
+uv run manim -qh -a scenes/decision_boundary.py                # both aspect ratios
 ```
 
 Videos are written to `animations/media/videos/` (gitignored). The scenes read
@@ -147,6 +154,8 @@ julia --project=src animations/export_data.jl
     `src/results/confound_check.json`
   - aggregate metrics, including the per-class trigram counts in
     `animations/data/trigram_cube.json` (the 250 most frequent trigrams per class)
+    and the per-test-sentence model scores in `animations/data/nb_scores.json`
+    (numbers and labels only, no text)
 - The corpus location is resolved in this order, so no machine-specific path
   needs to be committed:
   1. the `--tang-path` command-line flag

@@ -17,6 +17,10 @@ CLASSICAL = ManimColor("#F2B84B")  # Kaqchikel Chronicle (Kiwujil)
 MODERN = ManimColor("#4FB8E6")  # Tang/Bennett corpus
 SHARED = ManimColor("#EDEDED")
 
+CURLY, STRAIGHT = "\u2019", "'"
+# Text(..., **APOSTROPHE_STYLE) colors each glottal-stop spelling by corpus.
+APOSTROPHE_STYLE = {"t2c": {STRAIGHT: MODERN, CURLY: CLASSICAL}, "t2f": {STRAIGHT: MONO, CURLY: MONO}}
+
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
