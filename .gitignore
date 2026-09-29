@@ -33,5 +33,8 @@ src/local_config.toml
 # Rendered from pipeline.dot by CI before each paper build
 paper/images/pipeline.pdf
 
+# Surrogate-corpus benchmark output from CI (benchmark.jl --output-dir)
+ci_benchmark/
+
 # Teng's Dataset to remove
 teng_kaq.csv

@@ -154,6 +154,15 @@ function main()
     quick         = has_flag("--quick")
     samples       = quick ? 5 : 30
     seconds       = quick ? 5.0 : 20.0
+    # Defaults write the committed paper figure and results JSON. CI passes a
+    # separate directory so its surrogate --quick run never replaces them.
+    output_dir    = arg_or_default("--output-dir", "")
+    svg_path = isempty(output_dir) ?
+        joinpath(@__DIR__, "..", "paper", "images", "thread_scaling.svg") :
+        joinpath(abspath(output_dir), "thread_scaling.svg")
+    out_json = isempty(output_dir) ?
+        joinpath(@__DIR__, "results", "benchmark_results.json") :
+        joinpath(abspath(output_dir), "benchmark_results.json")
 
     texts, labels, mode = benchmark_corpus(
         tang_path = tang_path, manifest_path = manifest_path)
@@ -192,7 +201,6 @@ function main()
     end
 
     # --- figure
-    svg_path = joinpath(@__DIR__, "..", "paper", "images", "thread_scaling.svg")
     svg_out, png_out = scaling_figure(worker_counts, feature_stats, train_stats, svg_path)
 
     # --- results
@@ -215,7 +223,6 @@ function main()
         "scaling_plot_png" => KaqPipeline.repo_relpath(png_out),
     )
 
-    out_json = joinpath(@__DIR__, "results", "benchmark_results.json")
     mkpath(dirname(out_json))
     open(out_json, "w") do io
         JSON3.pretty(io, results)

@@ -29,10 +29,12 @@ jobs:
       # The Tang/Bennett corpus cannot be redistributed, so this resolves to the
       # surrogate corpus. Timings are reproducible; accuracy numbers are not
       # produced here. corpus_mode in the JSON records which substrate was used.
-      - name: Regenerate thread scaling figure
+      # Output goes to ci_benchmark/ so the paper keeps the committed 8-thread
+      # figure that matches its benchmark table.
+      - name: Benchmark smoke test (surrogate corpus)
         env:
           JULIA_NUM_THREADS: '4'
-        run: julia --project=src src/benchmark.jl --quick
+        run: julia --project=src src/benchmark.jl --quick --output-dir ci_benchmark
 
       - name: Install Pandoc and build PDF
         run: |
@@ -53,8 +55,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: benchmarks
-          path: |
-            src/results/benchmark_results.json
-            paper/images/thread_scaling.png
-            paper/images/thread_scaling.svg
+          name: benchmarks-ci-surrogate
+          path: ci_benchmark/

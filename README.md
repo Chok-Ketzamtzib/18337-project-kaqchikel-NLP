@@ -98,7 +98,10 @@ The orthographic diagnostic needs both corpora present locally:
 julia --project=src src/confound_check.jl
 ```
 
-`src/benchmark.jl` accepts `--quick` to reduce sample counts, which is what CI uses.
+`src/benchmark.jl` accepts `--quick` to reduce sample counts and `--output-dir DIR`
+to write the figure and JSON somewhere other than `paper/images/` and
+`src/results/`. CI uses both, writing to `ci_benchmark/`, so the paper always
+shows the committed 8-thread run.
 
 ## Data and Licensing Notes
 
