@@ -11,7 +11,7 @@ This project began as a 2023 proposal to build a performant Julia NLP pipeline f
 
 # NLP Pipeline
 
-![NLP pipeline](images/pipeline.png)
+![NLP pipeline](images/pipeline.pdf)
 
 # Context and Related Work
 

@@ -1,6 +1,11 @@
 // pipeline.dot — actual architecture of the Kaqchikel register classifier.
-// Render:  dot -Tsvg pipeline.dot -o pipeline.svg
-//          dot -Tpng -Gdpi=200 pipeline.dot -o pipeline.png
+// Render:  dot -Tpdf pipeline.dot -o pipeline.pdf   (vector; used by paper.md)
+//          dot -Tsvg pipeline.dot -o pipeline.svg
+//
+// Laid out two boxes wide so that, scaled to the paper's text width, labels
+// stay near body-text size. Nimbus Sans is the URW Helvetica clone present on
+// the CI runner; Graphviz's own "Helvetica" alias falls back to DejaVu Sans,
+// which is ~18% wider.
 //
 // Supersedes the 2023 proposal diagram, which showed Pipe.jl, Gadfly.jl and a
 // "pre-labeled corpus" — none of which exist in the implemented system.
@@ -8,20 +13,21 @@
 digraph kaq_pipeline {
   rankdir=TB;
   splines=ortho;
-  nodesep=0.45;
-  ranksep=0.50;
+  nodesep=0.30;
+  ranksep=0.32;
   bgcolor="white";
-  fontname="Helvetica";
+  fontname="Nimbus Sans";
 
-  node [shape=box, style="rounded,filled", fontname="Helvetica",
-        fontsize=11, margin="0.16,0.10", penwidth=1.1];
-  edge [fontname="Helvetica", fontsize=9, color="#555555", penwidth=1.1];
+  node [shape=box, style="rounded,filled", fontname="Nimbus Sans",
+        fontsize=11, margin="0.12,0.06", penwidth=1.1];
+  edge [fontname="Nimbus Sans", fontsize=9, color="#555555", penwidth=1.1,
+        arrowsize=0.8];
 
   // ---------------------------------------------------------------- sources
   subgraph cluster_sources {
     label="Sources";
-    fontname="Helvetica-Bold"; fontsize=11; fontcolor="#444444";
-    style="rounded,dashed"; color="#bbbbbb";
+    fontname="Nimbus Sans Bold"; fontsize=11; fontcolor="#444444";
+    labeljust="r"; style="rounded,dashed"; color="#bbbbbb";
 
     chronicle [label="Kaqchikel Chronicle\n(Kiwujil Xajila')\ncommitted · 4,013 sentences",
                fillcolor="#e8f0fb", color="#4a76a8"];
@@ -30,60 +36,74 @@ digraph kaq_pipeline {
   }
 
   // ------------------------------------------------------------- data prep
+  // Two rows read as a snake: segment → weak, then balance → manifest.
   subgraph cluster_prep {
     label="data_prep.jl  →  kaq_pipeline.jl";
-    fontname="Helvetica-Bold"; fontsize=11; fontcolor="#444444";
-    style="rounded"; color="#cccccc";
+    fontname="Nimbus Sans Bold"; fontsize=11; fontcolor="#444444";
+    labeljust="r"; style="rounded"; color="#cccccc";
 
     segment  [label="Sentence segmentation\nsplit on [.!?\\n] · min 3 tokens\nNFC-ish whitespace normalisation",
               fillcolor="#f4f4f4", color="#888888"];
     weak     [label="Weak labelling from provenance\nChronicle → classical\nTang/Bennett → modern",
               fillcolor="#fff4d6", color="#c99700", penwidth=1.6];
-    balance  [label="Class balancing + stratified split\nseed 42 · 8,026 rows\n6,420 train / 1,606 test",
-              fillcolor="#f4f4f4", color="#888888"];
     manifest [label="register_manifest.csv\nindices + labels only\n(no restricted text committed)",
               shape=note, fillcolor="#eef7ee", color="#4a8a4a"];
+    balance  [label="Class balancing + stratified split\nseed 42 · 8,026 rows\n6,420 train / 1,606 test",
+              fillcolor="#f4f4f4", color="#888888"];
+
+    { rank=same; segment; weak; }
+    { rank=same; manifest; balance; }
   }
 
   // ------------------------------------------------------------- features
   subgraph cluster_features {
     label="Feature extraction";
-    fontname="Helvetica-Bold"; fontsize=11; fontcolor="#444444";
-    style="rounded"; color="#cccccc";
+    fontname="Nimbus Sans Bold"; fontsize=11; fontcolor="#444444";
+    labeljust="r"; style="rounded"; color="#cccccc";
 
     word  [label="Word unigram TF-IDF\nTextAnalysis.jl\nstrip_punctuation applied",
            fillcolor="#e8f0fb", color="#4a76a8"];
     char  [label="Char trigram TF-IDF\nhand-rolled sparse COO → CSC\npunctuation retained",
            fillcolor="#e8f0fb", color="#4a76a8", penwidth=1.6];
-    par   [label="Threaded chunk accumulation\n@spawn over _chunk_ranges\nper-chunk Dict merge",
-           fillcolor="#ede7f6", color="#6a4c93"];
   }
 
   // ---------------------------------------------------------------- model
   subgraph cluster_model {
-    label="Model + evaluation";
-    fontname="Helvetica-Bold"; fontsize=11; fontcolor="#444444";
-    style="rounded"; color="#cccccc";
+    label="Model +\revaluation\r";
+    fontname="Nimbus Sans Bold"; fontsize=11; fontcolor="#444444";
+    labeljust="r"; style="rounded"; color="#cccccc";
 
     nb    [label="Multinomial Naive Bayes\nhand-rolled · Laplace α = 1\nlog priors + log likelihoods",
            fillcolor="#e8f0fb", color="#4a76a8"];
+    eval  [label="Evaluation\naccuracy · confusion matrix\nprecision / recall\ntop log-odds terms",
+           fillcolor="#f4f4f4", color="#888888"];
+  }
+
+  // -------------------------------------------------------- threaded paths
+  subgraph cluster_threads {
+    label="Parallel paths\r(benchmark.jl)\r";
+    fontname="Nimbus Sans Bold"; fontsize=11; fontcolor="#444444";
+    labeljust="r"; style="rounded"; color="#cccccc";
+
+    par   [label="Threaded chunk accumulation\n@spawn over _chunk_ranges\nper-chunk Dict merge",
+           fillcolor="#ede7f6", color="#6a4c93"];
     nbpar [label="Threaded reduction\nper-worker local_sum\n(n_classes × n_features)",
            fillcolor="#ede7f6", color="#6a4c93"];
-    eval  [label="Evaluation\naccuracy · confusion matrix\nprecision / recall · top log-odds terms",
-           fillcolor="#f4f4f4", color="#888888"];
   }
 
   // --------------------------------------------------------------- outputs
   subgraph cluster_out {
     label="Artifacts";
-    fontname="Helvetica-Bold"; fontsize=11; fontcolor="#444444";
-    style="rounded,dashed"; color="#bbbbbb";
+    fontname="Nimbus Sans Bold"; fontsize=11; fontcolor="#444444";
+    labeljust="r"; style="rounded,dashed"; color="#bbbbbb";
 
     metrics [label="train_metrics.json", shape=note, fillcolor="#eef7ee", color="#4a8a4a"];
-    bench   [label="benchmark_results.json\nthread_scaling.svg", shape=note,
-             fillcolor="#eef7ee", color="#4a8a4a"];
     paper   [label="paper.pdf\npandoc + citeproc (CI)", shape=note,
              fillcolor="#eef7ee", color="#4a8a4a"];
+    bench   [label="benchmark_results.json\nthread_scaling.svg", shape=note,
+             fillcolor="#eef7ee", color="#4a8a4a"];
+
+    { rank=same; metrics; paper; bench; }
   }
 
   // ----------------------------------------------------------------- edges
@@ -91,20 +111,24 @@ digraph kaq_pipeline {
   tang      -> segment [style=dashed];
   segment   -> weak;
   weak      -> balance;
-  balance   -> manifest;
+  manifest  -> balance [dir=back];
 
   manifest -> word;
   manifest -> char;
-  char     -> par [dir=both, style=dotted, label="  parallel path"];
 
   word -> nb;
   char -> nb;
-  nb   -> nbpar [dir=both, style=dotted, label="  parallel path"];
   nb   -> eval;
 
-  eval  -> metrics;
-  par   -> bench [style=dashed];
-  nbpar -> bench [style=dashed];
+  char -> par   [dir=both, style=dotted];
+  nb   -> nbpar [dir=both, style=dotted];
+  // Stacks the threaded nodes in one column beside nb/eval; side by side
+  // they make that row three boxes wide.
+  par  -> nbpar [style=invis];
+
+  eval    -> metrics;
+  par     -> bench [style=dashed];
+  nbpar   -> bench [style=dashed];
   metrics -> paper [style=dashed];
-  bench   -> paper [style=dashed];
+  paper   -> bench [style=dashed, dir=back];
 }

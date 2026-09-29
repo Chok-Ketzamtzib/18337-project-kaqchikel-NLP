@@ -30,5 +30,8 @@ src/Languages.jl/
 # Machine-specific Tang/Bennett corpus location (licence forbids redistribution)
 src/local_config.toml
 
+# Rendered from pipeline.dot by CI before each paper build
+paper/images/pipeline.pdf
+
 # Teng's Dataset to remove
 teng_kaq.csv

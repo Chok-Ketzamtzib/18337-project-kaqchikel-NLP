@@ -16,24 +16,7 @@ jobs:
     name: Build PDF
     runs-on: ubuntu-latest
     steps:
-      # Full history so the diagram staleness check can compare commit times.
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      # Checkout mtimes are all identical, so freshness is judged from the last
-      # commit that touched each file rather than from the filesystem.
-      - name: Warn if pipeline.png is stale relative to pipeline.dot
-        run: |
-          dot_at=$(git log -1 --format=%ct -- paper/images/pipeline.dot)
-          png_at=$(git log -1 --format=%ct -- paper/images/pipeline.png)
-          if [ -z "$dot_at" ] || [ -z "$png_at" ]; then
-            echo "::warning::Could not determine commit times for pipeline.dot / pipeline.png."
-          elif [ "$dot_at" -gt "$png_at" ]; then
-            echo "::warning::paper/images/pipeline.png is older than pipeline.dot. Re-render with: dot -Tpng -Gdpi=170 paper/images/pipeline.dot -o paper/images/pipeline.png"
-          else
-            echo "pipeline.png is up to date with pipeline.dot."
-          fi
 
       - uses: julia-actions/setup-julia@v2
         with:
@@ -54,8 +37,11 @@ jobs:
       - name: Install Pandoc and build PDF
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc texlive-latex-extra
+          sudo apt-get install -y pandoc texlive-latex-extra graphviz
           cd paper
+          # Vector PDF keeps the diagram's text and lines sharp at any zoom;
+          # pdflatex embeds it natively, unlike a PNG which is resampled.
+          dot -Tpdf images/pipeline.dot -o images/pipeline.pdf
           # Single column: pandoc renders markdown tables as longtable, which
           # cannot typeset in two-column mode.
           pandoc --citeproc --bibliography=paper.bib --variable papersize=a4paper -s paper.md -o paper.pdf
@@ -77,7 +63,7 @@ jobs:
           import json, re, time
           def log(h, msg, data):
               with open("../debug-664783.log", "a") as f:
-                  f.write(json.dumps({"sessionId": "664783", "runId": "ci-pre-fix", "hypothesisId": h, "location": ".github/workflows/md_to_pdf.yml:figure-diagnostics", "message": msg, "data": data, "timestamp": int(time.time() * 1000)}) + "\n")
+                  f.write(json.dumps({"sessionId": "664783", "runId": "ci-post-fix", "hypothesisId": h, "location": ".github/workflows/md_to_pdf.yml:figure-diagnostics", "message": msg, "data": data, "timestamp": int(time.time() * 1000)}) + "\n")
           imgs = []
           for line in open("/tmp/imgs.txt").read().splitlines()[2:]:
               c = line.split()
