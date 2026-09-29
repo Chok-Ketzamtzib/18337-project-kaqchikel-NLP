@@ -1,29 +1,59 @@
-# .github/workflows/convert-to-pdf.yml
-
 name: Convert Paper to PDF
-# This workflow is triggered on pushes to the repository.
+
 on:
   workflow_dispatch:
   push:
     branches:
       - main
-    # Paths can be used to only trigger actions when you have edited certain files, such as a file within the /docs directory
+      - wrap-up-kaqchikel-nb
     paths:
       - 'paper/**'
-      - 'paper/images/**'
+      - 'src/**'
+      - '.github/workflows/md_to_pdf.yml'
 
 jobs:
   converttopdf:
     name: Build PDF
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Pandoc and Build
+      - uses: actions/checkout@v4
+
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.12'
+      - uses: julia-actions/cache@v2
+
+      - name: Instantiate Julia environment
+        run: julia --project=src -e 'using Pkg; Pkg.instantiate()'
+
+      # The Tang/Bennett corpus cannot be redistributed, so this resolves to the
+      # surrogate corpus. Timings are reproducible; accuracy numbers are not
+      # produced here. corpus_mode in the JSON records which substrate was used.
+      # Output goes to ci_benchmark/ so the paper keeps the committed 8-thread
+      # figure that matches its benchmark table.
+      - name: Benchmark smoke test (surrogate corpus)
+        env:
+          JULIA_NUM_THREADS: '4'
+        run: julia --project=src src/benchmark.jl --quick --output-dir ci_benchmark
+
+      - name: Install Pandoc and build PDF
         run: |
-          sudo apt-get install pandoc pandoc-citeproc texlive-latex-extra
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-latex-extra graphviz
           cd paper
-          pandoc --filter pandoc-citeproc --bibliography=paper.bib --variable classoption=twocolumn --variable papersize=a4paper -s paper.md -o paper.pdf
-      - uses: actions/upload-artifact@v1
+          # Vector PDF keeps the diagram's text and lines sharp at any zoom;
+          # pdflatex embeds it natively, unlike a PNG which is resampled.
+          dot -Tpdf images/pipeline.dot -o images/pipeline.pdf
+          # Single column: pandoc renders markdown tables as longtable, which
+          # cannot typeset in two-column mode.
+          pandoc --citeproc --bibliography=paper.bib --variable papersize=a4paper -s paper.md -o paper.pdf
+
+      - uses: actions/upload-artifact@v4
         with:
           name: paper
           path: paper/paper.pdf
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: benchmarks-ci-surrogate
+          path: ci_benchmark/

@@ -1,0 +1,231 @@
+{
+    "char_trigram": {
+        "test_accuracy_threaded": 0.9894146948941469,
+        "feature_set": "char_trigram",
+        "test_accuracy_serial": 0.9894146948941469,
+        "classes": [
+            "classical",
+            "modern"
+        ],
+        "confusion_matrix": [
+            798,
+            12,
+            5,
+            791
+        ],
+        "per_class": {
+            "modern": {
+                "support": 803,
+                "precision": 0.9937185929648241,
+                "recall": 0.9850560398505604
+            },
+            "classical": {
+                "support": 803,
+                "precision": 0.9851851851851852,
+                "recall": 0.9937733499377335
+            }
+        },
+        "top_discriminative_terms": {
+            ", x": {
+                "log_odds_delta": 7.994386182199655,
+                "favor_class": "classical"
+            },
+            "q’i": {
+                "log_odds_delta": 7.919003363501404,
+                "favor_class": "classical"
+            },
+            "’a ": {
+                "log_odds_delta": 8.131157699544776,
+                "favor_class": "classical"
+            },
+            "’, ": {
+                "log_odds_delta": 8.176789615663566,
+                "favor_class": "classical"
+            },
+            " q’": {
+                "log_odds_delta": 8.14993480833225,
+                "favor_class": "classical"
+            },
+            "’ij": {
+                "log_odds_delta": 7.953031350870352,
+                "favor_class": "classical"
+            },
+            "i’ ": {
+                "log_odds_delta": 8.477893559456643,
+                "favor_class": "classical"
+            },
+            "k’a": {
+                "log_odds_delta": 8.604261739889875,
+                "favor_class": "classical"
+            },
+            "ab’": {
+                "log_odds_delta": 8.070028805816612,
+                "favor_class": "classical"
+            },
+            "e’ ": {
+                "log_odds_delta": 8.34178759612946,
+                "favor_class": "classical"
+            },
+            "’ x": {
+                "log_odds_delta": 8.05970353990299,
+                "favor_class": "classical"
+            },
+            "’al": {
+                "log_odds_delta": 7.96987442607255,
+                "favor_class": "classical"
+            },
+            ", r": {
+                "log_odds_delta": 7.916244380010084,
+                "favor_class": "classical"
+            },
+            "q’a": {
+                "log_odds_delta": 8.020582045812482,
+                "favor_class": "classical"
+            },
+            "a’ ": {
+                "log_odds_delta": 8.52508713478992,
+                "favor_class": "classical"
+            },
+            " k’": {
+                "log_odds_delta": 8.372113141300396,
+                "favor_class": "classical"
+            },
+            "tz’": {
+                "log_odds_delta": 7.903243599997733,
+                "favor_class": "classical"
+            },
+            "b’a": {
+                "log_odds_delta": 8.313013326196831,
+                "favor_class": "classical"
+            },
+            "uk’": {
+                "log_odds_delta": 7.906465958348465,
+                "favor_class": "classical"
+            },
+            "’ r": {
+                "log_odds_delta": 8.169306040799164,
+                "favor_class": "classical"
+            }
+        }
+    },
+    "textanalysis_cross_check": {
+        "sample_prediction": "Dict(\"modern\" => 1.2590032526631682e-34, \"classical\" => 1.0)",
+        "status": "ok",
+        "message": "TextAnalysis NaiveBayesClassifier executed.",
+        "accuracy": 0.9900373599003736
+    },
+    "manifest_path": "src/datasets/register_manifest.csv",
+    "word_unigram": {
+        "test_accuracy_threaded": 0.9433374844333748,
+        "feature_set": "word_unigram",
+        "test_accuracy_serial": 0.9433374844333748,
+        "classes": [
+            "classical",
+            "modern"
+        ],
+        "confusion_matrix": [
+            761,
+            49,
+            42,
+            754
+        ],
+        "per_class": {
+            "modern": {
+                "support": 803,
+                "precision": 0.9472361809045227,
+                "recall": 0.9389788293897883
+            },
+            "classical": {
+                "support": 803,
+                "precision": 0.9395061728395062,
+                "recall": 0.9476961394769614
+            }
+        },
+        "top_discriminative_terms": {
+            "kani": {
+                "log_odds_delta": 3.862520899126106,
+                "favor_class": "classical"
+            },
+            "más": {
+                "log_odds_delta": -3.689005730763,
+                "favor_class": "modern"
+            },
+            "jehová": {
+                "log_odds_delta": -4.211683563434997,
+                "favor_class": "modern"
+            },
+            "ajawa": {
+                "log_odds_delta": 3.8646661289813045,
+                "favor_class": "classical"
+            },
+            "don": {
+                "log_odds_delta": 4.0038320248170125,
+                "favor_class": "classical"
+            },
+            "yujuj": {
+                "log_odds_delta": 3.622558163865686,
+                "favor_class": "classical"
+            },
+            "y": {
+                "log_odds_delta": -3.48104882700041,
+                "favor_class": "modern"
+            },
+            "loqoläj": {
+                "log_odds_delta": -3.6169850021628944,
+                "favor_class": "modern"
+            },
+            "nubij": {
+                "log_odds_delta": -3.785696659797769,
+                "favor_class": "modern"
+            },
+            "o": {
+                "log_odds_delta": -3.6245829098150972,
+                "favor_class": "modern"
+            },
+            "wakami": {
+                "log_odds_delta": -3.435943346581495,
+                "favor_class": "modern"
+            },
+            "toq": {
+                "log_odds_delta": -4.282624392167087,
+                "favor_class": "modern"
+            },
+            "chrij": {
+                "log_odds_delta": 3.9225939220477164,
+                "favor_class": "classical"
+            },
+            "kastilan": {
+                "log_odds_delta": 3.6321044253718133,
+                "favor_class": "classical"
+            },
+            "rikin": {
+                "log_odds_delta": -3.8970990509517627,
+                "favor_class": "modern"
+            },
+            "labal": {
+                "log_odds_delta": 3.513621150779894,
+                "favor_class": "classical"
+            },
+            "jesús": {
+                "log_odds_delta": -3.7188735981941,
+                "favor_class": "modern"
+            },
+            "kukin": {
+                "log_odds_delta": 3.5290593344492036,
+                "favor_class": "classical"
+            },
+            "chik": {
+                "log_odds_delta": -4.2287952908556035,
+                "favor_class": "modern"
+            },
+            "janila": {
+                "log_odds_delta": -3.4888150305128205,
+                "favor_class": "modern"
+            }
+        }
+    },
+    "train_count": 6420,
+    "sample_count": 8026,
+    "threads_available": 8,
+    "test_count": 1606
+}
