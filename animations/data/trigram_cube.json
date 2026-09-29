@@ -1,0 +1,3063 @@
+{
+    "trigram_totals": {
+        "modern": 292862,
+        "classical": 174140
+    },
+    "distinct_trigrams": {
+        "modern": 5660,
+        "classical": 4878
+    },
+    "shared_chars_after_fold": " 'abcdefghijklmnopqrstuvwxyzáäéëíïñóöúü",
+    "source": "char trigram counts, train split of src/datasets/register_manifest.csv",
+    "trigrams": [
+        {
+            "modern": 542,
+            "folded": " ac",
+            "trigram": " ac",
+            "classical": 220,
+            "folded_classical": 220,
+            "folded_modern": 542
+        },
+        {
+            "modern": 245,
+            "folded": " aj",
+            "trigram": " aj",
+            "classical": 961,
+            "folded_classical": 961,
+            "folded_modern": 245
+        },
+        {
+            "modern": 378,
+            "folded": " b'",
+            "trigram": " b'",
+            "classical": 1,
+            "folded_classical": 246,
+            "folded_modern": 378
+        },
+        {
+            "modern": 0,
+            "folded": " b'",
+            "trigram": " b’",
+            "classical": 245,
+            "folded_classical": 246,
+            "folded_modern": 378
+        },
+        {
+            "modern": 4560,
+            "folded": " ch",
+            "trigram": " ch",
+            "classical": 2177,
+            "folded_classical": 2177,
+            "folded_modern": 4560
+        },
+        {
+            "modern": 380,
+            "folded": " e ",
+            "trigram": " e ",
+            "classical": 141,
+            "folded_classical": 141,
+            "folded_modern": 380
+        },
+        {
+            "modern": 90,
+            "folded": " ik",
+            "trigram": " ik",
+            "classical": 163,
+            "folded_classical": 163,
+            "folded_modern": 90
+        },
+        {
+            "modern": 667,
+            "folded": " ja",
+            "trigram": " ja",
+            "classical": 181,
+            "folded_classical": 181,
+            "folded_modern": 667
+        },
+        {
+            "modern": 453,
+            "folded": " je",
+            "trigram": " je",
+            "classical": 41,
+            "folded_classical": 41,
+            "folded_modern": 453
+        },
+        {
+            "modern": 1428,
+            "folded": " ju",
+            "trigram": " ju",
+            "classical": 909,
+            "folded_classical": 909,
+            "folded_modern": 1428
+        },
+        {
+            "modern": 2118,
+            "folded": " k'",
+            "trigram": " k'",
+            "classical": 22,
+            "folded_classical": 924,
+            "folded_modern": 2118
+        },
+        {
+            "modern": 771,
+            "folded": " ka",
+            "trigram": " ka",
+            "classical": 802,
+            "folded_classical": 802,
+            "folded_modern": 771
+        },
+        {
+            "modern": 442,
+            "folded": " ke",
+            "trigram": " ke",
+            "classical": 178,
+            "folded_classical": 178,
+            "folded_modern": 442
+        },
+        {
+            "modern": 1146,
+            "folded": " ki",
+            "trigram": " ki",
+            "classical": 758,
+            "folded_classical": 758,
+            "folded_modern": 1146
+        },
+        {
+            "modern": 167,
+            "folded": " ko",
+            "trigram": " ko",
+            "classical": 161,
+            "folded_classical": 161,
+            "folded_modern": 167
+        },
+        {
+            "modern": 68,
+            "folded": " ku",
+            "trigram": " ku",
+            "classical": 190,
+            "folded_classical": 190,
+            "folded_modern": 68
+        },
+        {
+            "modern": 0,
+            "folded": " k'",
+            "trigram": " k’",
+            "classical": 902,
+            "folded_classical": 924,
+            "folded_modern": 2118
+        },
+        {
+            "modern": 234,
+            "folded": " la",
+            "trigram": " la",
+            "classical": 178,
+            "folded_classical": 178,
+            "folded_modern": 234
+        },
+        {
+            "modern": 1029,
+            "folded": " ma",
+            "trigram": " ma",
+            "classical": 422,
+            "folded_classical": 422,
+            "folded_modern": 1029
+        },
+        {
+            "modern": 685,
+            "folded": " na",
+            "trigram": " na",
+            "classical": 144,
+            "folded_classical": 144,
+            "folded_modern": 685
+        },
+        {
+            "modern": 649,
+            "folded": " ni",
+            "trigram": " ni",
+            "classical": 144,
+            "folded_classical": 144,
+            "folded_modern": 649
+        },
+        {
+            "modern": 441,
+            "folded": " nk",
+            "trigram": " nk",
+            "classical": 63,
+            "folded_classical": 63,
+            "folded_modern": 441
+        },
+        {
+            "modern": 356,
+            "folded": " nq",
+            "trigram": " nq",
+            "classical": 18,
+            "folded_classical": 18,
+            "folded_modern": 356
+        },
+        {
+            "modern": 868,
+            "folded": " nu",
+            "trigram": " nu",
+            "classical": 161,
+            "folded_classical": 161,
+            "folded_modern": 868
+        },
+        {
+            "modern": 1304,
+            "folded": " pa",
+            "trigram": " pa",
+            "classical": 580,
+            "folded_classical": 580,
+            "folded_modern": 1304
+        },
+        {
+            "modern": 436,
+            "folded": " pe",
+            "trigram": " pe",
+            "classical": 339,
+            "folded_classical": 339,
+            "folded_modern": 436
+        },
+        {
+            "modern": 450,
+            "folded": " q'",
+            "trigram": " q'",
+            "classical": 5,
+            "folded_classical": 661,
+            "folded_modern": 450
+        },
+        {
+            "modern": 479,
+            "folded": " qa",
+            "trigram": " qa",
+            "classical": 397,
+            "folded_classical": 397,
+            "folded_modern": 479
+        },
+        {
+            "modern": 0,
+            "folded": " q'",
+            "trigram": " q’",
+            "classical": 656,
+            "folded_classical": 661,
+            "folded_modern": 450
+        },
+        {
+            "modern": 307,
+            "folded": " ra",
+            "trigram": " ra",
+            "classical": 217,
+            "folded_classical": 217,
+            "folded_modern": 307
+        },
+        {
+            "modern": 1047,
+            "folded": " re",
+            "trigram": " re",
+            "classical": 531,
+            "folded_classical": 531,
+            "folded_modern": 1047
+        },
+        {
+            "modern": 7987,
+            "folded": " ri",
+            "trigram": " ri",
+            "classical": 3555,
+            "folded_classical": 3555,
+            "folded_modern": 7987
+        },
+        {
+            "modern": 263,
+            "folded": " ro",
+            "trigram": " ro",
+            "classical": 187,
+            "folded_classical": 187,
+            "folded_modern": 263
+        },
+        {
+            "modern": 3013,
+            "folded": " ru",
+            "trigram": " ru",
+            "classical": 1359,
+            "folded_classical": 1359,
+            "folded_modern": 3013
+        },
+        {
+            "modern": 632,
+            "folded": " sa",
+            "trigram": " sa",
+            "classical": 226,
+            "folded_classical": 226,
+            "folded_modern": 632
+        },
+        {
+            "modern": 1729,
+            "folded": " ta",
+            "trigram": " ta",
+            "classical": 383,
+            "folded_classical": 383,
+            "folded_modern": 1729
+        },
+        {
+            "modern": 455,
+            "folded": " ti",
+            "trigram": " ti",
+            "classical": 242,
+            "folded_classical": 242,
+            "folded_modern": 455
+        },
+        {
+            "modern": 382,
+            "folded": " to",
+            "trigram": " to",
+            "classical": 133,
+            "folded_classical": 133,
+            "folded_modern": 382
+        },
+        {
+            "modern": 35,
+            "folded": " tu",
+            "trigram": " tu",
+            "classical": 160,
+            "folded_classical": 160,
+            "folded_modern": 35
+        },
+        {
+            "modern": 583,
+            "folded": " tz",
+            "trigram": " tz",
+            "classical": 226,
+            "folded_classical": 226,
+            "folded_modern": 583
+        },
+        {
+            "modern": 9,
+            "folded": " tö",
+            "trigram": " tö",
+            "classical": 185,
+            "folded_classical": 185,
+            "folded_modern": 9
+        },
+        {
+            "modern": 253,
+            "folded": " wa",
+            "trigram": " wa",
+            "classical": 179,
+            "folded_classical": 179,
+            "folded_modern": 253
+        },
+        {
+            "modern": 936,
+            "folded": " wi",
+            "trigram": " wi",
+            "classical": 492,
+            "folded_classical": 492,
+            "folded_modern": 936
+        },
+        {
+            "modern": 391,
+            "folded": " xa",
+            "trigram": " xa",
+            "classical": 243,
+            "folded_classical": 243,
+            "folded_modern": 391
+        },
+        {
+            "modern": 401,
+            "folded": " xe",
+            "trigram": " xe",
+            "classical": 922,
+            "folded_classical": 922,
+            "folded_modern": 401
+        },
+        {
+            "modern": 413,
+            "folded": " xk",
+            "trigram": " xk",
+            "classical": 580,
+            "folded_classical": 580,
+            "folded_modern": 413
+        },
+        {
+            "modern": 48,
+            "folded": " xo",
+            "trigram": " xo",
+            "classical": 214,
+            "folded_classical": 214,
+            "folded_modern": 48
+        },
+        {
+            "modern": 460,
+            "folded": " xt",
+            "trigram": " xt",
+            "classical": 214,
+            "folded_classical": 214,
+            "folded_modern": 460
+        },
+        {
+            "modern": 514,
+            "folded": " xu",
+            "trigram": " xu",
+            "classical": 228,
+            "folded_classical": 228,
+            "folded_modern": 514
+        },
+        {
+            "modern": 377,
+            "folded": " ya",
+            "trigram": " ya",
+            "classical": 104,
+            "folded_classical": 104,
+            "folded_modern": 377
+        },
+        {
+            "modern": 539,
+            "folded": " ye",
+            "trigram": " ye",
+            "classical": 45,
+            "folded_classical": 45,
+            "folded_modern": 539
+        },
+        {
+            "modern": 591,
+            "folded": "' c",
+            "trigram": "' c",
+            "classical": 2,
+            "folded_classical": 404,
+            "folded_modern": 591
+        },
+        {
+            "modern": 327,
+            "folded": "' j",
+            "trigram": "' j",
+            "classical": 0,
+            "folded_classical": 184,
+            "folded_modern": 327
+        },
+        {
+            "modern": 568,
+            "folded": "' k",
+            "trigram": "' k",
+            "classical": 2,
+            "folded_classical": 460,
+            "folded_modern": 568
+        },
+        {
+            "modern": 492,
+            "folded": "' n",
+            "trigram": "' n",
+            "classical": 0,
+            "folded_classical": 115,
+            "folded_modern": 492
+        },
+        {
+            "modern": 285,
+            "folded": "' p",
+            "trigram": "' p",
+            "classical": 0,
+            "folded_classical": 159,
+            "folded_modern": 285
+        },
+        {
+            "modern": 1859,
+            "folded": "' r",
+            "trigram": "' r",
+            "classical": 9,
+            "folded_classical": 694,
+            "folded_modern": 1859
+        },
+        {
+            "modern": 369,
+            "folded": "' t",
+            "trigram": "' t",
+            "classical": 3,
+            "folded_classical": 165,
+            "folded_modern": 369
+        },
+        {
+            "modern": 507,
+            "folded": "' x",
+            "trigram": "' x",
+            "classical": 5,
+            "folded_classical": 616,
+            "folded_modern": 507
+        },
+        {
+            "modern": 617,
+            "folded": "'a ",
+            "trigram": "'a ",
+            "classical": 21,
+            "folded_classical": 664,
+            "folded_modern": 617
+        },
+        {
+            "modern": 483,
+            "folded": "'a'",
+            "trigram": "'a'",
+            "classical": 3,
+            "folded_classical": 310,
+            "folded_modern": 483
+        },
+        {
+            "modern": 442,
+            "folded": "'al",
+            "trigram": "'al",
+            "classical": 12,
+            "folded_classical": 526,
+            "folded_modern": 442
+        },
+        {
+            "modern": 648,
+            "folded": "'an",
+            "trigram": "'an",
+            "classical": 2,
+            "folded_classical": 309,
+            "folded_modern": 648
+        },
+        {
+            "modern": 356,
+            "folded": "'as",
+            "trigram": "'as",
+            "classical": 1,
+            "folded_classical": 16,
+            "folded_modern": 356
+        },
+        {
+            "modern": 310,
+            "folded": "'at",
+            "trigram": "'at",
+            "classical": 0,
+            "folded_classical": 162,
+            "folded_modern": 310
+        },
+        {
+            "modern": 504,
+            "folded": "'ey",
+            "trigram": "'ey",
+            "classical": 5,
+            "folded_classical": 143,
+            "folded_modern": 504
+        },
+        {
+            "modern": 898,
+            "folded": "'ij",
+            "trigram": "'ij",
+            "classical": 4,
+            "folded_classical": 505,
+            "folded_modern": 898
+        },
+        {
+            "modern": 517,
+            "folded": "'in",
+            "trigram": "'in",
+            "classical": 2,
+            "folded_classical": 297,
+            "folded_modern": 517
+        },
+        {
+            "modern": 846,
+            "folded": "'o ",
+            "trigram": "'o ",
+            "classical": 1,
+            "folded_classical": 124,
+            "folded_modern": 846
+        },
+        {
+            "modern": 549,
+            "folded": "'oj",
+            "trigram": "'oj",
+            "classical": 1,
+            "folded_classical": 231,
+            "folded_modern": 549
+        },
+        {
+            "modern": 274,
+            "folded": "'on",
+            "trigram": "'on",
+            "classical": 0,
+            "folded_classical": 53,
+            "folded_modern": 274
+        },
+        {
+            "modern": 278,
+            "folded": "'ul",
+            "trigram": "'ul",
+            "classical": 0,
+            "folded_classical": 104,
+            "folded_modern": 278
+        },
+        {
+            "modern": 569,
+            "folded": "'äl",
+            "trigram": "'äl",
+            "classical": 2,
+            "folded_classical": 81,
+            "folded_modern": 569
+        },
+        {
+            "modern": 514,
+            "folded": "'än",
+            "trigram": "'än",
+            "classical": 0,
+            "folded_classical": 107,
+            "folded_modern": 514
+        },
+        {
+            "modern": 0,
+            "folded": ", c",
+            "trigram": ", c",
+            "classical": 161,
+            "folded_classical": 161,
+            "folded_modern": 0
+        },
+        {
+            "modern": 0,
+            "folded": ", k",
+            "trigram": ", k",
+            "classical": 261,
+            "folded_classical": 261,
+            "folded_modern": 0
+        },
+        {
+            "modern": 0,
+            "folded": ", r",
+            "trigram": ", r",
+            "classical": 458,
+            "folded_classical": 458,
+            "folded_modern": 0
+        },
+        {
+            "modern": 0,
+            "folded": ", x",
+            "trigram": ", x",
+            "classical": 526,
+            "folded_classical": 526,
+            "folded_modern": 0
+        },
+        {
+            "modern": 340,
+            "folded": "^ac",
+            "trigram": "^ac",
+            "classical": 10,
+            "folded_classical": 10,
+            "folded_modern": 340
+        },
+        {
+            "modern": 240,
+            "folded": "^ch",
+            "trigram": "^ch",
+            "classical": 343,
+            "folded_classical": 343,
+            "folded_modern": 240
+        },
+        {
+            "modern": 132,
+            "folded": "^ja",
+            "trigram": "^ja",
+            "classical": 213,
+            "folded_classical": 213,
+            "folded_modern": 132
+        },
+        {
+            "modern": 0,
+            "folded": "^k'",
+            "trigram": "^k’",
+            "classical": 251,
+            "folded_classical": 255,
+            "folded_modern": 114
+        },
+        {
+            "modern": 66,
+            "folded": "^ma",
+            "trigram": "^ma",
+            "classical": 160,
+            "folded_classical": 160,
+            "folded_modern": 66
+        },
+        {
+            "modern": 666,
+            "folded": "^ri",
+            "trigram": "^ri",
+            "classical": 211,
+            "folded_classical": 211,
+            "folded_modern": 666
+        },
+        {
+            "modern": 38,
+            "folded": "^xa",
+            "trigram": "^xa",
+            "classical": 193,
+            "folded_classical": 193,
+            "folded_modern": 38
+        },
+        {
+            "modern": 17,
+            "folded": "^xe",
+            "trigram": "^xe",
+            "classical": 233,
+            "folded_classical": 233,
+            "folded_modern": 17
+        },
+        {
+            "modern": 469,
+            "folded": "a c",
+            "trigram": "a c",
+            "classical": 191,
+            "folded_classical": 191,
+            "folded_modern": 469
+        },
+        {
+            "modern": 313,
+            "folded": "a j",
+            "trigram": "a j",
+            "classical": 97,
+            "folded_classical": 97,
+            "folded_modern": 313
+        },
+        {
+            "modern": 528,
+            "folded": "a k",
+            "trigram": "a k",
+            "classical": 256,
+            "folded_classical": 256,
+            "folded_modern": 528
+        },
+        {
+            "modern": 327,
+            "folded": "a n",
+            "trigram": "a n",
+            "classical": 84,
+            "folded_classical": 84,
+            "folded_modern": 327
+        },
+        {
+            "modern": 1633,
+            "folded": "a r",
+            "trigram": "a r",
+            "classical": 849,
+            "folded_classical": 849,
+            "folded_modern": 1633
+        },
+        {
+            "modern": 248,
+            "folded": "a t",
+            "trigram": "a t",
+            "classical": 164,
+            "folded_classical": 164,
+            "folded_modern": 248
+        },
+        {
+            "modern": 331,
+            "folded": "a x",
+            "trigram": "a x",
+            "classical": 244,
+            "folded_classical": 244,
+            "folded_modern": 331
+        },
+        {
+            "modern": 2994,
+            "folded": "a' ",
+            "trigram": "a' ",
+            "classical": 11,
+            "folded_classical": 1146,
+            "folded_modern": 2994
+        },
+        {
+            "modern": 419,
+            "folded": "a'o",
+            "trigram": "a'o",
+            "classical": 1,
+            "folded_classical": 108,
+            "folded_modern": 419
+        },
+        {
+            "modern": 761,
+            "folded": "ab'",
+            "trigram": "ab'",
+            "classical": 11,
+            "folded_classical": 596,
+            "folded_modern": 761
+        },
+        {
+            "modern": 0,
+            "folded": "ab'",
+            "trigram": "ab’",
+            "classical": 585,
+            "folded_classical": 596,
+            "folded_modern": 761
+        },
+        {
+            "modern": 1347,
+            "folded": "ach",
+            "trigram": "ach",
+            "classical": 397,
+            "folded_classical": 397,
+            "folded_modern": 1347
+        },
+        {
+            "modern": 1240,
+            "folded": "aj ",
+            "trigram": "aj ",
+            "classical": 626,
+            "folded_classical": 626,
+            "folded_modern": 1240
+        },
+        {
+            "modern": 144,
+            "folded": "aja",
+            "trigram": "aja",
+            "classical": 674,
+            "folded_classical": 674,
+            "folded_modern": 144
+        },
+        {
+            "modern": 348,
+            "folded": "aji",
+            "trigram": "aji",
+            "classical": 284,
+            "folded_classical": 284,
+            "folded_modern": 348
+        },
+        {
+            "modern": 325,
+            "folded": "ajo",
+            "trigram": "ajo",
+            "classical": 335,
+            "folded_classical": 335,
+            "folded_modern": 325
+        },
+        {
+            "modern": 230,
+            "folded": "aju",
+            "trigram": "aju",
+            "classical": 249,
+            "folded_classical": 249,
+            "folded_modern": 230
+        },
+        {
+            "modern": 289,
+            "folded": "ak'",
+            "trigram": "ak'",
+            "classical": 0,
+            "folded_classical": 149,
+            "folded_modern": 289
+        },
+        {
+            "modern": 952,
+            "folded": "al ",
+            "trigram": "al ",
+            "classical": 369,
+            "folded_classical": 369,
+            "folded_modern": 952
+        },
+        {
+            "modern": 121,
+            "folded": "al$",
+            "trigram": "al$",
+            "classical": 159,
+            "folded_classical": 159,
+            "folded_modern": 121
+        },
+        {
+            "modern": 0,
+            "folded": "al,",
+            "trigram": "al,",
+            "classical": 173,
+            "folded_classical": 173,
+            "folded_modern": 0
+        },
+        {
+            "modern": 409,
+            "folded": "ala",
+            "trigram": "ala",
+            "classical": 156,
+            "folded_classical": 156,
+            "folded_modern": 409
+        },
+        {
+            "modern": 331,
+            "folded": "am ",
+            "trigram": "am ",
+            "classical": 264,
+            "folded_classical": 264,
+            "folded_modern": 331
+        },
+        {
+            "modern": 1115,
+            "folded": "ama",
+            "trigram": "ama",
+            "classical": 471,
+            "folded_classical": 471,
+            "folded_modern": 1115
+        },
+        {
+            "modern": 140,
+            "folded": "amï",
+            "trigram": "amï",
+            "classical": 173,
+            "folded_classical": 173,
+            "folded_modern": 140
+        },
+        {
+            "modern": 1548,
+            "folded": "an ",
+            "trigram": "an ",
+            "classical": 900,
+            "folded_classical": 900,
+            "folded_modern": 1548
+        },
+        {
+            "modern": 226,
+            "folded": "ana",
+            "trigram": "ana",
+            "classical": 168,
+            "folded_classical": 168,
+            "folded_modern": 226
+        },
+        {
+            "modern": 513,
+            "folded": "ani",
+            "trigram": "ani",
+            "classical": 213,
+            "folded_classical": 213,
+            "folded_modern": 513
+        },
+        {
+            "modern": 200,
+            "folded": "apo",
+            "trigram": "apo",
+            "classical": 234,
+            "folded_classical": 234,
+            "folded_modern": 200
+        },
+        {
+            "modern": 680,
+            "folded": "aq ",
+            "trigram": "aq ",
+            "classical": 185,
+            "folded_classical": 185,
+            "folded_modern": 680
+        },
+        {
+            "modern": 394,
+            "folded": "aq'",
+            "trigram": "aq'",
+            "classical": 9,
+            "folded_classical": 401,
+            "folded_modern": 394
+        },
+        {
+            "modern": 276,
+            "folded": "aqa",
+            "trigram": "aqa",
+            "classical": 70,
+            "folded_classical": 70,
+            "folded_modern": 276
+        },
+        {
+            "modern": 330,
+            "folded": "aqi",
+            "trigram": "aqi",
+            "classical": 193,
+            "folded_classical": 193,
+            "folded_modern": 330
+        },
+        {
+            "modern": 0,
+            "folded": "aq'",
+            "trigram": "aq’",
+            "classical": 392,
+            "folded_classical": 401,
+            "folded_modern": 394
+        },
+        {
+            "modern": 279,
+            "folded": "ata",
+            "trigram": "ata",
+            "classical": 233,
+            "folded_classical": 233,
+            "folded_modern": 279
+        },
+        {
+            "modern": 276,
+            "folded": "atz",
+            "trigram": "atz",
+            "classical": 112,
+            "folded_classical": 112,
+            "folded_modern": 276
+        },
+        {
+            "modern": 30,
+            "folded": "aw ",
+            "trigram": "aw ",
+            "classical": 260,
+            "folded_classical": 260,
+            "folded_modern": 30
+        },
+        {
+            "modern": 126,
+            "folded": "awa",
+            "trigram": "awa",
+            "classical": 270,
+            "folded_classical": 270,
+            "folded_modern": 126
+        },
+        {
+            "modern": 93,
+            "folded": "ay ",
+            "trigram": "ay ",
+            "classical": 181,
+            "folded_classical": 181,
+            "folded_modern": 93
+        },
+        {
+            "modern": 0,
+            "folded": "a' ",
+            "trigram": "a’ ",
+            "classical": 1135,
+            "folded_classical": 1146,
+            "folded_modern": 2994
+        },
+        {
+            "modern": 0,
+            "folded": "a'$",
+            "trigram": "a’$",
+            "classical": 307,
+            "folded_classical": 310,
+            "folded_modern": 155
+        },
+        {
+            "modern": 0,
+            "folded": "a',",
+            "trigram": "a’,",
+            "classical": 249,
+            "folded_classical": 255,
+            "folded_modern": 0
+        },
+        {
+            "modern": 0,
+            "folded": "a'i",
+            "trigram": "a’i",
+            "classical": 171,
+            "folded_classical": 171,
+            "folded_modern": 214
+        },
+        {
+            "modern": 1124,
+            "folded": "b'a",
+            "trigram": "b'a",
+            "classical": 8,
+            "folded_classical": 817,
+            "folded_modern": 1124
+        },
+        {
+            "modern": 843,
+            "folded": "b'e",
+            "trigram": "b'e",
+            "classical": 6,
+            "folded_classical": 440,
+            "folded_modern": 843
+        },
+        {
+            "modern": 711,
+            "folded": "b'i",
+            "trigram": "b'i",
+            "classical": 2,
+            "folded_classical": 309,
+            "folded_modern": 711
+        },
+        {
+            "modern": 1125,
+            "folded": "b'ä",
+            "trigram": "b'ä",
+            "classical": 5,
+            "folded_classical": 208,
+            "folded_modern": 1125
+        },
+        {
+            "modern": 0,
+            "folded": "b'a",
+            "trigram": "b’a",
+            "classical": 809,
+            "folded_classical": 817,
+            "folded_modern": 1124
+        },
+        {
+            "modern": 0,
+            "folded": "b'e",
+            "trigram": "b’e",
+            "classical": 434,
+            "folded_classical": 440,
+            "folded_modern": 843
+        },
+        {
+            "modern": 0,
+            "folded": "b'i",
+            "trigram": "b’i",
+            "classical": 307,
+            "folded_classical": 309,
+            "folded_modern": 711
+        },
+        {
+            "modern": 0,
+            "folded": "b'ä",
+            "trigram": "b’ä",
+            "classical": 203,
+            "folded_classical": 208,
+            "folded_modern": 1125
+        },
+        {
+            "modern": 527,
+            "folded": "ch ",
+            "trigram": "ch ",
+            "classical": 189,
+            "folded_classical": 189,
+            "folded_modern": 527
+        },
+        {
+            "modern": 898,
+            "folded": "ch'",
+            "trigram": "ch'",
+            "classical": 5,
+            "folded_classical": 415,
+            "folded_modern": 898
+        },
+        {
+            "modern": 407,
+            "folded": "cha",
+            "trigram": "cha",
+            "classical": 317,
+            "folded_classical": 317,
+            "folded_modern": 407
+        },
+        {
+            "modern": 58,
+            "folded": "che",
+            "trigram": "che",
+            "classical": 282,
+            "folded_classical": 282,
+            "folded_modern": 58
+        },
+        {
+            "modern": 4455,
+            "folded": "chi",
+            "trigram": "chi",
+            "classical": 1970,
+            "folded_classical": 1970,
+            "folded_modern": 4455
+        },
+        {
+            "modern": 283,
+            "folded": "cho",
+            "trigram": "cho",
+            "classical": 111,
+            "folded_classical": 111,
+            "folded_modern": 283
+        },
+        {
+            "modern": 1,
+            "folded": "chr",
+            "trigram": "chr",
+            "classical": 174,
+            "folded_classical": 174,
+            "folded_modern": 1
+        },
+        {
+            "modern": 1520,
+            "folded": "chu",
+            "trigram": "chu",
+            "classical": 444,
+            "folded_classical": 444,
+            "folded_modern": 1520
+        },
+        {
+            "modern": 50,
+            "folded": "chï",
+            "trigram": "chï",
+            "classical": 328,
+            "folded_classical": 328,
+            "folded_modern": 50
+        },
+        {
+            "modern": 0,
+            "folded": "ch'",
+            "trigram": "ch’",
+            "classical": 410,
+            "folded_classical": 415,
+            "folded_modern": 898
+        },
+        {
+            "modern": 437,
+            "folded": "e k",
+            "trigram": "e k",
+            "classical": 137,
+            "folded_classical": 137,
+            "folded_modern": 437
+        },
+        {
+            "modern": 950,
+            "folded": "e r",
+            "trigram": "e r",
+            "classical": 413,
+            "folded_classical": 413,
+            "folded_modern": 950
+        },
+        {
+            "modern": 816,
+            "folded": "e' ",
+            "trigram": "e' ",
+            "classical": 9,
+            "folded_classical": 880,
+            "folded_modern": 816
+        },
+        {
+            "modern": 1222,
+            "folded": "el ",
+            "trigram": "el ",
+            "classical": 552,
+            "folded_classical": 552,
+            "folded_modern": 1222
+        },
+        {
+            "modern": 511,
+            "folded": "em ",
+            "trigram": "em ",
+            "classical": 56,
+            "folded_classical": 56,
+            "folded_modern": 511
+        },
+        {
+            "modern": 321,
+            "folded": "eta",
+            "trigram": "eta",
+            "classical": 103,
+            "folded_classical": 103,
+            "folded_modern": 321
+        },
+        {
+            "modern": 327,
+            "folded": "ey ",
+            "trigram": "ey ",
+            "classical": 122,
+            "folded_classical": 122,
+            "folded_modern": 327
+        },
+        {
+            "modern": 0,
+            "folded": "e' ",
+            "trigram": "e’ ",
+            "classical": 871,
+            "folded_classical": 880,
+            "folded_modern": 816
+        },
+        {
+            "modern": 301,
+            "folded": "h r",
+            "trigram": "h r",
+            "classical": 74,
+            "folded_classical": 74,
+            "folded_modern": 301
+        },
+        {
+            "modern": 385,
+            "folded": "h'a",
+            "trigram": "h'a",
+            "classical": 2,
+            "folded_classical": 252,
+            "folded_modern": 385
+        },
+        {
+            "modern": 0,
+            "folded": "ha'",
+            "trigram": "ha’",
+            "classical": 188,
+            "folded_classical": 189,
+            "folded_modern": 130
+        },
+        {
+            "modern": 0,
+            "folded": "he'",
+            "trigram": "he’",
+            "classical": 263,
+            "folded_classical": 267,
+            "folded_modern": 34
+        },
+        {
+            "modern": 2250,
+            "folded": "hi ",
+            "trigram": "hi ",
+            "classical": 1206,
+            "folded_classical": 1206,
+            "folded_modern": 2250
+        },
+        {
+            "modern": 307,
+            "folded": "hi'",
+            "trigram": "hi'",
+            "classical": 1,
+            "folded_classical": 148,
+            "folded_modern": 307
+        },
+        {
+            "modern": 1010,
+            "folded": "hik",
+            "trigram": "hik",
+            "classical": 134,
+            "folded_classical": 134,
+            "folded_modern": 1010
+        },
+        {
+            "modern": 703,
+            "folded": "hin",
+            "trigram": "hin",
+            "classical": 390,
+            "folded_classical": 390,
+            "folded_modern": 703
+        },
+        {
+            "modern": 0,
+            "folded": "hri",
+            "trigram": "hri",
+            "classical": 170,
+            "folded_classical": 170,
+            "folded_modern": 0
+        },
+        {
+            "modern": 265,
+            "folded": "hup",
+            "trigram": "hup",
+            "classical": 192,
+            "folded_classical": 192,
+            "folded_modern": 265
+        },
+        {
+            "modern": 1061,
+            "folded": "huq",
+            "trigram": "huq",
+            "classical": 82,
+            "folded_classical": 82,
+            "folded_modern": 1061
+        },
+        {
+            "modern": 49,
+            "folded": "hïk",
+            "trigram": "hïk",
+            "classical": 327,
+            "folded_classical": 327,
+            "folded_modern": 49
+        },
+        {
+            "modern": 0,
+            "folded": "h'a",
+            "trigram": "h’a",
+            "classical": 250,
+            "folded_classical": 252,
+            "folded_modern": 385
+        },
+        {
+            "modern": 461,
+            "folded": "i a",
+            "trigram": "i a",
+            "classical": 657,
+            "folded_classical": 657,
+            "folded_modern": 461
+        },
+        {
+            "modern": 279,
+            "folded": "i c",
+            "trigram": "i c",
+            "classical": 159,
+            "folded_classical": 159,
+            "folded_modern": 279
+        },
+        {
+            "modern": 187,
+            "folded": "i i",
+            "trigram": "i i",
+            "classical": 233,
+            "folded_classical": 233,
+            "folded_modern": 187
+        },
+        {
+            "modern": 762,
+            "folded": "i j",
+            "trigram": "i j",
+            "classical": 150,
+            "folded_classical": 150,
+            "folded_modern": 762
+        },
+        {
+            "modern": 1262,
+            "folded": "i k",
+            "trigram": "i k",
+            "classical": 731,
+            "folded_classical": 731,
+            "folded_modern": 1262
+        },
+        {
+            "modern": 365,
+            "folded": "i m",
+            "trigram": "i m",
+            "classical": 35,
+            "folded_classical": 35,
+            "folded_modern": 365
+        },
+        {
+            "modern": 822,
+            "folded": "i n",
+            "trigram": "i n",
+            "classical": 130,
+            "folded_classical": 130,
+            "folded_modern": 822
+        },
+        {
+            "modern": 383,
+            "folded": "i q",
+            "trigram": "i q",
+            "classical": 354,
+            "folded_classical": 354,
+            "folded_modern": 383
+        },
+        {
+            "modern": 1862,
+            "folded": "i r",
+            "trigram": "i r",
+            "classical": 770,
+            "folded_classical": 770,
+            "folded_modern": 1862
+        },
+        {
+            "modern": 331,
+            "folded": "i s",
+            "trigram": "i s",
+            "classical": 79,
+            "folded_classical": 79,
+            "folded_modern": 331
+        },
+        {
+            "modern": 576,
+            "folded": "i t",
+            "trigram": "i t",
+            "classical": 240,
+            "folded_classical": 240,
+            "folded_modern": 576
+        },
+        {
+            "modern": 433,
+            "folded": "i w",
+            "trigram": "i w",
+            "classical": 111,
+            "folded_classical": 111,
+            "folded_modern": 433
+        },
+        {
+            "modern": 359,
+            "folded": "i x",
+            "trigram": "i x",
+            "classical": 213,
+            "folded_classical": 213,
+            "folded_modern": 359
+        },
+        {
+            "modern": 1628,
+            "folded": "i' ",
+            "trigram": "i' ",
+            "classical": 5,
+            "folded_classical": 1026,
+            "folded_modern": 1628
+        },
+        {
+            "modern": 818,
+            "folded": "ib'",
+            "trigram": "ib'",
+            "classical": 5,
+            "folded_classical": 353,
+            "folded_modern": 818
+        },
+        {
+            "modern": 0,
+            "folded": "ib'",
+            "trigram": "ib’",
+            "classical": 348,
+            "folded_classical": 353,
+            "folded_modern": 818
+        },
+        {
+            "modern": 804,
+            "folded": "ich",
+            "trigram": "ich",
+            "classical": 545,
+            "folded_classical": 545,
+            "folded_modern": 804
+        },
+        {
+            "modern": 1711,
+            "folded": "ij ",
+            "trigram": "ij ",
+            "classical": 871,
+            "folded_classical": 871,
+            "folded_modern": 1711
+        },
+        {
+            "modern": 228,
+            "folded": "ija",
+            "trigram": "ija",
+            "classical": 177,
+            "folded_classical": 177,
+            "folded_modern": 228
+        },
+        {
+            "modern": 438,
+            "folded": "ijo",
+            "trigram": "ijo",
+            "classical": 48,
+            "folded_classical": 48,
+            "folded_modern": 438
+        },
+        {
+            "modern": 882,
+            "folded": "ik ",
+            "trigram": "ik ",
+            "classical": 125,
+            "folded_classical": 125,
+            "folded_modern": 882
+        },
+        {
+            "modern": 978,
+            "folded": "ik'",
+            "trigram": "ik'",
+            "classical": 4,
+            "folded_classical": 454,
+            "folded_modern": 978
+        },
+        {
+            "modern": 593,
+            "folded": "ike",
+            "trigram": "ike",
+            "classical": 120,
+            "folded_classical": 120,
+            "folded_modern": 593
+        },
+        {
+            "modern": 329,
+            "folded": "iki",
+            "trigram": "iki",
+            "classical": 78,
+            "folded_classical": 78,
+            "folded_modern": 329
+        },
+        {
+            "modern": 0,
+            "folded": "ik'",
+            "trigram": "ik’",
+            "classical": 450,
+            "folded_classical": 454,
+            "folded_modern": 978
+        },
+        {
+            "modern": 406,
+            "folded": "il ",
+            "trigram": "il ",
+            "classical": 132,
+            "folded_classical": 132,
+            "folded_modern": 406
+        },
+        {
+            "modern": 314,
+            "folded": "ima",
+            "trigram": "ima",
+            "classical": 203,
+            "folded_classical": 203,
+            "folded_modern": 314
+        },
+        {
+            "modern": 1465,
+            "folded": "in ",
+            "trigram": "in ",
+            "classical": 648,
+            "folded_classical": 648,
+            "folded_modern": 1465
+        },
+        {
+            "modern": 550,
+            "folded": "ina",
+            "trigram": "ina",
+            "classical": 377,
+            "folded_classical": 377,
+            "folded_modern": 550
+        },
+        {
+            "modern": 459,
+            "folded": "inä",
+            "trigram": "inä",
+            "classical": 321,
+            "folded_classical": 321,
+            "folded_modern": 459
+        },
+        {
+            "modern": 306,
+            "folded": "isa",
+            "trigram": "isa",
+            "classical": 118,
+            "folded_classical": 118,
+            "folded_modern": 306
+        },
+        {
+            "modern": 314,
+            "folded": "itz",
+            "trigram": "itz",
+            "classical": 303,
+            "folded_classical": 303,
+            "folded_modern": 314
+        },
+        {
+            "modern": 0,
+            "folded": "i' ",
+            "trigram": "i’ ",
+            "classical": 1021,
+            "folded_classical": 1026,
+            "folded_modern": 1628
+        },
+        {
+            "modern": 0,
+            "folded": "i'$",
+            "trigram": "i’$",
+            "classical": 205,
+            "folded_classical": 205,
+            "folded_modern": 163
+        },
+        {
+            "modern": 739,
+            "folded": "j c",
+            "trigram": "j c",
+            "classical": 233,
+            "folded_classical": 233,
+            "folded_modern": 739
+        },
+        {
+            "modern": 360,
+            "folded": "j k",
+            "trigram": "j k",
+            "classical": 284,
+            "folded_classical": 284,
+            "folded_modern": 360
+        },
+        {
+            "modern": 278,
+            "folded": "j n",
+            "trigram": "j n",
+            "classical": 57,
+            "folded_classical": 57,
+            "folded_modern": 278
+        },
+        {
+            "modern": 305,
+            "folded": "j p",
+            "trigram": "j p",
+            "classical": 63,
+            "folded_classical": 63,
+            "folded_modern": 305
+        },
+        {
+            "modern": 1496,
+            "folded": "j r",
+            "trigram": "j r",
+            "classical": 626,
+            "folded_classical": 626,
+            "folded_modern": 1496
+        },
+        {
+            "modern": 352,
+            "folded": "j t",
+            "trigram": "j t",
+            "classical": 170,
+            "folded_classical": 170,
+            "folded_modern": 352
+        },
+        {
+            "modern": 172,
+            "folded": "j x",
+            "trigram": "j x",
+            "classical": 217,
+            "folded_classical": 217,
+            "folded_modern": 172
+        },
+        {
+            "modern": 0,
+            "folded": "j, ",
+            "trigram": "j, ",
+            "classical": 265,
+            "folded_classical": 265,
+            "folded_modern": 0
+        },
+        {
+            "modern": 446,
+            "folded": "ja ",
+            "trigram": "ja ",
+            "classical": 330,
+            "folded_classical": 330,
+            "folded_modern": 446
+        },
+        {
+            "modern": 68,
+            "folded": "jaw",
+            "trigram": "jaw",
+            "classical": 558,
+            "folded_classical": 558,
+            "folded_modern": 68
+        },
+        {
+            "modern": 90,
+            "folded": "jay",
+            "trigram": "jay",
+            "classical": 168,
+            "folded_classical": 168,
+            "folded_modern": 90
+        },
+        {
+            "modern": 405,
+            "folded": "jel",
+            "trigram": "jel",
+            "classical": 217,
+            "folded_classical": 217,
+            "folded_modern": 405
+        },
+        {
+            "modern": 0,
+            "folded": "je'",
+            "trigram": "je’",
+            "classical": 254,
+            "folded_classical": 256,
+            "folded_modern": 183
+        },
+        {
+            "modern": 133,
+            "folded": "jil",
+            "trigram": "jil",
+            "classical": 164,
+            "folded_classical": 164,
+            "folded_modern": 133
+        },
+        {
+            "modern": 174,
+            "folded": "jol",
+            "trigram": "jol",
+            "classical": 265,
+            "folded_classical": 265,
+            "folded_modern": 174
+        },
+        {
+            "modern": 127,
+            "folded": "juj",
+            "trigram": "juj",
+            "classical": 331,
+            "folded_classical": 331,
+            "folded_modern": 127
+        },
+        {
+            "modern": 1498,
+            "folded": "jun",
+            "trigram": "jun",
+            "classical": 604,
+            "folded_classical": 604,
+            "folded_modern": 1498
+        },
+        {
+            "modern": 433,
+            "folded": "k r",
+            "trigram": "k r",
+            "classical": 172,
+            "folded_classical": 172,
+            "folded_modern": 433
+        },
+        {
+            "modern": 1621,
+            "folded": "k'a",
+            "trigram": "k'a",
+            "classical": 26,
+            "folded_classical": 1230,
+            "folded_modern": 1621
+        },
+        {
+            "modern": 712,
+            "folded": "k'i",
+            "trigram": "k'i",
+            "classical": 4,
+            "folded_classical": 424,
+            "folded_modern": 712
+        },
+        {
+            "modern": 1051,
+            "folded": "k'o",
+            "trigram": "k'o",
+            "classical": 2,
+            "folded_classical": 345,
+            "folded_modern": 1051
+        },
+        {
+            "modern": 456,
+            "folded": "k'u",
+            "trigram": "k'u",
+            "classical": 2,
+            "folded_classical": 187,
+            "folded_modern": 456
+        },
+        {
+            "modern": 167,
+            "folded": "kaj",
+            "trigram": "kaj",
+            "classical": 203,
+            "folded_classical": 203,
+            "folded_modern": 167
+        },
+        {
+            "modern": 445,
+            "folded": "kan",
+            "trigram": "kan",
+            "classical": 293,
+            "folded_classical": 293,
+            "folded_modern": 445
+        },
+        {
+            "modern": 0,
+            "folded": "ka'",
+            "trigram": "ka’",
+            "classical": 195,
+            "folded_classical": 195,
+            "folded_modern": 135
+        },
+        {
+            "modern": 951,
+            "folded": "ke ",
+            "trigram": "ke ",
+            "classical": 276,
+            "folded_classical": 276,
+            "folded_modern": 951
+        },
+        {
+            "modern": 304,
+            "folded": "kib",
+            "trigram": "kib",
+            "classical": 122,
+            "folded_classical": 122,
+            "folded_modern": 304
+        },
+        {
+            "modern": 442,
+            "folded": "kik",
+            "trigram": "kik",
+            "classical": 220,
+            "folded_classical": 220,
+            "folded_modern": 442
+        },
+        {
+            "modern": 174,
+            "folded": "kit",
+            "trigram": "kit",
+            "classical": 232,
+            "folded_classical": 232,
+            "folded_modern": 174
+        },
+        {
+            "modern": 0,
+            "folded": "k' ",
+            "trigram": "k’ ",
+            "classical": 181,
+            "folded_classical": 182,
+            "folded_modern": 133
+        },
+        {
+            "modern": 0,
+            "folded": "k'a",
+            "trigram": "k’a",
+            "classical": 1204,
+            "folded_classical": 1230,
+            "folded_modern": 1621
+        },
+        {
+            "modern": 0,
+            "folded": "k'i",
+            "trigram": "k’i",
+            "classical": 420,
+            "folded_classical": 424,
+            "folded_modern": 712
+        },
+        {
+            "modern": 0,
+            "folded": "k'o",
+            "trigram": "k’o",
+            "classical": 343,
+            "folded_classical": 345,
+            "folded_modern": 1051
+        },
+        {
+            "modern": 0,
+            "folded": "k'u",
+            "trigram": "k’u",
+            "classical": 185,
+            "folded_classical": 187,
+            "folded_modern": 456
+        },
+        {
+            "modern": 440,
+            "folded": "l c",
+            "trigram": "l c",
+            "classical": 174,
+            "folded_classical": 174,
+            "folded_modern": 440
+        },
+        {
+            "modern": 301,
+            "folded": "l k",
+            "trigram": "l k",
+            "classical": 135,
+            "folded_classical": 135,
+            "folded_modern": 301
+        },
+        {
+            "modern": 1079,
+            "folded": "l r",
+            "trigram": "l r",
+            "classical": 445,
+            "folded_classical": 445,
+            "folded_modern": 1079
+        },
+        {
+            "modern": 382,
+            "folded": "l t",
+            "trigram": "l t",
+            "classical": 63,
+            "folded_classical": 63,
+            "folded_modern": 382
+        },
+        {
+            "modern": 0,
+            "folded": "l, ",
+            "trigram": "l, ",
+            "classical": 375,
+            "folded_classical": 375,
+            "folded_modern": 0
+        },
+        {
+            "modern": 390,
+            "folded": "la'",
+            "trigram": "la'",
+            "classical": 1,
+            "folded_classical": 192,
+            "folded_modern": 390
+        },
+        {
+            "modern": 48,
+            "folded": "lab",
+            "trigram": "lab",
+            "classical": 219,
+            "folded_classical": 219,
+            "folded_modern": 48
+        },
+        {
+            "modern": 349,
+            "folded": "laj",
+            "trigram": "laj",
+            "classical": 390,
+            "folded_classical": 390,
+            "folded_modern": 349
+        },
+        {
+            "modern": 143,
+            "folded": "lan",
+            "trigram": "lan",
+            "classical": 196,
+            "folded_classical": 196,
+            "folded_modern": 143
+        },
+        {
+            "modern": 0,
+            "folded": "la'",
+            "trigram": "la’",
+            "classical": 191,
+            "folded_classical": 192,
+            "folded_modern": 390
+        },
+        {
+            "modern": 383,
+            "folded": "lem",
+            "trigram": "lem",
+            "classical": 16,
+            "folded_classical": 16,
+            "folded_modern": 383
+        },
+        {
+            "modern": 275,
+            "folded": "lew",
+            "trigram": "lew",
+            "classical": 25,
+            "folded_classical": 25,
+            "folded_modern": 275
+        },
+        {
+            "modern": 462,
+            "folded": "m r",
+            "trigram": "m r",
+            "classical": 249,
+            "folded_classical": 249,
+            "folded_modern": 462
+        },
+        {
+            "modern": 643,
+            "folded": "ma ",
+            "trigram": "ma ",
+            "classical": 278,
+            "folded_classical": 278,
+            "folded_modern": 643
+        },
+        {
+            "modern": 951,
+            "folded": "maj",
+            "trigram": "maj",
+            "classical": 174,
+            "folded_classical": 174,
+            "folded_modern": 951
+        },
+        {
+            "modern": 804,
+            "folded": "man",
+            "trigram": "man",
+            "classical": 343,
+            "folded_classical": 343,
+            "folded_modern": 804
+        },
+        {
+            "modern": 0,
+            "folded": "ma'",
+            "trigram": "ma’",
+            "classical": 180,
+            "folded_classical": 184,
+            "folded_modern": 99
+        },
+        {
+            "modern": 200,
+            "folded": "n a",
+            "trigram": "n a",
+            "classical": 165,
+            "folded_classical": 165,
+            "folded_modern": 200
+        },
+        {
+            "modern": 699,
+            "folded": "n c",
+            "trigram": "n c",
+            "classical": 263,
+            "folded_classical": 263,
+            "folded_modern": 699
+        },
+        {
+            "modern": 301,
+            "folded": "n j",
+            "trigram": "n j",
+            "classical": 155,
+            "folded_classical": 155,
+            "folded_modern": 301
+        },
+        {
+            "modern": 530,
+            "folded": "n k",
+            "trigram": "n k",
+            "classical": 201,
+            "folded_classical": 201,
+            "folded_modern": 530
+        },
+        {
+            "modern": 508,
+            "folded": "n n",
+            "trigram": "n n",
+            "classical": 74,
+            "folded_classical": 74,
+            "folded_modern": 508
+        },
+        {
+            "modern": 276,
+            "folded": "n p",
+            "trigram": "n p",
+            "classical": 106,
+            "folded_classical": 106,
+            "folded_modern": 276
+        },
+        {
+            "modern": 1281,
+            "folded": "n r",
+            "trigram": "n r",
+            "classical": 597,
+            "folded_classical": 597,
+            "folded_modern": 1281
+        },
+        {
+            "modern": 471,
+            "folded": "n t",
+            "trigram": "n t",
+            "classical": 192,
+            "folded_classical": 192,
+            "folded_modern": 471
+        },
+        {
+            "modern": 345,
+            "folded": "n x",
+            "trigram": "n x",
+            "classical": 234,
+            "folded_classical": 234,
+            "folded_modern": 345
+        },
+        {
+            "modern": 0,
+            "folded": "n, ",
+            "trigram": "n, ",
+            "classical": 213,
+            "folded_classical": 213,
+            "folded_modern": 0
+        },
+        {
+            "modern": 509,
+            "folded": "na'",
+            "trigram": "na'",
+            "classical": 1,
+            "folded_classical": 335,
+            "folded_modern": 509
+        },
+        {
+            "modern": 212,
+            "folded": "nam",
+            "trigram": "nam",
+            "classical": 189,
+            "folded_classical": 189,
+            "folded_modern": 212
+        },
+        {
+            "modern": 310,
+            "folded": "naq",
+            "trigram": "naq",
+            "classical": 90,
+            "folded_classical": 90,
+            "folded_modern": 310
+        },
+        {
+            "modern": 0,
+            "folded": "na'",
+            "trigram": "na’",
+            "classical": 334,
+            "folded_classical": 335,
+            "folded_modern": 509
+        },
+        {
+            "modern": 290,
+            "folded": "nel",
+            "trigram": "nel",
+            "classical": 41,
+            "folded_classical": 41,
+            "folded_modern": 290
+        },
+        {
+            "modern": 372,
+            "folded": "nik",
+            "trigram": "nik",
+            "classical": 77,
+            "folded_classical": 77,
+            "folded_modern": 372
+        },
+        {
+            "modern": 338,
+            "folded": "nim",
+            "trigram": "nim",
+            "classical": 195,
+            "folded_classical": 195,
+            "folded_modern": 338
+        },
+        {
+            "modern": 276,
+            "folded": "nki",
+            "trigram": "nki",
+            "classical": 57,
+            "folded_classical": 57,
+            "folded_modern": 276
+        },
+        {
+            "modern": 334,
+            "folded": "noj",
+            "trigram": "noj",
+            "classical": 195,
+            "folded_classical": 195,
+            "folded_modern": 334
+        },
+        {
+            "modern": 279,
+            "folded": "nqa",
+            "trigram": "nqa",
+            "classical": 8,
+            "folded_classical": 8,
+            "folded_modern": 279
+        },
+        {
+            "modern": 297,
+            "folded": "nub",
+            "trigram": "nub",
+            "classical": 7,
+            "folded_classical": 7,
+            "folded_modern": 297
+        },
+        {
+            "modern": 566,
+            "folded": "näq",
+            "trigram": "näq",
+            "classical": 388,
+            "folded_classical": 388,
+            "folded_modern": 566
+        },
+        {
+            "modern": 332,
+            "folded": "o c",
+            "trigram": "o c",
+            "classical": 101,
+            "folded_classical": 101,
+            "folded_modern": 332
+        },
+        {
+            "modern": 325,
+            "folded": "o' ",
+            "trigram": "o' ",
+            "classical": 0,
+            "folded_classical": 188,
+            "folded_modern": 325
+        },
+        {
+            "modern": 657,
+            "folded": "oj ",
+            "trigram": "oj ",
+            "classical": 122,
+            "folded_classical": 122,
+            "folded_modern": 657
+        },
+        {
+            "modern": 420,
+            "folded": "oje",
+            "trigram": "oje",
+            "classical": 356,
+            "folded_classical": 356,
+            "folded_modern": 420
+        },
+        {
+            "modern": 165,
+            "folded": "ol ",
+            "trigram": "ol ",
+            "classical": 162,
+            "folded_classical": 162,
+            "folded_modern": 165
+        },
+        {
+            "modern": 588,
+            "folded": "on ",
+            "trigram": "on ",
+            "classical": 347,
+            "folded_classical": 347,
+            "folded_modern": 588
+        },
+        {
+            "modern": 282,
+            "folded": "ono",
+            "trigram": "ono",
+            "classical": 184,
+            "folded_classical": 184,
+            "folded_modern": 282
+        },
+        {
+            "modern": 413,
+            "folded": "oq ",
+            "trigram": "oq ",
+            "classical": 7,
+            "folded_classical": 7,
+            "folded_modern": 413
+        },
+        {
+            "modern": 0,
+            "folded": "o' ",
+            "trigram": "o’ ",
+            "classical": 188,
+            "folded_classical": 188,
+            "folded_modern": 325
+        },
+        {
+            "modern": 1207,
+            "folded": "pa ",
+            "trigram": "pa ",
+            "classical": 395,
+            "folded_classical": 395,
+            "folded_modern": 1207
+        },
+        {
+            "modern": 291,
+            "folded": "pam",
+            "trigram": "pam",
+            "classical": 205,
+            "folded_classical": 205,
+            "folded_modern": 291
+        },
+        {
+            "modern": 378,
+            "folded": "pe ",
+            "trigram": "pe ",
+            "classical": 323,
+            "folded_classical": 323,
+            "folded_modern": 378
+        },
+        {
+            "modern": 309,
+            "folded": "q r",
+            "trigram": "q r",
+            "classical": 82,
+            "folded_classical": 82,
+            "folded_modern": 309
+        },
+        {
+            "modern": 183,
+            "folded": "q x",
+            "trigram": "q x",
+            "classical": 255,
+            "folded_classical": 255,
+            "folded_modern": 183
+        },
+        {
+            "modern": 662,
+            "folded": "q'a",
+            "trigram": "q'a",
+            "classical": 10,
+            "folded_classical": 523,
+            "folded_modern": 662
+        },
+        {
+            "modern": 426,
+            "folded": "q'i",
+            "trigram": "q'i",
+            "classical": 7,
+            "folded_classical": 483,
+            "folded_modern": 426
+        },
+        {
+            "modern": 291,
+            "folded": "q'o",
+            "trigram": "q'o",
+            "classical": 1,
+            "folded_classical": 56,
+            "folded_modern": 291
+        },
+        {
+            "modern": 986,
+            "folded": "qa'",
+            "trigram": "qa'",
+            "classical": 4,
+            "folded_classical": 111,
+            "folded_modern": 986
+        },
+        {
+            "modern": 285,
+            "folded": "qi'",
+            "trigram": "qi'",
+            "classical": 0,
+            "folded_classical": 181,
+            "folded_modern": 285
+        },
+        {
+            "modern": 0,
+            "folded": "qi'",
+            "trigram": "qi’",
+            "classical": 181,
+            "folded_classical": 181,
+            "folded_modern": 285
+        },
+        {
+            "modern": 0,
+            "folded": "q'a",
+            "trigram": "q’a",
+            "classical": 513,
+            "folded_classical": 523,
+            "folded_modern": 662
+        },
+        {
+            "modern": 0,
+            "folded": "q'i",
+            "trigram": "q’i",
+            "classical": 476,
+            "folded_classical": 483,
+            "folded_modern": 426
+        },
+        {
+            "modern": 535,
+            "folded": "re ",
+            "trigram": "re ",
+            "classical": 205,
+            "folded_classical": 205,
+            "folded_modern": 535
+        },
+        {
+            "modern": 405,
+            "folded": "re'",
+            "trigram": "re'",
+            "classical": 4,
+            "folded_classical": 343,
+            "folded_modern": 405
+        },
+        {
+            "modern": 0,
+            "folded": "re'",
+            "trigram": "re’",
+            "classical": 339,
+            "folded_classical": 343,
+            "folded_modern": 405
+        },
+        {
+            "modern": 6452,
+            "folded": "ri ",
+            "trigram": "ri ",
+            "classical": 2884,
+            "folded_classical": 2884,
+            "folded_modern": 6452
+        },
+        {
+            "modern": 683,
+            "folded": "ri'",
+            "trigram": "ri'",
+            "classical": 4,
+            "folded_classical": 472,
+            "folded_modern": 683
+        },
+        {
+            "modern": 606,
+            "folded": "ric",
+            "trigram": "ric",
+            "classical": 247,
+            "folded_classical": 247,
+            "folded_modern": 606
+        },
+        {
+            "modern": 584,
+            "folded": "rij",
+            "trigram": "rij",
+            "classical": 328,
+            "folded_classical": 328,
+            "folded_modern": 584
+        },
+        {
+            "modern": 359,
+            "folded": "rik",
+            "trigram": "rik",
+            "classical": 1,
+            "folded_classical": 1,
+            "folded_modern": 359
+        },
+        {
+            "modern": 0,
+            "folded": "ri'",
+            "trigram": "ri’",
+            "classical": 468,
+            "folded_classical": 472,
+            "folded_modern": 683
+        },
+        {
+            "modern": 462,
+            "folded": "rub",
+            "trigram": "rub",
+            "classical": 164,
+            "folded_classical": 164,
+            "folded_modern": 462
+        },
+        {
+            "modern": 426,
+            "folded": "ruk",
+            "trigram": "ruk",
+            "classical": 376,
+            "folded_classical": 376,
+            "folded_modern": 426
+        },
+        {
+            "modern": 506,
+            "folded": "rum",
+            "trigram": "rum",
+            "classical": 212,
+            "folded_classical": 212,
+            "folded_modern": 506
+        },
+        {
+            "modern": 392,
+            "folded": "rut",
+            "trigram": "rut",
+            "classical": 140,
+            "folded_classical": 140,
+            "folded_modern": 392
+        },
+        {
+            "modern": 517,
+            "folded": "ruw",
+            "trigram": "ruw",
+            "classical": 156,
+            "folded_classical": 156,
+            "folded_modern": 517
+        },
+        {
+            "modern": 632,
+            "folded": "sam",
+            "trigram": "sam",
+            "classical": 73,
+            "folded_classical": 73,
+            "folded_modern": 632
+        },
+        {
+            "modern": 164,
+            "folded": "san",
+            "trigram": "san",
+            "classical": 161,
+            "folded_classical": 161,
+            "folded_modern": 164
+        },
+        {
+            "modern": 781,
+            "folded": "ta ",
+            "trigram": "ta ",
+            "classical": 253,
+            "folded_classical": 253,
+            "folded_modern": 781
+        },
+        {
+            "modern": 705,
+            "folded": "taq",
+            "trigram": "taq",
+            "classical": 159,
+            "folded_classical": 159,
+            "folded_modern": 705
+        },
+        {
+            "modern": 328,
+            "folded": "tik",
+            "trigram": "tik",
+            "classical": 110,
+            "folded_classical": 110,
+            "folded_modern": 328
+        },
+        {
+            "modern": 185,
+            "folded": "tin",
+            "trigram": "tin",
+            "classical": 192,
+            "folded_classical": 192,
+            "folded_modern": 185
+        },
+        {
+            "modern": 425,
+            "folded": "toq",
+            "trigram": "toq",
+            "classical": 15,
+            "folded_classical": 15,
+            "folded_modern": 425
+        },
+        {
+            "modern": 525,
+            "folded": "tz'",
+            "trigram": "tz'",
+            "classical": 3,
+            "folded_classical": 473,
+            "folded_modern": 525
+        },
+        {
+            "modern": 956,
+            "folded": "tzi",
+            "trigram": "tzi",
+            "classical": 287,
+            "folded_classical": 287,
+            "folded_modern": 956
+        },
+        {
+            "modern": 0,
+            "folded": "tz'",
+            "trigram": "tz’",
+            "classical": 470,
+            "folded_classical": 473,
+            "folded_modern": 525
+        },
+        {
+            "modern": 12,
+            "folded": "töq",
+            "trigram": "töq",
+            "classical": 246,
+            "folded_classical": 246,
+            "folded_modern": 12
+        },
+        {
+            "modern": 1178,
+            "folded": "ub'",
+            "trigram": "ub'",
+            "classical": 0,
+            "folded_classical": 290,
+            "folded_modern": 1178
+        },
+        {
+            "modern": 0,
+            "folded": "ub'",
+            "trigram": "ub’",
+            "classical": 290,
+            "folded_classical": 290,
+            "folded_modern": 1178
+        },
+        {
+            "modern": 484,
+            "folded": "uch",
+            "trigram": "uch",
+            "classical": 264,
+            "folded_classical": 264,
+            "folded_modern": 484
+        },
+        {
+            "modern": 308,
+            "folded": "uj ",
+            "trigram": "uj ",
+            "classical": 283,
+            "folded_classical": 283,
+            "folded_modern": 308
+        },
+        {
+            "modern": 113,
+            "folded": "uju",
+            "trigram": "uju",
+            "classical": 185,
+            "folded_classical": 185,
+            "folded_modern": 113
+        },
+        {
+            "modern": 602,
+            "folded": "uk'",
+            "trigram": "uk'",
+            "classical": 3,
+            "folded_classical": 475,
+            "folded_modern": 602
+        },
+        {
+            "modern": 0,
+            "folded": "uk'",
+            "trigram": "uk’",
+            "classical": 472,
+            "folded_classical": 475,
+            "folded_modern": 602
+        },
+        {
+            "modern": 329,
+            "folded": "ule",
+            "trigram": "ule",
+            "classical": 70,
+            "folded_classical": 70,
+            "folded_modern": 329
+        },
+        {
+            "modern": 534,
+            "folded": "uma",
+            "trigram": "uma",
+            "classical": 325,
+            "folded_classical": 325,
+            "folded_modern": 534
+        },
+        {
+            "modern": 1312,
+            "folded": "un ",
+            "trigram": "un ",
+            "classical": 347,
+            "folded_classical": 347,
+            "folded_modern": 1312
+        },
+        {
+            "modern": 335,
+            "folded": "una",
+            "trigram": "una",
+            "classical": 347,
+            "folded_classical": 347,
+            "folded_modern": 335
+        },
+        {
+            "modern": 320,
+            "folded": "upa",
+            "trigram": "upa",
+            "classical": 207,
+            "folded_classical": 207,
+            "folded_modern": 320
+        },
+        {
+            "modern": 412,
+            "folded": "uq'",
+            "trigram": "uq'",
+            "classical": 3,
+            "folded_classical": 124,
+            "folded_modern": 412
+        },
+        {
+            "modern": 982,
+            "folded": "uqa",
+            "trigram": "uqa",
+            "classical": 107,
+            "folded_classical": 107,
+            "folded_modern": 982
+        },
+        {
+            "modern": 434,
+            "folded": "utz",
+            "trigram": "utz",
+            "classical": 123,
+            "folded_classical": 123,
+            "folded_modern": 434
+        },
+        {
+            "modern": 281,
+            "folded": "wal",
+            "trigram": "wal",
+            "classical": 114,
+            "folded_classical": 114,
+            "folded_modern": 281
+        },
+        {
+            "modern": 0,
+            "folded": "wa'",
+            "trigram": "wa’",
+            "classical": 174,
+            "folded_classical": 174,
+            "folded_modern": 49
+        },
+        {
+            "modern": 271,
+            "folded": "wi ",
+            "trigram": "wi ",
+            "classical": 206,
+            "folded_classical": 206,
+            "folded_modern": 271
+        },
+        {
+            "modern": 323,
+            "folded": "wi'",
+            "trigram": "wi'",
+            "classical": 0,
+            "folded_classical": 112,
+            "folded_modern": 323
+        },
+        {
+            "modern": 700,
+            "folded": "win",
+            "trigram": "win",
+            "classical": 390,
+            "folded_classical": 390,
+            "folded_modern": 700
+        },
+        {
+            "modern": 460,
+            "folded": "wäc",
+            "trigram": "wäc",
+            "classical": 166,
+            "folded_classical": 166,
+            "folded_modern": 460
+        },
+        {
+            "modern": 327,
+            "folded": "xa ",
+            "trigram": "xa ",
+            "classical": 238,
+            "folded_classical": 238,
+            "folded_modern": 327
+        },
+        {
+            "modern": 0,
+            "folded": "xb'",
+            "trigram": "xb’",
+            "classical": 190,
+            "folded_classical": 190,
+            "folded_modern": 147
+        },
+        {
+            "modern": 49,
+            "folded": "xek",
+            "trigram": "xek",
+            "classical": 202,
+            "folded_classical": 202,
+            "folded_modern": 49
+        },
+        {
+            "modern": 145,
+            "folded": "xel",
+            "trigram": "xel",
+            "classical": 169,
+            "folded_classical": 169,
+            "folded_modern": 145
+        },
+        {
+            "modern": 0,
+            "folded": "xe'",
+            "trigram": "xe’",
+            "classical": 263,
+            "folded_classical": 267,
+            "folded_modern": 83
+        },
+        {
+            "modern": 202,
+            "folded": "xki",
+            "trigram": "xki",
+            "classical": 388,
+            "folded_classical": 388,
+            "folded_modern": 202
+        },
+        {
+            "modern": 707,
+            "folded": "ya'",
+            "trigram": "ya'",
+            "classical": 8,
+            "folded_classical": 259,
+            "folded_modern": 707
+        },
+        {
+            "modern": 0,
+            "folded": "ya'",
+            "trigram": "ya’",
+            "classical": 251,
+            "folded_classical": 259,
+            "folded_modern": 707
+        },
+        {
+            "modern": 744,
+            "folded": "zij",
+            "trigram": "zij",
+            "classical": 252,
+            "folded_classical": 252,
+            "folded_modern": 744
+        },
+        {
+            "modern": 0,
+            "folded": "z'i",
+            "trigram": "z’i",
+            "classical": 183,
+            "folded_classical": 185,
+            "folded_modern": 144
+        },
+        {
+            "modern": 479,
+            "folded": "äch",
+            "trigram": "äch",
+            "classical": 181,
+            "folded_classical": 181,
+            "folded_modern": 479
+        },
+        {
+            "modern": 538,
+            "folded": "äj ",
+            "trigram": "äj ",
+            "classical": 149,
+            "folded_classical": 149,
+            "folded_modern": 538
+        },
+        {
+            "modern": 544,
+            "folded": "äl ",
+            "trigram": "äl ",
+            "classical": 70,
+            "folded_classical": 70,
+            "folded_modern": 544
+        },
+        {
+            "modern": 101,
+            "folded": "äm ",
+            "trigram": "äm ",
+            "classical": 164,
+            "folded_classical": 164,
+            "folded_modern": 101
+        },
+        {
+            "modern": 529,
+            "folded": "än ",
+            "trigram": "än ",
+            "classical": 100,
+            "folded_classical": 100,
+            "folded_modern": 529
+        },
+        {
+            "modern": 621,
+            "folded": "äq ",
+            "trigram": "äq ",
+            "classical": 347,
+            "folded_classical": 347,
+            "folded_modern": 621
+        },
+        {
+            "modern": 291,
+            "folded": "ïk ",
+            "trigram": "ïk ",
+            "classical": 337,
+            "folded_classical": 337,
+            "folded_modern": 291
+        },
+        {
+            "modern": 52,
+            "folded": "öq ",
+            "trigram": "öq ",
+            "classical": 258,
+            "folded_classical": 258,
+            "folded_modern": 52
+        },
+        {
+            "modern": 0,
+            "folded": "' a",
+            "trigram": "’ a",
+            "classical": 187,
+            "folded_classical": 189,
+            "folded_modern": 254
+        },
+        {
+            "modern": 0,
+            "folded": "' c",
+            "trigram": "’ c",
+            "classical": 402,
+            "folded_classical": 404,
+            "folded_modern": 591
+        },
+        {
+            "modern": 0,
+            "folded": "' j",
+            "trigram": "’ j",
+            "classical": 184,
+            "folded_classical": 184,
+            "folded_modern": 327
+        },
+        {
+            "modern": 0,
+            "folded": "' k",
+            "trigram": "’ k",
+            "classical": 458,
+            "folded_classical": 460,
+            "folded_modern": 568
+        },
+        {
+            "modern": 0,
+            "folded": "' r",
+            "trigram": "’ r",
+            "classical": 685,
+            "folded_classical": 694,
+            "folded_modern": 1859
+        },
+        {
+            "modern": 0,
+            "folded": "' t",
+            "trigram": "’ t",
+            "classical": 162,
+            "folded_classical": 165,
+            "folded_modern": 369
+        },
+        {
+            "modern": 0,
+            "folded": "' x",
+            "trigram": "’ x",
+            "classical": 611,
+            "folded_classical": 616,
+            "folded_modern": 507
+        },
+        {
+            "modern": 0,
+            "folded": "', ",
+            "trigram": "’, ",
+            "classical": 659,
+            "folded_classical": 670,
+            "folded_modern": 0
+        },
+        {
+            "modern": 0,
+            "folded": "'a ",
+            "trigram": "’a ",
+            "classical": 643,
+            "folded_classical": 664,
+            "folded_modern": 617
+        },
+        {
+            "modern": 0,
+            "folded": "'aj",
+            "trigram": "’aj",
+            "classical": 377,
+            "folded_classical": 378,
+            "folded_modern": 209
+        },
+        {
+            "modern": 0,
+            "folded": "'al",
+            "trigram": "’al",
+            "classical": 514,
+            "folded_classical": 526,
+            "folded_modern": 442
+        },
+        {
+            "modern": 0,
+            "folded": "'an",
+            "trigram": "’an",
+            "classical": 307,
+            "folded_classical": 309,
+            "folded_modern": 648
+        },
+        {
+            "modern": 0,
+            "folded": "'aq",
+            "trigram": "’aq",
+            "classical": 245,
+            "folded_classical": 248,
+            "folded_modern": 159
+        },
+        {
+            "modern": 0,
+            "folded": "'at",
+            "trigram": "’at",
+            "classical": 162,
+            "folded_classical": 162,
+            "folded_modern": 310
+        },
+        {
+            "modern": 0,
+            "folded": "'a'",
+            "trigram": "’a’",
+            "classical": 307,
+            "folded_classical": 310,
+            "folded_modern": 483
+        },
+        {
+            "modern": 0,
+            "folded": "'el",
+            "trigram": "’el",
+            "classical": 164,
+            "folded_classical": 167,
+            "folded_modern": 236
+        },
+        {
+            "modern": 0,
+            "folded": "'ij",
+            "trigram": "’ij",
+            "classical": 501,
+            "folded_classical": 505,
+            "folded_modern": 898
+        },
+        {
+            "modern": 0,
+            "folded": "'in",
+            "trigram": "’in",
+            "classical": 295,
+            "folded_classical": 297,
+            "folded_modern": 517
+        },
+        {
+            "modern": 0,
+            "folded": "'i'",
+            "trigram": "’i’",
+            "classical": 331,
+            "folded_classical": 333,
+            "folded_modern": 215
+        },
+        {
+            "modern": 0,
+            "folded": "'oj",
+            "trigram": "’oj",
+            "classical": 230,
+            "folded_classical": 231,
+            "folded_modern": 549
+        }
+    ],
+    "top_per_class": 250
+}

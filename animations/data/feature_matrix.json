@@ -1,0 +1,7 @@
+{
+    "n_docs": 6420,
+    "nnz": 387213,
+    "source": "char trigram TF-IDF, train split of src/datasets/register_manifest.csv",
+    "density": 0.007748400745358319,
+    "n_features": 7784
+}

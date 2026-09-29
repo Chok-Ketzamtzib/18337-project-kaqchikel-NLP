@@ -36,5 +36,10 @@ paper/images/pipeline.pdf
 # Surrogate-corpus benchmark output from CI (benchmark.jl --output-dir)
 ci_benchmark/
 
+# Manim renders and the animations' Python environment
+animations/media/
+animations/.venv/
+__pycache__/
+
 # Teng's Dataset to remove
 teng_kaq.csv

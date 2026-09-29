@@ -103,6 +103,34 @@ to write the figure and JSON somewhere other than `paper/images/` and
 `src/results/`. CI uses both, writing to `ci_benchmark/`, so the paper always
 shows the committed 8-thread run.
 
+## Animations
+
+`animations/` holds [Manim Community](https://www.manim.community/) scenes for
+short explainer videos:
+
+- `scenes/sparse_transpose.py`: why `train_multinomial_nb` builds
+  `sparse(transpose(X))`. CSC storage scatters each sentence's entries; the
+  transposed copy makes each sentence one contiguous slice.
+- `scenes/trigram_cube.py`: every char trigram as a point in a cube whose axes
+  are its three characters. Shows the `’`/`'` confound, then the accuracy after
+  folding apostrophes and after dropping Chronicle-only characters.
+
+[uv](https://docs.astral.sh/uv/) manages the Python environment (and installs
+Python 3.12 itself); LaTeX is not needed. From `animations/`:
+
+```bash
+uv sync
+uv run manim -pql scenes/sparse_transpose.py SparseTranspose   # quick 480p preview
+uv run manim -pqh scenes/trigram_cube.py TrigramCube           # 1080p60 for posting
+```
+
+Videos are written to `animations/media/videos/` (gitignored). The scenes read
+`animations/data/*.json`, which `export_data.jl` regenerates from both corpora:
+
+```bash
+julia --project=src animations/export_data.jl
+```
+
 ## Data Notes
 
 - The Tang/Bennett corpus (version 0.1, released 14 April 2023; about 0.7
@@ -117,7 +145,8 @@ shows the committed 8-thread run.
   - the most discriminative words and character trigrams per class, with model
     weights, in `src/results/train_metrics.json` and
     `src/results/confound_check.json`
-  - aggregate metrics
+  - aggregate metrics, including the per-class trigram counts in
+    `animations/data/trigram_cube.json` (the 250 most frequent trigrams per class)
 - The corpus location is resolved in this order, so no machine-specific path
   needs to be committed:
   1. the `--tang-path` command-line flag
