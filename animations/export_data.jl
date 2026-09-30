@@ -15,13 +15,24 @@
 #                                        Bayes log-odds under regimes A, B, D
 #                                        and the word model, with each trigram
 #                                        score split by feature type
+#   animations/data/tug_of_war.json      Chronicle test sentences with the push
+#                                        of each word under the word model,
+#                                        and their trigram-model score
+#   animations/data/trigram_window.json  the trigrams of one Chronicle phrase
+#                                        with their regime-A weights
+#   animations/data/starfield.pgm        X_train nonzeros summed over 4x4
+#   animations/data/starfield.json       blocks, rows grouped by class and
+#                                        columns by apostrophe type; too coarse
+#                                        to recover any sentence
 #
 # Usage (from the repo root; needs both corpora, like confound_check.jl):
 #   julia --project=src animations/export_data.jl
 #   julia --project=src animations/export_data.jl --top-per-class 300
 
 using JSON3
+using LinearAlgebra
 using SparseArrays
+using TextAnalysis
 
 include(joinpath(@__DIR__, "..", "src", "kaq_pipeline.jl"))
 using .KaqPipeline
@@ -118,6 +129,130 @@ function top_trigrams(bucket::Dict{String, Int}, k::Int)
     return first.(ranked[1:min(k, length(ranked))])
 end
 
+nb_weights(model) = model.log_likelihood[1, :] .- model.log_likelihood[2, :]
+
+"""Word tokens exactly as `word_tfidf_matrix` produces them, grouped by the
+whitespace word they came from (strip_punctuation also deletes ’ and ')."""
+function word_tokens(word::AbstractString)
+    doc = StringDocument(lowercase(word))
+    prepare!(doc, strip_punctuation)
+    return String.(tokens(doc))
+end
+
+"""
+Per-word pushes of Chronicle test sentences under the word model. A term that
+occurs k times contributes X[row, term] * w[term] / k per occurrence, so the
+pushes plus the offset add up to the word-model score.
+"""
+function tug_candidates(texts, labels, train_idx, test_idx, trigram_score; n_keep = 8)
+    word_X, terms = KaqPipeline.word_tfidf_matrix(texts)
+    model = KaqPipeline.train_multinomial_nb(word_X[train_idx, :], labels[train_idx])
+    w = nb_weights(model)
+    offset = model.log_priors[1] - model.log_priors[2]
+    col = Dict(t => j for (j, t) in enumerate(terms))
+
+    rows = Dict{String, Any}[]
+    for (k, i) in enumerate(test_idx)
+        labels[i] == "classical" || continue
+        words = split(texts[i])
+        7 <= length(words) <= 12 || continue
+        groups = word_tokens.(words)
+        all_tokens = reduce(vcat, groups)
+        occurrences = Dict{String, Int}()
+        for t in all_tokens
+            occurrences[t] = get(occurrences, t, 0) + 1
+        end
+        push_of(t) = word_X[i, col[t]] * w[col[t]] / occurrences[t]
+        pushes = [sum(push_of, g; init = 0.0) for g in groups]
+        score = offset + sum(pushes)
+        @assert isapprox(score, offset + dot(word_X[i, :], w); atol = 1e-8)
+        push!(rows, Dict(
+            "words" => String.(words),
+            "tokens" => groups,
+            "push" => round.(pushes; digits = 3),
+            "word_score" => round(score; digits = 3),
+            "trigram_score" => round(trigram_score[k]; digits = 3),
+        ))
+    end
+
+    tugged(r) = sum(p for p in r["push"] if p < 0; init = 0.0)
+    correct = filter(r -> 1.0 <= r["word_score"] <= 6.0, rows)
+    sort!(correct; by = tugged)
+    close_calls = filter(r -> -2.5 <= r["word_score"] < 0 && r["trigram_score"] > 0, rows)
+    sort!(close_calls; by = r -> tugged(r))
+    return Dict(
+        "source" => "word-unigram multinomial NB; Chronicle test sentences only",
+        "offset" => offset,
+        "correct" => correct[1:min(n_keep, end)],
+        "close_calls" => close_calls[1:min(n_keep, end)],
+        "misclassified_classical" => count(r -> r["word_score"] < 0, rows),
+        "classical_candidates" => length(rows),
+    )
+end
+
+const WINDOW_PHRASE = "K\u2019a ri\u2019 xek\u2019ule\u2019"
+
+function window_export(X, vocab, labels, train_idx)
+    model = KaqPipeline.train_multinomial_nb(X[train_idx, :], labels[train_idx])
+    w = nb_weights(model)
+    col = Dict(t => j for (j, t) in enumerate(vocab))
+    trigrams = KaqPipeline._line_char_trigrams(WINDOW_PHRASE)
+    order = sortperm(w; rev = true)
+    return Dict(
+        "phrase" => WINDOW_PHRASE,
+        "padded" => "^" * lowercase(WINDOW_PHRASE) * "\$",
+        "trigrams" => [Dict("trigram" => t, "weight" => round(w[col[t]]; digits = 3),
+                            "part" => PART_NAMES[part_index(t)]) for t in trigrams],
+        "top_classical" => [Dict("trigram" => vocab[j], "weight" => round(w[j]; digits = 3),
+                                 "part" => PART_NAMES[part_index(vocab[j])]) for j in order[1:50]],
+        "top_modern" => [Dict("trigram" => vocab[j], "weight" => round(w[j]; digits = 3),
+                              "part" => PART_NAMES[part_index(vocab[j])]) for j in reverse(order)[1:50]],
+    )
+end
+
+band_of(term) = '\u2019' in term ? 1 : ('\'' in term ? 3 : 2)
+
+function starfield_export(X_train, vocab, train_labels, out_dir; block = 4)
+    row_perm = vcat(findall(==("classical"), train_labels), findall(==("modern"), train_labels))
+    bands = band_of.(vocab)
+    col_perm = sortperm(bands; alg = MergeSort)
+    Xp = X_train[row_perm, col_perm]
+    h, wd = cld.(size(Xp), block)
+    img = zeros(Int, h, wd)
+    rows, cols, _ = findnz(Xp)
+    for (r, c) in zip(rows, cols)
+        img[cld(r, block), cld(c, block)] += 1
+    end
+    open(joinpath(out_dir, "starfield.pgm"), "w") do io
+        write(io, "P5\n$wd $h\n255\n")
+        write(io, UInt8.(min.(img, 255))')
+    end
+    println("  wrote: ", KaqPipeline.repo_relpath(joinpath(out_dir, "starfield.pgm")))
+
+    n_classical = count(==("classical"), train_labels)
+    sorted_bands = bands[col_perm]
+    nnz_by = Dict{String, Dict{String, Int}}()
+    for (cls, rr) in (("classical", 1:n_classical), ("modern", (n_classical + 1):size(Xp, 1)))
+        sub = Xp[rr, :]
+        nnz_by[cls] = Dict(name => nnz(sub[:, sorted_bands .== b])
+                           for (b, name) in enumerate(("curly", "shared", "straight")))
+    end
+    write_json(joinpath(out_dir, "starfield.json"), Dict(
+        "source" => "char trigram TF-IDF nonzeros of X_train, summed over $(block)x$(block) blocks",
+        "block" => block,
+        "width" => wd,
+        "height" => h,
+        "rows" => size(Xp, 1),
+        "cols" => size(Xp, 2),
+        "classical_rows" => n_classical,
+        "band_cols" => Dict(name => count(==(b), bands)
+                            for (b, name) in enumerate(("curly", "shared", "straight"))),
+        "nnz" => nnz(Xp),
+        "nnz_by_class_band" => nnz_by,
+        "max_block" => maximum(img),
+    ))
+end
+
 function write_json(path, data; pretty = true)
     mkpath(dirname(path))
     open(path, "w") do io
@@ -141,7 +276,7 @@ function main()
     train_idx = findall(==("train"), split)
     out_dir = joinpath(@__DIR__, "data")
 
-    X, _ = KaqPipeline.char_trigram_tfidf_matrix(texts)
+    X, vocab = KaqPipeline.char_trigram_tfidf_matrix(texts)
     X_train = X[train_idx, :]
     write_json(joinpath(out_dir, "feature_matrix.json"), Dict(
         "source" => "char trigram TF-IDF, train split of $(KaqPipeline.repo_relpath(manifest_path))",
@@ -200,6 +335,12 @@ function main()
         "parts" => collect(PART_NAMES),
         "regimes" => scores,
     ); pretty = false)
+
+    tug = tug_candidates(texts, labels, train_idx, test_idx, scores["A_raw"]["score"])
+    println("  tug-of-war: ", length(tug["correct"]), " correct, ", length(tug["close_calls"]), " close calls")
+    write_json(joinpath(out_dir, "tug_of_war.json"), tug)
+    write_json(joinpath(out_dir, "trigram_window.json"), window_export(X, vocab, labels, train_idx))
+    starfield_export(X_train, vocab, labels[train_idx], out_dir)
 end
 
 main()

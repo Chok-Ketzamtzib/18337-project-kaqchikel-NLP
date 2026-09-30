@@ -1,0 +1,28 @@
+{
+    "max_block": 10,
+    "classical_rows": 3210,
+    "band_cols": {
+        "curly": 510,
+        "straight": 588,
+        "shared": 6686
+    },
+    "height": 1605,
+    "block": 4,
+    "cols": 7784,
+    "nnz_by_class_band": {
+        "modern": {
+            "curly": 0,
+            "straight": 46028,
+            "shared": 182907
+        },
+        "classical": {
+            "curly": 33656,
+            "straight": 374,
+            "shared": 124248
+        }
+    },
+    "width": 1946,
+    "nnz": 387213,
+    "source": "char trigram TF-IDF nonzeros of X_train, summed over 4x4 blocks",
+    "rows": 6420
+}

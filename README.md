@@ -125,6 +125,21 @@ short explainer videos. Every scene `Foo` also has a `FooVertical` version at
   per-class sums (training) split across threads; the one-thread steps,
   mostly the matrix build and `sparse(transpose(X))`, set a floor (Amdahl's
   law). Ends on the measured speedups from `src/benchmark.jl`.
+- `scenes/trigram_window.py`: a three-character window slides along a
+  Chronicle phrase; each trigram gets its Naive Bayes weight, and the 50
+  strongest clues for each corpus turn out to be mostly `’` or `'` trigrams.
+- `scenes/confusion_morph.py`: the confusion matrix as one dot per test
+  sentence. Dots move between cells from the word model to raw trigrams and
+  then through the apostrophe-folded and shared-character regimes.
+- `scenes/confound_reveal.py`: the two apostrophe code points and their counts
+  per corpus, Tang/Bennett's missing punctuation, and the no-training
+  exclusive-character rule that scores 98.2%.
+- `scenes/tug_of_war.py`: the word model's score for two Chronicle test
+  sentences, one word at a time on a number line, including a close call the
+  word model gets wrong and the trigram model does not.
+- `scenes/starfield_zoom.py`: all of `X_train` as points of light, with rows
+  grouped by corpus and columns by apostrophe type; zooms show that
+  Tang/Bennett rows never touch the `’` columns.
 
 [uv](https://docs.astral.sh/uv/) manages the Python environment (and installs
 Python 3.12 itself); LaTeX is not needed. From `animations/`:
@@ -145,6 +160,17 @@ julia --project=src animations/export_data.jl          # features, trigram count
 julia -t 8 --project=src animations/export_phases.jl   # per-phase timings, 1 to 8 threads
 ```
 
+`export_social.py` turns the renders into a posting kit in
+`animations/social/` (gitignored), in the order and with the captions set in
+`social_posts.toml`: for each post, an Instagram 3:4 feed video, a 9:16 Reel
+(also used for LinkedIn's vertical video), the LinkedIn 16:9 video, covers,
+caption text, and phone mockups; plus `schedule.md`, `schedule.csv`, and
+overview mockups of the series. Render every scene at `-qh` first, then:
+
+```bash
+uv run python export_social.py
+```
+
 ## Data Notes
 
 - The Tang/Bennett corpus (version 0.1, released 14 April 2023; about 0.7
@@ -163,6 +189,10 @@ julia -t 8 --project=src animations/export_phases.jl   # per-phase timings, 1 to
     `animations/data/trigram_cube.json` (the 250 most frequent trigrams per class)
     and the per-test-sentence model scores in `animations/data/nb_scores.json`
     (numbers and labels only, no text)
+  - `animations/data/starfield.pgm`, the nonzero pattern of the training
+    matrix summed over 4x4 blocks of cells, too coarse to recover any sentence
+  - `animations/data/tug_of_war.json` and `trigram_window.json` quote only
+    Chronicle sentences
 - The corpus location is resolved in this order, so no machine-specific path
   needs to be committed:
   1. the `--tang-path` command-line flag

@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 
-from manim import DOWN, ManimColor, Text, VGroup, config
+from manim import DOWN, UP, UL, FadeIn, FadeOut, LaggedStart, ManimColor, Text, VGroup, Write, config
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = REPO_ROOT / "animations" / "data"
@@ -48,8 +48,11 @@ class Portrait:
         super().__init__(*args, **kwargs)
 
 
-def text_block(text, font_size, max_width, font=FONT, **kwargs):
-    """Centered lines of Text, wrapped at word breaks to fit `max_width`."""
+def text_block(text, font_size, max_width, font=FONT, buff=0.14, **kwargs):
+    """Centered lines of Text, wrapped at word breaks to fit `max_width`.
+
+    The returned group's `lines` holds the string of each line.
+    """
     words = text.split(" ")
     lines, line = [], words[0]
     for word in words[1:]:
@@ -59,4 +62,38 @@ def text_block(text, font_size, max_width, font=FONT, **kwargs):
             lines.append(line)
             line = word
     lines.append(line)
-    return VGroup(*[Text(l, font=font, font_size=font_size, **kwargs) for l in lines]).arrange(DOWN, buff=0.14)
+    group = VGroup(*[Text(l, font=font, font_size=font_size, **kwargs) for l in lines]).arrange(DOWN, buff=buff)
+    group.lines = lines
+    return group
+
+
+def text_width() -> float:
+    """Width for titles and captions: the frame less its side margins."""
+    return config.frame_width - (0.8 if is_portrait() else 1.4)
+
+
+class Captions:
+    """Title and bottom captions for 2D scenes, laid out for either orientation."""
+
+    caption_mob = None
+
+    def title(self, text):
+        title = text_block(text, 34, text_width(), **APOSTROPHE_STYLE)
+        if is_portrait():
+            title.to_edge(UP, buff=0.5)
+        else:
+            title.to_corner(UL, buff=0.4)
+        self.play(Write(title), run_time=1.5)
+        return title
+
+    def caption(self, text):
+        anims = []
+        if self.caption_mob is not None:
+            anims.append(FadeOut(self.caption_mob, shift=0.2 * UP))
+        self.caption_mob = text_block(text, 28, text_width(), **APOSTROPHE_STYLE).to_edge(DOWN, buff=0.4)
+        anims.append(FadeIn(self.caption_mob, shift=0.2 * UP))
+        self.play(LaggedStart(*anims, lag_ratio=0.5), run_time=0.8)
+
+    def roll(self, old, new):
+        """Replace one overlay with another, rolling upward."""
+        return FadeOut(old, shift=0.3 * UP), FadeIn(new, shift=0.3 * UP)

@@ -1,0 +1,214 @@
+# Posting plan for the animation series, read by export_social.py.
+#
+# Posts are listed in publishing order. `scene` names the landscape render
+# (the portrait one is `<scene>Vertical`); `cover_at` is the second of the
+# video used for its cover image. Every number in a caption comes from
+# src/results/*.json or animations/data/*.json.
+
+[series]
+name = "Kaqchikel NLP, animated"
+handle = "your_handle"
+display_name = "Your Name"
+headline = "MIT 18.337 · Kaqchikel NLP in Julia"
+first_day = 2026-10-06
+weekdays = ["Tue", "Thu"]
+instagram_time = "18:00"
+linkedin_time = "08:30"
+instagram_tags = "#Kaqchikel #MayanLanguages #NLP #DataVisualization #JuliaLang"
+linkedin_tags = "#NLP #MachineLearning #JuliaLang #DataVisualization"
+
+[[post]]
+slug = "trigram_window"
+scene = "TrigramWindow"
+title = "How a model reads Kaqchikel"
+cover_at = 30.0
+instagram = """
+How does a classifier read Kaqchikel Maya? Three characters at a time.
+
+Slide a 3-character window along a line from the Kaqchikel Chronicle, “K’a ri’ xek’ule’”, and you get 16 trigrams. 11 of them contain ’, and those 11 carry nearly all the weight.
+
+Of the 50 trigrams that most signal the Chronicle, 45 contain ’.
+"""
+linkedin = """
+How does a text classifier read Kaqchikel Maya? Three characters at a time.
+
+For an MIT 18.337 project I built a Naive Bayes classifier in Julia that tells two Kaqchikel corpora apart: the Kaqchikel Chronicle (Kiwujil) and the modern Tang/Bennett written corpus.
+
+Its features are character trigrams. Sliding a three-character window along one line of the Chronicle, “K’a ri’ xek’ule’”, gives 16 of them. The 11 that contain ’ each weigh 6 to 9 toward the Chronicle; the other 5 stay under 2.
+
+Across the whole vocabulary, 45 of the 50 strongest Chronicle trigrams contain ’, and 40 of the 50 strongest Tang/Bennett trigrams contain '.
+
+That was the first hint that the model was learning how each corpus was typed, not the language. The next posts follow that thread.
+"""
+
+[[post]]
+slug = "confusion_morph"
+scene = "ConfusionMorph"
+title = "98.9% accurate. Too good?"
+cover_at = 21.0
+instagram = """
+98.9% accurate. Too good to be true?
+
+Every dot is one of 1,606 test sentences. The word model gets 91 wrong; character trigrams only 17.
+
+Then write the glottal stop the same way in both corpora (’ becomes '): 90 wrong. Keep only characters both corpora use: 118 wrong, now worse than words.
+"""
+linkedin = """
+My Kaqchikel classifier scored 98.9% on held-out text. That should have been a warning, not a result.
+
+In this animation each of the 1,606 test sentences is a dot in its confusion-matrix cell:
+• word unigrams: 94.3%, 91 wrong
+• character trigrams: 98.9%, 17 wrong
+• trigrams with ’ and ' folded into one character: 94.4%, 90 wrong (McNemar vs words: p = 1.0)
+• trigrams on characters both corpora share: 92.7%, 118 wrong (p = 0.009, now below words)
+
+Most of the trigram model's edge came from a single character. The next post shows which one.
+"""
+
+[[post]]
+slug = "confound_reveal"
+scene = "ConfoundReveal"
+title = "Two apostrophes, one sound"
+cover_at = 8.0
+instagram = """
+Two apostrophes, one sound.
+
+Kaqchikel writes its glottal stop with an apostrophe. The Chronicle types ’ (U+2019) 15,982 times. Tang/Bennett types ' (U+0027) 269,074 times and ’ never, with no punctuation or digits at all.
+
+A one-line rule with no training (“has a character Tang/Bennett never uses? say Chronicle”) scores 98.2%.
+"""
+linkedin = """
+Two apostrophes, one sound, and a data leak.
+
+Both Kaqchikel corpora write the glottal stop with an apostrophe, but not the same character:
+• the Chronicle: ’ (U+2019) 15,982 times, ' (U+0027) 171 times
+• Tang/Bennett: ' 269,074 times, ’ zero times, and no commas, digits, or other punctuation
+
+22 characters appear in the Chronicle's training text and never in Tang/Bennett's. A rule with no training, “if a sentence has one of them, say Chronicle”, gets 98.2% of the test set right. That beats the word model (94.3%, McNemar p ≈ 9e-9) and nearly matches the trigram model (98.9%).
+
+The labels come from where each text came from, so the encoding leaks the label. The fix was to normalize the orthography before trusting any score.
+"""
+
+[[post]]
+slug = "trigram_cube"
+scene = "TrigramCube"
+title = "Every trigram is a point in a cube"
+cover_at = 24.0
+instagram = """
+Every trigram is a point in a cube: its three characters are its coordinates.
+
+Plot the 250 most common trigrams from each corpus and the apostrophe trigrams sit apart: ’ for the Chronicle, ' for Tang/Bennett.
+
+Fold ’ into ' and they land in the same place.
+"""
+linkedin = """
+What does a character trigram look like? Here, a point in a cube.
+
+Each axis runs through the same characters in Unicode order, so a trigram's three characters are its coordinates. Plotting the 250 most common trigrams from each Kaqchikel corpus, the letter-only trigrams overlap, but the apostrophe trigrams sit apart: the Chronicle's use ’ (U+2019), Tang/Bennett's use ' (U+0027).
+
+Folding ’ into ' puts the apostrophe trigrams of both corpora in the same place. The Chronicle-only trigrams that remain are punctuation and digits, which Tang/Bennett never uses. Keep only characters both corpora share and trigrams trail the plain word model.
+"""
+
+[[post]]
+slug = "decision_boundary"
+scene = "DecisionBoundary"
+title = "Naive Bayes draws one flat cut"
+cover_at = 17.0
+instagram = """
+Naive Bayes draws one flat cut.
+
+Its score is a sum of one weight per trigram. Split that sum three ways (apostrophe trigrams, letters only, punctuation and digits) and every sentence is a point in 3D, with a plane as the boundary.
+
+Turn the plane edge-on and watch the sentences cross it as the spelling cues go away.
+"""
+linkedin = """
+Multinomial Naive Bayes is a linear classifier, and you can see it.
+
+The score for a sentence is offset + x·w: one weight per trigram, added up. Splitting that sum into three parts (trigrams with an apostrophe, letters only, punctuation and digits) puts every test sentence at a point in 3D, and the decision boundary, score = 0, is a flat plane.
+
+Turned edge-on, the plane becomes a cut on a number line. Replaying the orthography ablation on those histograms: raw text 98.9%, apostrophes folded 94.4%, shared characters only 92.7%, with more sentences crossing the cut each time.
+"""
+
+[[post]]
+slug = "tug_of_war"
+scene = "TugOfWar"
+title = "Every word pulls"
+cover_at = 16.0
+instagram = """
+Every word pulls.
+
+The word model adds one weight per word: right for the Chronicle, left for Tang/Bennett. It deletes punctuation first, ’ included, so q’atb’äl is counted as qatbäl.
+
+A close call: “Xa majani xeb’i’in ruch’ab’äl dios chi qe” ends at −0.70, the wrong side. The trigram model, which still sees the ’, scores it +340.
+"""
+linkedin = """
+Every word pulls: a Naive Bayes score, one word at a time.
+
+The word-unigram model adds one weight per word. Its tokenizer strips punctuation first, including ’, so the model never sees the apostrophe convention; q’atb’äl is counted as qatbäl.
+
+Two Chronicle sentences from the test set:
+• one lands at +1.85 after words pull both ways: correct
+• “Xa majani xeb’i’in ruch’ab’äl dios chi qe” leads toward the Chronicle until ruch’ab’äl, dios, and qe pull it to −0.70: wrong
+
+The character-trigram model scores that second sentence +340. Words can be a close call; the spelling almost never is.
+"""
+
+[[post]]
+slug = "starfield_zoom"
+scene = "StarfieldZoom"
+title = "387,213 points of light"
+cover_at = 22.0
+instagram = """
+387,213 points of light: the whole training matrix, one per nonzero entry.
+
+6,420 sentences by 7,784 trigrams, 99.2% empty. Group the rows by corpus and the columns by apostrophe, and the spelling split is right there: Tang/Bennett rows have 0 points in the ’ columns.
+"""
+linkedin = """
+This is the entire training matrix of my Kaqchikel classifier: 6,420 sentences by 7,784 character trigrams, 99.2% empty, one point of light per nonzero entry (each pixel sums a 4×4 block of cells).
+
+Grouping the rows by corpus and the columns by which apostrophe a trigram contains makes the confound visible without any model:
+• the 510 ’ columns: 33,656 points in Chronicle rows, 0 in Tang/Bennett rows
+• the 588 ' columns: 374 points in Chronicle rows, 46,028 in Tang/Bennett rows
+
+The spelling split is written into the data before training starts.
+"""
+
+[[post]]
+slug = "sparse_transpose"
+scene = "SparseTranspose"
+title = "Why training copies its matrix"
+cover_at = 30.0
+instagram = """
+sparse(transpose(X)): why Naive Bayes training copies its feature matrix first.
+
+Julia stores sparse matrices column by column. Training walks one sentence (row) at a time, which would mean searching every column. Transposing once makes each sentence one contiguous slice.
+"""
+linkedin = """
+Why does my Naive Bayes trainer start with sparse(transpose(X))?
+
+Julia's SparseMatrixCSC stores nonzeros column by column. The feature matrix has one row per sentence, and training visits one sentence at a time, so reading a row from CSC storage means searching every column.
+
+Building the transpose once flips that: each sentence becomes one contiguous slice of the storage arrays. The copy costs time and memory, and, as the next post shows, it is most of the training time.
+"""
+
+[[post]]
+slug = "thread_scaling"
+scene = "ThreadScaling"
+title = "Why 8 threads are not 8× faster"
+cover_at = 20.0
+instagram = """
+Why 8 threads are not 8× faster.
+
+Counting trigrams splits across threads; building the sparse matrix does not. That one-thread step caps feature extraction at about 2.1×, and 8 threads measured 1.67×.
+
+Naive Bayes training is 81% sparse(transpose(X)) on one thread, so 8 threads measured 0.95×.
+"""
+linkedin = """
+Why 8 threads are not 8× faster: Amdahl's law in a real Julia pipeline.
+
+Feature extraction has a part that splits across threads (counting trigrams per sentence) and a part that does not (building the sparse matrix). The serial part sets a floor: even unlimited threads could make it at most about 2.1× faster. Measured with BenchmarkTools: 1.67× on 8 threads.
+
+Naive Bayes training is worse: 81% of it is sparse(transpose(X)), which runs on one thread. Only the per-class accumulation is parallel, and 8 threads measured 0.95×, within noise of one thread.
+
+More threads only speed up the part that splits.
+"""

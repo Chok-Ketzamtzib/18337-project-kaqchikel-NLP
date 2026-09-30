@@ -1,0 +1,590 @@
+{
+    "top_modern": [
+        {
+            "weight": -7.727,
+            "trigram": "ub'",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -7.112,
+            "trigram": "'än",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -7.101,
+            "trigram": "' n",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.779,
+            "trigram": "' j",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.777,
+            "trigram": "wi'",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.775,
+            "trigram": "o' ",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.737,
+            "trigram": "'at",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.685,
+            "trigram": "qi'",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.681,
+            "trigram": "' p",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.678,
+            "trigram": "ak'",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.665,
+            "trigram": "'ul",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.629,
+            "trigram": "'on",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.585,
+            "trigram": "eho",
+            "part": "letters"
+        },
+        {
+            "weight": -6.579,
+            "trigram": "jeh",
+            "part": "letters"
+        },
+        {
+            "weight": -6.573,
+            "trigram": "ová",
+            "part": "letters"
+        },
+        {
+            "weight": -6.573,
+            "trigram": "hov",
+            "part": "letters"
+        },
+        {
+            "weight": -6.545,
+            "trigram": "' m",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.537,
+            "trigram": "ja'",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.497,
+            "trigram": "'ay",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.471,
+            "trigram": "h'u",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.431,
+            "trigram": "a'i",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.364,
+            "trigram": "vá ",
+            "part": "letters"
+        },
+        {
+            "weight": -6.357,
+            "trigram": "jo'",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.298,
+            "trigram": "eb'",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.276,
+            "trigram": "'ab",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.268,
+            "trigram": " i ",
+            "part": "letters"
+        },
+        {
+            "weight": -6.263,
+            "trigram": "nb'",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.253,
+            "trigram": "to'",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.249,
+            "trigram": "k'w",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.217,
+            "trigram": " o ",
+            "part": "letters"
+        },
+        {
+            "weight": -6.217,
+            "trigram": "' y",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.205,
+            "trigram": "i'e",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.202,
+            "trigram": "xb'",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.197,
+            "trigram": "i'$",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.158,
+            "trigram": "'u'",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.137,
+            "trigram": "'wa",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.132,
+            "trigram": "k'ï",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.119,
+            "trigram": "'e ",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.1,
+            "trigram": "u'x",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.071,
+            "trigram": "ka'",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.053,
+            "trigram": "sús",
+            "part": "letters"
+        },
+        {
+            "weight": -6.053,
+            "trigram": "esú",
+            "part": "letters"
+        },
+        {
+            "weight": -6.044,
+            "trigram": "'o ",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -6.01,
+            "trigram": "'ïy",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -5.987,
+            "trigram": "'x ",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -5.98,
+            "trigram": "'ax",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -5.942,
+            "trigram": "nk'",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -5.925,
+            "trigram": "z'e",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -5.9,
+            "trigram": " y ",
+            "part": "letters"
+        },
+        {
+            "weight": -5.893,
+            "trigram": "tb'",
+            "part": "apostrophe"
+        }
+    ],
+    "padded": "^k’a ri’ xek’ule’$",
+    "top_classical": [
+        {
+            "weight": 8.604,
+            "trigram": "k’a",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.525,
+            "trigram": "a’ ",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.478,
+            "trigram": "i’ ",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.372,
+            "trigram": " k’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.342,
+            "trigram": "e’ ",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.313,
+            "trigram": "b’a",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.177,
+            "trigram": "’, ",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.169,
+            "trigram": "’ r",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.15,
+            "trigram": " q’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.131,
+            "trigram": "’a ",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.07,
+            "trigram": "ab’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.06,
+            "trigram": "’ x",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.021,
+            "trigram": "q’a",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.994,
+            "trigram": ", x",
+            "part": "other_symbols"
+        },
+        {
+            "weight": 7.97,
+            "trigram": "’al",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.953,
+            "trigram": "’ij",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.919,
+            "trigram": "q’i",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.916,
+            "trigram": ", r",
+            "part": "other_symbols"
+        },
+        {
+            "weight": 7.906,
+            "trigram": "uk’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.903,
+            "trigram": "tz’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.884,
+            "trigram": "ri’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.873,
+            "trigram": "’ k",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.869,
+            "trigram": "ik’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.851,
+            "trigram": "b’e",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.82,
+            "trigram": "k’i",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.81,
+            "trigram": "ch’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.778,
+            "trigram": "aq’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.77,
+            "trigram": "’ c",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.747,
+            "trigram": "l, ",
+            "part": "other_symbols"
+        },
+        {
+            "weight": 7.736,
+            "trigram": "’aj",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.677,
+            "trigram": "ib’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.656,
+            "trigram": "k’o",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.651,
+            "trigram": "’i’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.646,
+            "trigram": "re’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.637,
+            "trigram": "na’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.578,
+            "trigram": "’an",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.574,
+            "trigram": "b’i",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.568,
+            "trigram": "’a’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.558,
+            "trigram": "a’$",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.544,
+            "trigram": "’in",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.533,
+            "trigram": "ub’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.471,
+            "trigram": "j, ",
+            "part": "other_symbols"
+        },
+        {
+            "weight": 7.465,
+            "trigram": ", k",
+            "part": "other_symbols"
+        },
+        {
+            "weight": 7.449,
+            "trigram": "xe’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.441,
+            "trigram": "he’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.436,
+            "trigram": "a’,",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.417,
+            "trigram": "ya’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.417,
+            "trigram": "h’a",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.416,
+            "trigram": "je’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.411,
+            "trigram": " b’",
+            "part": "apostrophe"
+        }
+    ],
+    "phrase": "K’a ri’ xek’ule’",
+    "trigrams": [
+        {
+            "weight": 7.398,
+            "trigram": "^k’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.604,
+            "trigram": "k’a",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.131,
+            "trigram": "’a ",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -0.22,
+            "trigram": "a r",
+            "part": "letters"
+        },
+        {
+            "weight": -0.376,
+            "trigram": " ri",
+            "part": "letters"
+        },
+        {
+            "weight": 7.884,
+            "trigram": "ri’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.478,
+            "trigram": "i’ ",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 8.06,
+            "trigram": "’ x",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 1.266,
+            "trigram": " xe",
+            "part": "letters"
+        },
+        {
+            "weight": 1.847,
+            "trigram": "xek",
+            "part": "letters"
+        },
+        {
+            "weight": 6.679,
+            "trigram": "ek’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.188,
+            "trigram": "k’u",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 6.732,
+            "trigram": "’ul",
+            "part": "apostrophe"
+        },
+        {
+            "weight": -1.111,
+            "trigram": "ule",
+            "part": "letters"
+        },
+        {
+            "weight": 6.049,
+            "trigram": "le’",
+            "part": "apostrophe"
+        },
+        {
+            "weight": 7.032,
+            "trigram": "e’$",
+            "part": "apostrophe"
+        }
+    ]
+}

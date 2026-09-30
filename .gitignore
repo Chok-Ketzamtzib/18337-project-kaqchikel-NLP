@@ -38,6 +38,7 @@ ci_benchmark/
 
 # Manim renders and the animations' Python environment
 animations/media/
+animations/social/
 animations/.venv/
 __pycache__/
 
