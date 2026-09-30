@@ -106,7 +106,8 @@ shows the committed 8-thread run.
 ## Animations
 
 `animations/` holds [Manim Community](https://www.manim.community/) scenes for
-short explainer videos:
+short explainer videos. Every scene `Foo` also has a `FooVertical` version at
+3:4 portrait (1080x1440 at `-qh`, for Instagram):
 
 - `scenes/sparse_transpose.py`: why `train_multinomial_nb` builds
   `sparse(transpose(X))`. CSC storage scatters each sentence's entries; the
@@ -118,24 +119,30 @@ short explainer videos:
   score is split into apostrophe, punctuation, and letter trigrams, so the
   decision boundary is a plane in 3D; seen edge-on it is the cut on a histogram
   of scores, replayed for the raw, apostrophe-folded, and shared-character
-  regimes. Renders as `DecisionBoundary` (16:9) and `DecisionBoundaryVertical`
-  (3:4 portrait, 1080x1440 at `-qh`, for Instagram).
+  regimes.
+- `scenes/thread_scaling.py`: why 8 threads are not 8x faster. Timelines with
+  one lane per thread show that only trigram counting (features) and the
+  per-class sums (training) split across threads; the one-thread steps,
+  mostly the matrix build and `sparse(transpose(X))`, set a floor (Amdahl's
+  law). Ends on the measured speedups from `src/benchmark.jl`.
 
 [uv](https://docs.astral.sh/uv/) manages the Python environment (and installs
 Python 3.12 itself); LaTeX is not needed. From `animations/`:
 
 ```bash
 uv sync
-uv run manim -pql scenes/sparse_transpose.py SparseTranspose   # quick 480p preview
-uv run manim -pqh scenes/trigram_cube.py TrigramCube           # 1080p60 for posting
-uv run manim -qh -a scenes/decision_boundary.py                # both aspect ratios
+uv run manim -pql scenes/sparse_transpose.py SparseTranspose           # quick 480p preview
+uv run manim -pqh scenes/trigram_cube.py TrigramCube                   # 1080p60 for posting
+uv run manim -pqh scenes/trigram_cube.py TrigramCubeVertical           # 1080x1440, 60 fps
+uv run manim -qh -a scenes/decision_boundary.py                        # both aspect ratios
 ```
 
 Videos are written to `animations/media/videos/` (gitignored). The scenes read
-`animations/data/*.json`, which `export_data.jl` regenerates from both corpora:
+`animations/data/*.json`, which two scripts regenerate from both corpora:
 
 ```bash
-julia --project=src animations/export_data.jl
+julia --project=src animations/export_data.jl          # features, trigram counts, NB scores
+julia -t 8 --project=src animations/export_phases.jl   # per-phase timings, 1 to 8 threads
 ```
 
 ## Data Notes

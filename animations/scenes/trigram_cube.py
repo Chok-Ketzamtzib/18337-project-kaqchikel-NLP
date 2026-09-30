@@ -12,7 +12,8 @@ Reads animations/data/trigram_cube.json (written by export_data.jl) and the
 accuracies in src/results/confound_check.json.
 
 Render from animations/:
-    uv run manim -pqh scenes/trigram_cube.py TrigramCube
+    uv run manim -pqh scenes/trigram_cube.py TrigramCube          # 16:9
+    uv run manim -pqh scenes/trigram_cube.py TrigramCubeVertical  # 3:4
 """
 
 import math
@@ -23,7 +24,7 @@ from manim import *
 
 from style import (
     APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, MONO, RESULTS_DIR, SHARED, STRAIGHT,
-    load_json,
+    Portrait, is_portrait, load_json, text_block,
 )
 
 SIDE = 5.0
@@ -122,9 +123,18 @@ class TrigramCube(ThreeDScene):
             return np.array([coord(ch) for ch in trigram])
 
         self.caption_mob = None
-        self.set_camera_orientation(phi=68 * DEGREES, theta=-52 * DEGREES, zoom=0.74, frame_center=[0, 0, -0.35])
+        self.portrait = portrait = is_portrait()
+        self.text_width = config.frame_width - (0.8 if portrait else 1.4)
+        self.set_camera_orientation(
+            phi=68 * DEGREES, theta=-52 * DEGREES, zoom=0.58 if portrait else 0.74,
+            frame_center=[0, 0, 0.8 if portrait else -0.35],
+        )
 
-        title = Text("Every trigram is a point in a cube", font=FONT, font_size=34).to_corner(UL, buff=0.4)
+        title = text_block("Every trigram is a point in a cube", 34, self.text_width)
+        if portrait:
+            title.to_edge(UP, buff=0.5)
+        else:
+            title.to_corner(UL, buff=0.4)
         self.fix_in_frame(title)
         self.play(Write(title), run_time=1.5)
 
@@ -149,7 +159,11 @@ class TrigramCube(ThreeDScene):
         strip = Text(
             "".join("␣" if ch == " " else ch for ch in alphabet), font=MONO, font_size=30,
             t2c=APOSTROPHE_STYLE["t2c"],
-        ).next_to(title, DOWN, aligned_edge=LEFT, buff=0.35)
+        )
+        if portrait:
+            strip.scale_to_fit_width(min(strip.width, self.text_width)).next_to(title, DOWN, buff=0.35)
+        else:
+            strip.next_to(title, DOWN, aligned_edge=LEFT, buff=0.35)
         curly_walls = VGroup(*[wall(a, coord(CURLY), CLASSICAL) for a in range(3)])
         straight_walls = VGroup(*[wall(a, coord(STRAIGHT), MODERN) for a in range(3)])
         self.add(curly_walls, straight_walls)
@@ -163,7 +177,11 @@ class TrigramCube(ThreeDScene):
         # One trigram's characters are its coordinates.
         self.play(FadeOut(strip), run_time=0.5)
         self.caption("The three characters of a trigram are its coordinates")
-        word = Text(DEMO, font=MONO, font_size=64).to_corner(UR, buff=0.6)
+        word = Text(DEMO, font=MONO, font_size=64)
+        if portrait:
+            word.next_to(title, DOWN, buff=0.35)
+        else:
+            word.to_corner(UR, buff=0.6)
         self.fix_in_frame(word)
         self.play(FadeIn(word, shift=0.2 * DOWN), run_time=0.8)
         stops = [np.full(3, -HALF)]
@@ -204,7 +222,11 @@ class TrigramCube(ThreeDScene):
             legend_row(CLASSICAL, "only in the Chronicle"),
             legend_row(SHARED, "in both corpora"),
             legend_row(MODERN, "only in Tang/Bennett"),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.15).next_to(title, DOWN, aligned_edge=LEFT, buff=0.35)
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.15)
+        if portrait:
+            legend.next_to(title, DOWN, buff=0.35).to_edge(LEFT, buff=0.45)
+        else:
+            legend.next_to(title, DOWN, aligned_edge=LEFT, buff=0.35)
         size_note = Text("bigger = more frequent", font=FONT, font_size=18, color=GREY_B)
         size_note.next_to(legend, DOWN, aligned_edge=LEFT, buff=0.2)
         self.fix_in_frame(legend, size_note)
@@ -237,7 +259,10 @@ class TrigramCube(ThreeDScene):
         self.play(*[d.animate.scale(1 / 1.6) for d in straight_dots], run_time=0.8)
 
         panel_title = Text("char-trigram accuracy", font=FONT, font_size=22, color=GREY_B)
-        panel_title.to_corner(UR, buff=0.5)
+        if portrait:
+            panel_title.next_to(title, DOWN, buff=0.35).to_edge(RIGHT, buff=0.45)
+        else:
+            panel_title.to_corner(UR, buff=0.5)
         score = score_text(accuracy["A_raw"]).next_to(panel_title, DOWN, aligned_edge=RIGHT, buff=0.15)
         self.fix_in_frame(panel_title, score)
         self.caption("So the spelling alone gives away which corpus a sentence came from")
@@ -305,7 +330,11 @@ class TrigramCube(ThreeDScene):
         anims = []
         if self.caption_mob is not None:
             anims.append(FadeOut(self.caption_mob, shift=0.2 * UP))
-        self.caption_mob = Text(text, font=FONT, font_size=28, **APOSTROPHE_STYLE).to_edge(DOWN, buff=0.4)
+        self.caption_mob = text_block(text, 28, self.text_width, **APOSTROPHE_STYLE).to_edge(DOWN, buff=0.4)
         self.fix_in_frame(self.caption_mob)
         anims.append(FadeIn(self.caption_mob, shift=0.2 * UP))
         self.play(LaggedStart(*anims, lag_ratio=0.5), run_time=0.8)
+
+
+class TrigramCubeVertical(Portrait, TrigramCube):
+    """The same scene at 3:4 for Instagram."""

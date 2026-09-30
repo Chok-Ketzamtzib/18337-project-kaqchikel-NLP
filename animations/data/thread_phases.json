@@ -1,0 +1,85 @@
+{
+    "naive_bayes_train": {
+        "phases": [
+            "setup",
+            "transpose",
+            "accumulate",
+            "merge",
+            "finish"
+        ],
+        "parallel_phase": "accumulate",
+        "workers": {
+            "4": {
+                "merge": 7.025e-5,
+                "pipeline_total": 0.00557605,
+                "transpose": 0.0043449000000000005,
+                "accumulate": 0.00030599999999999996,
+                "finish": 0.0001244,
+                "setup": 0.0003635
+            },
+            "1": {
+                "merge": 0,
+                "pipeline_total": 0.00494755,
+                "transpose": 0.0039954,
+                "accumulate": 0.00046595,
+                "finish": 0.0001235,
+                "setup": 0.00033085
+            },
+            "2": {
+                "merge": 3.6599999999999995e-5,
+                "pipeline_total": 0.004913000000000001,
+                "transpose": 0.00396025,
+                "accumulate": 0.00038205,
+                "finish": 0.00012055,
+                "setup": 0.0003216
+            },
+            "8": {
+                "merge": 0.00014285,
+                "pipeline_total": 0.005694950000000001,
+                "transpose": 0.00455485,
+                "accumulate": 0.0003613,
+                "finish": 0.00013045,
+                "setup": 0.0003948
+            }
+        }
+    },
+    "method": "median of time_ns() per phase over 30 runs, after one warmup, GC.gc() before each run",
+    "threads": 8,
+    "source": "train split of src/datasets/register_manifest.csv",
+    "rows": 6420,
+    "samples": 30,
+    "feature_extraction": {
+        "phases": [
+            "count",
+            "merge",
+            "build"
+        ],
+        "parallel_phase": "count",
+        "workers": {
+            "4": {
+                "merge": 0.0086327,
+                "pipeline_total": 0.0865545,
+                "build": 0.05943105,
+                "count": 0.024635650000000002
+            },
+            "1": {
+                "merge": 0,
+                "pipeline_total": 0.1412783,
+                "build": 0.066729,
+                "count": 0.07671645
+            },
+            "2": {
+                "merge": 0.0055483500000000005,
+                "pipeline_total": 0.1058195,
+                "build": 0.0647656,
+                "count": 0.0425982
+            },
+            "8": {
+                "merge": 0.013686799999999999,
+                "pipeline_total": 0.08476929999999999,
+                "build": 0.0578027,
+                "count": 0.0174314
+            }
+        }
+    }
+}

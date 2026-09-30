@@ -22,7 +22,10 @@ from dataclasses import dataclass
 import numpy as np
 from manim import *
 
-from style import APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, SHARED, STRAIGHT, load_json
+from style import (
+    APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, SHARED, STRAIGHT, Portrait, is_portrait,
+    load_json, text_block,
+)
 
 ERROR = ManimColor("#FF5A5F")
 PER_CLASS = 200
@@ -54,25 +57,11 @@ class Layout:
 
 
 def current_layout():
-    if config.frame_height > config.frame_width:
+    if is_portrait():
         return Layout(True, zoom=0.9, text_width=config.frame_width - 0.8,
                       hist_width=7.2, baseline=-0.8, bar_height=3.0)
     return Layout(False, zoom=0.95, text_width=config.frame_width - 1.4,
                   hist_width=12.4, baseline=-0.5, bar_height=2.45)
-
-
-def text_block(text, font_size, max_width, **kwargs):
-    """Centered lines of Text, wrapped at word breaks to fit `max_width`."""
-    words = text.split(" ")
-    lines, line = [], words[0]
-    for word in words[1:]:
-        if Text(f"{line} {word}", font=FONT, font_size=font_size).width <= max_width:
-            line = f"{line} {word}"
-        else:
-            lines.append(line)
-            line = word
-    lines.append(line)
-    return VGroup(*[Text(l, font=FONT, font_size=font_size, **kwargs) for l in lines]).arrange(DOWN, buff=0.14)
 
 
 def percent(x):
@@ -312,14 +301,5 @@ class DecisionBoundary(ThreeDScene):
         self.play(LaggedStart(*anims, lag_ratio=0.5), run_time=0.8)
 
 
-class DecisionBoundaryVertical(DecisionBoundary):
-    """The same scene at 3:4 for Instagram: 1080x1440 at -qh, 480x640 at -ql."""
-
-    def __init__(self, **kwargs):
-        width = min(config.pixel_width, config.pixel_height)
-        config.pixel_width = width
-        config.pixel_height = round(width * 4 / 3)
-        # 8 units across keeps text the same size in pixels as the 16:9 version.
-        config.frame_width = 8.0
-        config.frame_height = 8.0 * 4 / 3
-        super().__init__(**kwargs)
+class DecisionBoundaryVertical(Portrait, DecisionBoundary):
+    """The same scene at 3:4 for Instagram."""
