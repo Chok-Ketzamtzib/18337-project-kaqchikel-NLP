@@ -103,12 +103,20 @@ to write the figure and JSON somewhere other than `paper/images/` and
 `src/results/`. CI uses both, writing to `ci_benchmark/`, so the paper always
 shows the committed 8-thread run.
 
-## Data and Licensing Notes
+## Data Notes
 
-- The Tang/Bennett corpus is **not redistributed** here.
-- Its authors' `readme.txt` states redistribution restrictions; this repo stores only:
+- The Tang/Bennett corpus (version 0.1, released 14 April 2023; about 0.7
+  million word tokens from religious texts, spoken transcripts, government
+  documents, medical handbooks, and educational books) is **not redistributed**
+  here. Its `readme.txt` reads: "You must not share/copy/reproduce any part of
+  this corpus with anyone, unless you receive written permissions from the
+  authors." This repo stores only material derived from it:
   - source path configuration
-  - index manifest
+  - index manifest (`src/datasets/register_manifest.csv`: line numbers and
+    labels, no text)
+  - the most discriminative words and character trigrams per class, with model
+    weights, in `src/results/train_metrics.json` and
+    `src/results/confound_check.json`
   - aggregate metrics
 - The corpus location is resolved in this order, so no machine-specific path
   needs to be committed:
@@ -135,3 +143,23 @@ Kaqchikel language support landed in `Languages.jl` through the sequence:
   language detection and completing #43
 
 That contribution remains a meaningful output of the project.
+
+## License
+
+- **Code** (Julia and the GitHub Actions workflow): MIT; see
+  [LICENSE](LICENSE). The repository layout and original paper workflow come
+  from Jackson Burns's
+  [18.337 project template](https://github.com/JacksonBurns/18337-project-template);
+  all Julia code is by William J. Wakefield.
+- **Paper, figures, and slides** (`paper/` and the `.pptx` presentation):
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reuse is welcome
+  with attribution to William J. Wakefield.
+- **Data is not covered by either license.** The Kaqchikel Chronicle text and
+  documents in `src/datasets/` are used with permission and remain under their
+  original terms. Files derived from the Tang/Bennett corpus
+  (`src/datasets/register_manifest.csv` and the term lists in
+  `src/results/train_metrics.json` and `src/results/confound_check.json`)
+  remain subject to that corpus's terms above.
+
+To cite this work, use GitHub's "Cite this repository" button, which reads
+[CITATION.cff](CITATION.cff).

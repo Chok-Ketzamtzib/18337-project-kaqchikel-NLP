@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software or its findings, please cite it as below."
+title: "Performant Text Classification with Naive Bayes for Kaqchikel Maya"
+type: software
+authors:
+  - family-names: Wakefield
+    given-names: William J.
+repository-code: "https://github.com/Chok-Ketzamtzib/18337-project-kaqchikel-NLP"
+license: MIT
+keywords:
+  - Kaqchikel
+  - Mayan languages
+  - low-resource languages
+  - natural language processing
+  - Naive Bayes
+  - Julia
+preferred-citation:
+  type: report
+  title: "Performant Text Classification with Naive Bayes for Kaqchikel Maya"
+  authors:
+    - family-names: Wakefield
+      given-names: William J.
+  year: 2026
+  notes: "Course project for MIT 18.337 (Spring 2023), revised 2026. Not peer-reviewed."
+  url: "https://github.com/Chok-Ketzamtzib/18337-project-kaqchikel-NLP"
