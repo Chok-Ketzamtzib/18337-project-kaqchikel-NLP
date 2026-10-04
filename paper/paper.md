@@ -26,13 +26,15 @@ Two corpora are used:
 1. **Kaqchikel Chronicle / Kiwujil text** (labeled `classical`) [@maxwell2006chronicles]
 2. **Tang/Bennett written corpus** (labeled `modern`) [@tang2018predictability; @bennett2018stop]
 
-The Tang/Bennett readme explicitly disallows redistribution, so this repository stores only:
-
-- local path configuration,
-- sentence index manifests,
-- aggregate metrics.
-
-No Tang/Bennett text is committed.
+The Tang/Bennett corpus (version 0.1, released 14 April 2023) contains about 0.7
+million word tokens and 29,355 word types, compiled from religious texts, spoken
+transcripts, government documents, medical handbooks, and educational books
+[@bennett2018stop]. Its licence forbids sharing, copying, or reproducing any part
+of it without the authors' written permission. No Tang/Bennett text is committed
+to this repository. The derived material that is committed — a sentence index
+manifest, the most discriminative words and character trigrams with their model
+weights, and aggregate counts — is shared with the authors' written permission
+(K. Tang, personal communication, October 2, 2026).
 
 The Chronicle text used here is a 2022 edited transcription written in modern
 orthographic conventions, including diaeresis-marked vowels (ä, ë, ï, ö, ü) that
@@ -123,9 +125,17 @@ its *encoding* is. The Chronicle writes it curly, Tang/Bennett writes it
 straight, and Tang/Bennett has been stripped of every other punctuation mark.
 Curly-share divergence between the corpora is 0.989 out of a possible 1.0.
 
+The corpus authors confirm that the Tang/Bennett side of this difference is
+deliberate. During cleaning they removed punctuation and normalized apostrophes,
+because their source texts had irregular punctuation and line breaks (from
+scanned book pages, for example) and used many different apostrophe characters
+(K. Tang, personal communication, October 2, 2026). That was a sensible choice
+for their corpus; the Chronicle text simply never went through the same step.
+
 Because the labels are derived from provenance, and provenance perfectly predicts
 encoding, any character trigram containing U+2019 or a comma is a flawless
-`classical` detector. This is label leakage through the digitization pipeline.
+`classical` detector. This is label leakage through preprocessing: one corpus was
+normalized and the other was not.
 
 The leak extends beyond the apostrophe. In the training split, 22 characters
 occur in Chronicle sentences and never in Tang/Bennett sentences: the curly
@@ -270,7 +280,9 @@ sets, check what a no-model baseline achieves — here, a single set lookup
 reached 98.2% — then normalize the orthography and re-measure. A gap that
 vanishes under encoding normalization was never linguistic. For this corpus pair,
 that check costs one function and a few seconds of compute, and it changes the
-conclusion.
+conclusion. Better still is to prevent the gap: when combining sources, apply one
+normalization to all of them, ideally the cleaning already applied to the most
+heavily processed source. Regime D approximates that after the fact.
 
 A third lesson concerns performance measurement. The parallel speedup originally
 reported here was an artifact of timing first calls in a JIT-compiled language.
