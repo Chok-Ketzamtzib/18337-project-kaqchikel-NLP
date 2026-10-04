@@ -16,8 +16,8 @@ Render from animations/:
 from manim import *
 
 from style import (
-    APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, MONO, STRAIGHT, Captions, Portrait, is_portrait,
-    load_json,
+    APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, MONO, STRAIGHT, Captions, Portrait, end_credits,
+    is_portrait, load_json,
 )
 
 SPACE = "\u00b7"  # a visible stand-in for the space character
@@ -165,6 +165,7 @@ class TrigramWindow(Captions, Scene):
 
         self.caption("The strongest clues are spelling conventions, not the language")
         self.wait(4)
+        end_credits(self)
 
 
 class TrigramWindowVertical(Portrait, TrigramWindow):

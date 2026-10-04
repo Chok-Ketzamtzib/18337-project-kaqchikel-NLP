@@ -24,7 +24,7 @@ from manim import *
 
 from style import (
     APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, MONO, RESULTS_DIR, SHARED, STRAIGHT,
-    Portrait, is_portrait, load_json, text_block,
+    Portrait, end_credits, is_portrait, load_json, text_block,
 )
 
 SIDE = 5.0
@@ -312,6 +312,7 @@ class TrigramCube(ThreeDScene):
         self.play(FadeIn(word_line, shift=0.2 * UP), run_time=0.8)
         self.caption("Without spelling cues, trigrams trail the plain word model")
         self.wait(5)
+        end_credits(self, pin=self.fix_in_frame)
 
     def fix_in_frame(self, *mobjects):
         """Pin overlays to the screen without adding them yet, so they can fade in."""

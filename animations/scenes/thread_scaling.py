@@ -23,7 +23,7 @@ from dataclasses import dataclass
 import numpy as np
 from manim import *
 
-from style import DATA_DIR, FONT, MONO, RESULTS_DIR, Portrait, is_portrait, load_json, text_block
+from style import DATA_DIR, FONT, MONO, RESULTS_DIR, Portrait, end_credits, is_portrait, load_json, text_block
 
 SPLITS = ManimColor("#7BD389")
 MERGE = ManimColor("#F79D65")
@@ -190,6 +190,7 @@ class ThreadScaling(Scene):
         self.wait(1.5)
         self.caption("More threads only speed up the part that splits")
         self.wait(4)
+        end_credits(self)
 
     def lane_y(self, i):
         lay = self.lay

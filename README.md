@@ -160,6 +160,11 @@ julia --project=src animations/export_data.jl          # features, trigram count
 julia -t 8 --project=src animations/export_phases.jl   # per-phase timings, 1 to 8 threads
 ```
 
+Every scene ends on a card crediting the data sources (`end_credits` in
+`scenes/style.py`), and every caption carries the same credit (`data_credit`
+in `social_posts.toml`). The Tang/Bennett authors require it; keep both when
+adding scenes or posts.
+
 `export_social.py` turns the renders into a posting kit in
 `animations/social/` (gitignored), in the order and with the captions set in
 `social_posts.toml`: for each post, an Instagram 3:4 feed video, a 9:16 Reel
@@ -178,7 +183,10 @@ uv run python export_social.py
   documents, medical handbooks, and educational books) is **not redistributed**
   here. Its `readme.txt` reads: "You must not share/copy/reproduce any part of
   this corpus with anyone, unless you receive written permissions from the
-  authors." This repo stores only material derived from it:
+  authors." The authors gave written permission (K. Tang, email, 2 October
+  2026) to share the derived material listed below, including in social media
+  posts, provided the data source is clearly credited. This repo stores only
+  material derived from it:
   - source path configuration
   - index manifest (`src/datasets/register_manifest.csv`: line numbers and
     labels, no text)
@@ -221,20 +229,23 @@ That contribution remains a meaningful output of the project.
 
 ## License
 
-- **Code** (Julia and the GitHub Actions workflow): MIT; see
+- **Code** (Julia, Python, and the GitHub Actions workflow): MIT; see
   [LICENSE](LICENSE). The repository layout and original paper workflow come
   from Jackson Burns's
   [18.337 project template](https://github.com/JacksonBurns/18337-project-template);
-  all Julia code is by William J. Wakefield.
-- **Paper, figures, and slides** (`paper/` and the `.pptx` presentation):
+  all Julia and Python code is by William J. Wakefield.
+- **Paper, figures, slides, and rendered animations** (`paper/`, the `.pptx`
+  presentation, and videos produced from `animations/scenes/`):
   [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reuse is welcome
-  with attribution to William J. Wakefield.
+  with attribution to William J. Wakefield. For the animations, Kevin Tang and
+  Ryan Bennett are also designated to receive attribution as the source of the
+  data, so reuse should keep the on-screen data credit.
 - **Data is not covered by either license.** The Kaqchikel Chronicle text and
   documents in `src/datasets/` are used with permission and remain under their
   original terms. Files derived from the Tang/Bennett corpus
-  (`src/datasets/register_manifest.csv` and the term lists in
-  `src/results/train_metrics.json` and `src/results/confound_check.json`)
-  remain subject to that corpus's terms above.
+  (`src/datasets/register_manifest.csv`, the term lists in
+  `src/results/train_metrics.json` and `src/results/confound_check.json`, and
+  `animations/data/`) remain subject to that corpus's terms above.
 
 To cite this work, use GitHub's "Cite this repository" button, which reads
 [CITATION.cff](CITATION.cff).

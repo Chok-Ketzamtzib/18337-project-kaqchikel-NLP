@@ -16,6 +16,9 @@ instagram_time = "18:00"
 linkedin_time = "08:30"
 instagram_tags = "#Kaqchikel #MayanLanguages #NLP #DataVisualization #JuliaLang"
 linkedin_tags = "#NLP #MachineLearning #JuliaLang #DataVisualization"
+# Required on every post: the Tang/Bennett corpus authors permit sharing
+# derived figures only if the data source is clearly indicated.
+data_credit = "Data: Kaqchikel written corpus by Kevin Tang and Ryan Bennett, used with permission (Tang & Bennett 2018, J. Acoust. Soc. Am.; Bennett, Tang & Ajsivinac Sian 2018, Laboratory Phonology), and the Kaqchikel Chronicle (Kiwujil Xajila’)."
 
 [[post]]
 slug = "trigram_window"

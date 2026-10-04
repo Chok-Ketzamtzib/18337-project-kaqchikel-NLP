@@ -23,8 +23,8 @@ import numpy as np
 from manim import *
 
 from style import (
-    APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, SHARED, STRAIGHT, Portrait, is_portrait,
-    load_json, text_block,
+    APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, SHARED, STRAIGHT, Portrait, end_credits,
+    is_portrait, load_json, text_block,
 )
 
 ERROR = ManimColor("#FF5A5F")
@@ -265,6 +265,7 @@ class DecisionBoundary(ThreeDScene):
         self.play(FadeIn(word_line, shift=0.2 * UP), run_time=0.8)
         self.caption("Without spelling cues, trigrams make more mistakes than whole words")
         self.wait(5)
+        end_credits(self, pin=self.fix_in_frame)
 
     def panel(self, name, accuracy, wrong, n_test):
         heading = Text(f"char trigrams, {REGIMES[name]}", font=FONT, font_size=22, color=GREY_B, **APOSTROPHE_STYLE)

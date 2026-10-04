@@ -17,8 +17,8 @@ import numpy as np
 from manim import *
 
 from style import (
-    APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, Captions, Portrait, is_portrait, load_json,
-    text_width,
+    APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, Captions, Portrait, end_credits, is_portrait,
+    load_json, text_width,
 )
 
 ERROR = ManimColor("#FF5A5F")
@@ -118,6 +118,7 @@ class TugOfWar(Captions, Scene):
         self.wait(2)
         self.caption("Words can be a close call. The spelling almost never is")
         self.wait(4.5)
+        end_credits(self)
 
     def x_at(self, score, limit):
         return np.array([np.clip(score / limit, -1.05, 1.05) * self.half, self.line_y, 0])

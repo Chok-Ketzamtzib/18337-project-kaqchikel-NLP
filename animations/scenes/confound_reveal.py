@@ -19,7 +19,7 @@ from manim import *
 
 from style import (
     APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, MONO, RESULTS_DIR, STRAIGHT, Captions, Portrait,
-    is_portrait, load_json, text_block,
+    end_credits, is_portrait, load_json, text_block,
 )
 
 AXIS_FROM = 0.90  # accuracy bars start at 90%, labeled on screen
@@ -185,6 +185,7 @@ class ConfoundReveal(Captions, Scene):
         self.wait(2.5)
         self.caption("The trigram model mostly learned how each corpus was typed")
         self.wait(4.5)
+        end_credits(self)
 
 
 class ConfoundRevealVertical(Portrait, ConfoundReveal):

@@ -22,8 +22,8 @@ from manim import *
 from PIL import Image
 
 from style import (
-    APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, STRAIGHT, Captions, Portrait, is_portrait,
-    load_json,
+    APOSTROPHE_STYLE, CLASSICAL, CURLY, DATA_DIR, FONT, MODERN, STRAIGHT, Captions, Portrait, end_credits,
+    is_portrait, load_json,
 )
 
 START_ZOOM = 40.0
@@ -192,6 +192,7 @@ class StarfieldZoom(Captions, Scene):
 
         self.caption("The spelling split is written right into the data the model learns from")
         self.wait(5)
+        end_credits(self)
 
     def window(self):
         """Visible block range (x0, x1, y0, y1) for the current zoom and center, kept inside the image."""

@@ -17,8 +17,8 @@ import numpy as np
 from manim import *
 
 from style import (
-    APOSTROPHE_STYLE, CLASSICAL, CURLY, FONT, MODERN, RESULTS_DIR, STRAIGHT, Captions, Portrait, is_portrait,
-    load_json,
+    APOSTROPHE_STYLE, CLASSICAL, CURLY, FONT, MODERN, RESULTS_DIR, STRAIGHT, Captions, Portrait, end_credits,
+    is_portrait, load_json,
 )
 
 ERROR = ManimColor("#FF5A5F")
@@ -128,6 +128,7 @@ class ConfusionMorph(Captions, Scene):
         self.caption(f"Without spelling cues, trigrams ({percent(accuracy['D_shared_charset'])}) "
                      f"fall below words ({percent(accuracy['word_unigram'])})")
         self.wait(5)
+        end_credits(self)
 
     def cell_center(self, r, c):
         return self.origin + self.cell * np.array([c - 0.5, 0.5 - r, 0])

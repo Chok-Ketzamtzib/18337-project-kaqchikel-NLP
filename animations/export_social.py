@@ -469,10 +469,11 @@ def posting_days(first, weekdays, n):
 
 def caption_files(folder, post, part, total, series):
     footer = f"Part {part} of {total} · MIT 18.337 · made with Julia and Manim"
+    credit = series["data_credit"]
     (folder / "caption_instagram.txt").write_text(
-        f"{post['instagram'].strip()}\n\n{footer}\n\n{series['instagram_tags']}\n", encoding="utf-8")
+        f"{post['instagram'].strip()}\n\n{credit}\n\n{footer}\n\n{series['instagram_tags']}\n", encoding="utf-8")
     (folder / "caption_linkedin.txt").write_text(
-        f"{post['linkedin'].strip()}\n\n{footer}\n\n{series['linkedin_tags']}\n", encoding="utf-8")
+        f"{post['linkedin'].strip()}\n\n{credit}\n\n{footer}\n\n{series['linkedin_tags']}\n", encoding="utf-8")
 
 
 SPECS = """

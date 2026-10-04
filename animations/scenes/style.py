@@ -3,7 +3,9 @@
 import json
 from pathlib import Path
 
-from manim import DOWN, UP, UL, FadeIn, FadeOut, LaggedStart, ManimColor, Text, VGroup, Write, config
+from manim import (
+    DOWN, GREY_B, UP, UL, WHITE, FadeIn, FadeOut, LaggedStart, ManimColor, Text, ValueTracker, VGroup, Write, config,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = REPO_ROOT / "animations" / "data"
@@ -20,6 +22,16 @@ SHARED = ManimColor("#EDEDED")
 CURLY, STRAIGHT = "\u2019", "'"
 # Text(..., **APOSTROPHE_STYLE) colors each glottal-stop spelling by corpus.
 APOSTROPHE_STYLE = {"t2c": {STRAIGHT: MODERN, CURLY: CLASSICAL}, "t2f": {STRAIGHT: MONO, CURLY: MONO}}
+
+# The Tang/Bennett corpus authors permit posting derived figures only if the
+# source is clearly indicated, so every scene ends on this card.
+CREDITS = (
+    ("Data: Kaqchikel written corpus by Kevin Tang and Ryan Bennett, used with permission", 26, WHITE),
+    ("Tang & Bennett (2018), J. Acoust. Soc. Am. 144(2); "
+     "Bennett, Tang & Ajsivinac Sian (2018), Laboratory Phonology 9(1)", 20, GREY_B),
+    (f"and the Kaqchikel Chronicle (Kiwujil Xajila{CURLY})", 26, WHITE),
+    ("Analysis and animation: William J. Wakefield", 20, GREY_B),
+)
 
 
 def load_json(path: Path) -> dict:
@@ -70,6 +82,22 @@ def text_block(text, font_size, max_width, font=FONT, buff=0.14, **kwargs):
 def text_width() -> float:
     """Width for titles and captions: the frame less its side margins."""
     return config.frame_width - (0.8 if is_portrait() else 1.4)
+
+
+def end_credits(scene, pin=None):
+    """Clear the frame and hold a card crediting the data sources and the author.
+
+    3D scenes pass their `fix_in_frame` as `pin` so the card stays flat on screen.
+    """
+    card = VGroup(*[text_block(text, size, text_width(), color=color) for text, size, color in CREDITS])
+    card.arrange(DOWN, buff=0.4)
+    if pin is not None:
+        pin(card)
+    visible = [m for m in scene.mobjects if not isinstance(m, ValueTracker)]
+    if visible:
+        scene.play(*[FadeOut(m) for m in visible], run_time=1)
+    scene.play(FadeIn(card, shift=0.2 * UP), run_time=1)
+    scene.wait(4)
 
 
 class Captions:

@@ -16,7 +16,7 @@ from dataclasses import dataclass
 import numpy as np
 from manim import *
 
-from style import DATA_DIR, FONT, MONO, Portrait, is_portrait, load_json, text_block
+from style import DATA_DIR, FONT, MONO, Portrait, end_credits, is_portrait, load_json, text_block
 
 TRIGRAMS = ["k’a", "q’i", "tz’", "ab’", "’ij", "b’a"]
 # Toy nonzeros as (doc, trigram, count), 0-based.
@@ -309,6 +309,7 @@ class SparseTranspose(Scene):
         self.wait(1)
         self.play(FadeIn(cost, shift=0.2 * UP), run_time=1)
         self.wait(4)
+        end_credits(self)
 
     def caption(self, text):
         anims = []
