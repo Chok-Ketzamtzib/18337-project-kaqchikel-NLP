@@ -169,8 +169,11 @@ adding scenes or posts.
 `animations/social/` (gitignored), in the order and with the captions set in
 `social_posts.toml`: for each post, an Instagram 3:4 feed video, a 9:16 Reel
 (also used for LinkedIn's vertical video), the LinkedIn 16:9 video, covers,
-caption text, and phone mockups; plus `schedule.md`, `schedule.csv`, and
-overview mockups of the series. Render every scene at `-qh` first, then:
+caption text, a LinkedIn first comment with the links, and phone mockups; plus
+`schedule.md`, `schedule.csv`, and overview mockups of the series. Posts with a
+`still` table instead of a `scene` (the intro and wrap-up) are image posts: a
+title card drawn on one frame of another scene. Render every scene at `-qh`
+first, then:
 
 ```bash
 uv run python export_social.py

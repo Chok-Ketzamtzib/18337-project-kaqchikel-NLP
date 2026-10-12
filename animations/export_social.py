@@ -7,8 +7,13 @@ For each post in social_posts.toml, writes NN_<slug>/ with
     linkedin_vertical_9x16.mp4   1080x1920, the same file as the Reel
     cover_*.png                  one cover per aspect ratio
     caption_instagram.txt, caption_linkedin.txt
+    first_comment_linkedin.txt   the links, posted as the first comment
     preview.png                  the four placements, mocked up on phones
 and, for the whole series, schedule.md, schedule.csv, and mockups/.
+
+A post with a `still` table instead of a `scene` is an image post: its title card
+is drawn on one frame of another post's render, and only image_instagram_3x4.png
+and image_linkedin_16x9.png are written in place of the videos and covers.
 
 The mockups are drawn with PIL and only approximate each app's layout.
 
@@ -343,6 +348,8 @@ def li_vertical_screen(reel_9x16, name, headline, caption):
 def labeled(panels, labels, bg=(30, 30, 30), title=None):
     gap, top = 56, 150 if title else 90
     width = sum(p.width for p in panels) + gap * (len(panels) + 1)
+    if title:
+        width = max(width, int(ImageDraw.Draw(Image.new("RGB", (1, 1))).textlength(title, font=font(40, "bold"))) + 2 * gap)
     height = max(p.height for p in panels) + top + 50
     sheet = Image.new("RGB", (width, height), bg)
     d = ImageDraw.Draw(sheet)
@@ -383,7 +390,8 @@ def ig_profile_screens(series, posts_newest_first):
         grid_top = tab_y + 30
         tile_w = (w - 4) // 3
         tile_h = int(tile_w * (4 / 3 if tab == "grid" else 16 / 9))
-        for k, post in enumerate(posts_newest_first):
+        shown = posts_newest_first if tab == "grid" else [p for p in posts_newest_first if p["cover_9x16"]]
+        for k, post in enumerate(shown):
             r, c = divmod(k, 3)
             y = grid_top + r * (tile_h + 2)
             if y >= h - 70:
@@ -441,11 +449,12 @@ def timeline(series, posts):
             d.text((120, y + 56 + k * 36), line, font=font(28, "bold"), fill=(255, 255, 255))
         d.text((120, y + 140), f"Instagram {series['instagram_time']} · LinkedIn {series['linkedin_time']}",
                font=font(17), fill=(150, 150, 150))
-        d.text((120, y + 166), f"{post['duration']:.0f} s · {post['folder']}/", font=font(17), fill=(150, 150, 150))
+        d.text((120, y + 166), f"{length_label(post)} · {post['folder']}/", font=font(17), fill=(150, 150, 150))
         x = text_w + gap
         for _, aspect, key in cols:
             tw = int(thumb_h * aspect)
-            sheet.paste(post[key].resize((tw, thumb_h)), (x, y + 10))
+            if post[key]:
+                sheet.paste(post[key].resize((tw, thumb_h)), (x, y + 10))
             x += tw + gap
     return sheet
 
@@ -455,6 +464,10 @@ def timeline(series, posts):
 
 def long_date(day):
     return f"{day:%B} {day.day}, {day.year}"
+
+
+def length_label(post):
+    return "image" if post["duration"] is None else f"{post['duration']:.0f} s"
 
 
 def posting_days(first, weekdays, n):
@@ -474,6 +487,8 @@ def caption_files(folder, post, part, total, series):
         f"{post['instagram'].strip()}\n\n{credit}\n\n{footer}\n\n{series['instagram_tags']}\n", encoding="utf-8")
     (folder / "caption_linkedin.txt").write_text(
         f"{post['linkedin'].strip()}\n\n{credit}\n\n{footer}\n\n{series['linkedin_tags']}\n", encoding="utf-8")
+    comment = post.get("linkedin_comment", series["linkedin_comment"])
+    (folder / "first_comment_linkedin.txt").write_text(f"{comment.strip()}\n", encoding="utf-8")
 
 
 SPECS = """
@@ -496,6 +511,11 @@ title inside that middle 3:4.
 
 Covers: upload `cover_*.png` as the video's thumbnail when posting. Platform limits and
 recommended sizes change; check each app's current guidance before posting.
+
+Image posts have no video: upload `image_instagram_3x4.png` or `image_linkedin_16x9.png`.
+
+On LinkedIn, post `first_comment_linkedin.txt` as the first comment right after publishing,
+so the links stay out of the post itself.
 """
 
 
@@ -512,32 +532,49 @@ def main():
     (OUT / "mockups").mkdir(exist_ok=True)
 
     for part, (post, day) in enumerate(zip(posts, days), start=1):
-        portrait, landscape = renders(post["scene"], post["slug"])
+        still = post.get("still")
+        source = still or post
+        portrait, landscape = renders(source["scene"], source["slug"])
         for path in (portrait, landscape):
             if not path.exists():
                 raise SystemExit(f"missing render: {path} (render it with manim -qh first)")
         folder = OUT / f"{part:02d}_{post['slug']}"
         folder.mkdir(exist_ok=True)
-        post.update(date=day, folder=folder.name, duration=duration(landscape))
-        print(f"{folder.name}: {day:%a %Y-%m-%d}, {post['duration']:.1f} s")
+        post.update(date=day, folder=folder.name, duration=None if still else duration(landscape))
+        print(f"{folder.name}: {day:%a %Y-%m-%d}, {length_label(post)}")
 
-        if not args.no_video:
+        if not still and not args.no_video:
             shutil.copyfile(portrait, folder / "instagram_post_3x4.mp4")
             shutil.copyfile(landscape, folder / "linkedin_post_16x9.mp4")
             reel = folder / "instagram_reel_9x16.mp4"
             pad_to_reel(portrait, reel)
             shutil.copyfile(reel, folder / "linkedin_vertical_9x16.mp4")
 
-        t = post["cover_at"]
+        t = still["at"] if still else post["cover_at"]
         tall, wide = frame_at(portrait, t), frame_at(landscape, t)
         post["cover_3x4"] = cover(tall, post["title"], part, total, series["name"])
+        post["cover_16x9"] = cover(wide, post["title"], part, total, series["name"])
+        caption_files(folder, post, part, total, series)
+        title = f"{part}/{total}  {post['title']}  ·  {day:%a %b %d}"
+
+        if still:
+            post["cover_9x16"] = None
+            post["cover_3x4"].save(folder / "image_instagram_3x4.png")
+            post["cover_16x9"].save(folder / "image_linkedin_16x9.png")
+            panels = [
+                phone(ig_feed_screen(post["cover_3x4"], series["handle"], post["instagram"])),
+                phone(li_feed_screen(post["cover_16x9"], series["display_name"], series["headline"],
+                                     post["linkedin"])),
+            ]
+            labeled(panels, ["Instagram · image post (3:4)", "LinkedIn · image post (16:9)"],
+                    title=title).save(folder / "preview.png")
+            continue
+
         post["cover_9x16"] = cover(reel_frame(tall), post["title"], part, total, series["name"],
                                    center_y=REEL_TOP + 720)
-        post["cover_16x9"] = cover(wide, post["title"], part, total, series["name"])
         post["cover_3x4"].save(folder / "cover_instagram_post_3x4.png")
         post["cover_9x16"].save(folder / "cover_reel_9x16.png")
         post["cover_16x9"].save(folder / "cover_linkedin_16x9.png")
-        caption_files(folder, post, part, total, series)
 
         # What each placement looks like mid-video.
         mid_tall, mid_wide = frame_at(portrait, post["duration"] * 0.45), frame_at(landscape, post["duration"] * 0.45)
@@ -549,11 +586,10 @@ def main():
                                      post["linkedin"])),
         ]
         labeled(panels, ["Instagram · feed post (3:4)", "Instagram · Reel (9:16)", "LinkedIn · feed post (16:9)",
-                         "LinkedIn · vertical video (9:16)"],
-                title=f"{part}/{total}  {post['title']}  ·  {day:%a %b %d}").save(folder / "preview.png")
+                         "LinkedIn · vertical video (9:16)"], title=title).save(folder / "preview.png")
 
     grid, reels = ig_profile_screens(series, list(reversed(posts)))
-    labeled([phone(grid), phone(reels)], ["Posts grid after all 9 (newest first)", "Reels tab"],
+    labeled([phone(grid), phone(reels)], [f"Posts grid after all {total} (newest first)", "Reels tab"],
             title="Instagram profile").save(OUT / "mockups" / "instagram_profile.png")
     li_activity(series, posts).save(OUT / "mockups" / "linkedin_activity.png")
     timeline(series, posts).save(OUT / "mockups" / "timeline.png")
@@ -563,13 +599,17 @@ def main():
         writer.writerow(["part", "date", "weekday", "title", "instagram_time", "linkedin_time", "folder",
                          "seconds", "instagram_post", "instagram_reel", "linkedin_post", "linkedin_vertical"])
         for part, post in enumerate(posts, start=1):
+            if post["duration"] is None:
+                seconds, files = "", ["image_instagram_3x4.png", "", "image_linkedin_16x9.png", ""]
+            else:
+                seconds = f"{post['duration']:.1f}"
+                files = ["instagram_post_3x4.mp4", "instagram_reel_9x16.mp4",
+                         "linkedin_post_16x9.mp4", "linkedin_vertical_9x16.mp4"]
             writer.writerow([part, post["date"].isoformat(), f"{post['date']:%a}", post["title"],
-                             series["instagram_time"], series["linkedin_time"], post["folder"],
-                             f"{post['duration']:.1f}", "instagram_post_3x4.mp4", "instagram_reel_9x16.mp4",
-                             "linkedin_post_16x9.mp4", "linkedin_vertical_9x16.mp4"])
+                             series["instagram_time"], series["linkedin_time"], post["folder"], seconds, *files])
 
     rows = "\n".join(
-        f"| {part} | {post['date']:%a %b %d} | {post['title']} | {post['duration']:.0f} s | "
+        f"| {part} | {post['date']:%a %b %d} | {post['title']} | {length_label(post)} | "
         f"[{post['folder']}]({post['folder']}/preview.png) |"
         for part, post in enumerate(posts, start=1)
     )

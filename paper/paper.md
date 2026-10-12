@@ -197,7 +197,11 @@ design cannot say (see Limitations).
 
 Timings are medians of 30 BenchmarkTools samples on the 6,420-row training split
 (feature matrix 6,420 × 7,442, 387,213 nonzeros), with an explicit warmup call
-per configuration so that compilation is never inside the sample set.
+per configuration so that compilation is never inside the sample set. The
+benchmark builds its vocabulary from the training sentences alone. The
+classification runs above build it from all 8,026 sentences and then select the
+training rows, giving 7,784 trigram columns, of which 342 occur only in test
+sentences and are empty in training; the nonzeros are the same 387,213.
 
 | Workers | Features (s) | Speedup | NB train (s) | Speedup |
 |---|---|---|---|---|

@@ -2,23 +2,55 @@
 #
 # Posts are listed in publishing order. `scene` names the landscape render
 # (the portrait one is `<scene>Vertical`); `cover_at` is the second of the
-# video used for its cover image. Every number in a caption comes from
-# src/results/*.json or animations/data/*.json.
+# video used for its cover image. A post with `still` instead of `scene` is an
+# image post, drawn on the frame at `still.at` of another post's render. Every
+# number in a caption comes from src/results/*.json or animations/data/*.json.
 
 [series]
 name = "Kaqchikel NLP, animated"
 handle = "your_handle"
-display_name = "Your Name"
+display_name = "William J. Wakefield"
 headline = "MIT 18.337 · Kaqchikel NLP in Julia"
-first_day = 2026-10-06
+first_day = 2026-10-15
 weekdays = ["Tue", "Thu"]
 instagram_time = "18:00"
 linkedin_time = "08:30"
 instagram_tags = "#Kaqchikel #MayanLanguages #NLP #DataVisualization #JuliaLang"
-linkedin_tags = "#NLP #MachineLearning #JuliaLang #DataVisualization"
+linkedin_tags = "#NLP #MachineLearning #JuliaLang #Kaqchikel #LowResourceNLP #DataVisualization"
 # Required on every post: the Tang/Bennett corpus authors permit sharing
 # derived figures only if the data source is clearly indicated.
 data_credit = "Data: Kaqchikel written corpus by Kevin Tang and Ryan Bennett, used with permission (Tang & Bennett 2018, J. Acoust. Soc. Am.; Bennett, Tang & Ajsivinac Sian 2018, Laboratory Phonology), and the Kaqchikel Chronicle (Kiwujil Xajila’)."
+# Posted as the first comment on LinkedIn unless a post sets its own.
+linkedin_comment = """
+Code, paper, and the data notes behind every number in this series: https://github.com/Chok-Ketzamtzib/18337-project-kaqchikel-NLP
+"""
+
+[[post]]
+slug = "intro"
+title = "Teaching a computer to read Kaqchikel"
+still = { slug = "trigram_window", scene = "TrigramWindow", at = 8.0 }
+instagram = """
+In 2023 my Kaqchikel Maya NLP project stalled on one problem: nobody had labeled the data.
+
+So I changed the question. Not “is this sentence happy or sad?” but “which of two sources is it from?”: the Kaqchikel Chronicle, written by Kaqchikel scribes in the 1500s and 1600s, or a modern written corpus compiled by Kevin Tang and Ryan Bennett.
+
+My classifier scored 98.9%. Most of that was one character. This series shows which.
+"""
+linkedin = """
+In 2023 I started a class project to build sentiment analysis for Kaqchikel Maya. It stalled on one problem: nobody had labeled the data.
+
+Kaqchikel is spoken by several hundred thousand people in the highlands of Guatemala. For NLP it counts as “low-resource”: not short on speakers, but short on text a computer can learn from.
+
+When I came back to the project this year, the sentiment column in my spreadsheet said “String” on almost every row. A placeholder, not a label. So I changed the question. Instead of asking whether a sentence is happy or sad, I asked which of two sources it came from:
+• the Kaqchikel Chronicle (Kiwujil Xajila’), written by Kaqchikel scribes in the 1500s and 1600s
+• a modern written corpus compiled by the linguists Kevin Tang and Ryan Bennett
+
+The labels came free. I built the classifier from scratch in Julia for MIT 18.337, with TF-IDF features and Naive Bayes, and it scored 98.9% on held-out text.
+
+Most of that turned out to be one character. Over the next five weeks I'll show how I found out, with an animation for each step.
+
+If you work with low-resource languages, I'd like to hear what has tripped you up.
+"""
 
 [[post]]
 slug = "trigram_window"
@@ -35,13 +67,11 @@ Of the 50 trigrams that most signal the Chronicle, 45 contain ’.
 linkedin = """
 How does a text classifier read Kaqchikel Maya? Three characters at a time.
 
-For an MIT 18.337 project I built a Naive Bayes classifier in Julia that tells two Kaqchikel corpora apart: the Kaqchikel Chronicle (Kiwujil) and the modern Tang/Bennett written corpus.
-
-Its features are character trigrams. Sliding a three-character window along one line of the Chronicle, “K’a ri’ xek’ule’”, gives 16 of them. The 11 that contain ’ each weigh 6 to 9 toward the Chronicle; the other 5 stay under 2.
+My classifier's features are character trigrams. Sliding a three-character window along one line of the Kaqchikel Chronicle, “K’a ri’ xek’ule’”, gives 16 of them. The 11 that contain ’ each weigh 6 to 9 toward the Chronicle; the other 5 stay under 2.
 
 Across the whole vocabulary, 45 of the 50 strongest Chronicle trigrams contain ’, and 40 of the 50 strongest Tang/Bennett trigrams contain '.
 
-That was the first hint that the model was learning how each corpus was typed, not the language. The next posts follow that thread.
+In Kaqchikel the apostrophe is a letter: it marks the glottal stop and ejective consonants like k’ and q’. So at first this looked like the model had picked up something real about the language. The next posts show what it had actually learned.
 """
 
 [[post]]
@@ -58,6 +88,8 @@ Then write the glottal stop the same way in both corpora (’ becomes '): 90 wro
 """
 linkedin = """
 My Kaqchikel classifier scored 98.9% on held-out text. That should have been a warning, not a result.
+
+I wrote it up as a win: character trigrams catch Kaqchikel word-building that whole words miss. That story was wrong.
 
 In this animation each of the 1,606 test sentences is a dot in its confusion-matrix cell:
 • word unigrams: 94.3%, 91 wrong
@@ -76,7 +108,7 @@ cover_at = 8.0
 instagram = """
 Two apostrophes, one sound.
 
-Kaqchikel writes its glottal stop with an apostrophe. The Chronicle types ’ (U+2019) 15,982 times. Tang/Bennett types ' (U+0027) 269,074 times and ’ never, with no punctuation or digits at all.
+Kaqchikel writes its glottal stop with an apostrophe. The Chronicle types ’ (U+2019) 15,982 times. Tang/Bennett types ' (U+0027) 269,074 times and ’ never: its authors removed punctuation and normalized apostrophes on purpose when cleaning their sources.
 
 A one-line rule with no training (“has a character Tang/Bennett never uses? say Chronicle”) scores 98.2%.
 """
@@ -87,29 +119,61 @@ Both Kaqchikel corpora write the glottal stop with an apostrophe, but not the sa
 • the Chronicle: ’ (U+2019) 15,982 times, ' (U+0027) 171 times
 • Tang/Bennett: ' 269,074 times, ’ zero times, and no commas, digits, or other punctuation
 
+That second line is by design. Tang and Bennett removed punctuation and normalized apostrophes while cleaning their corpus, because their sources (some from scanned book pages) had irregular punctuation and many different apostrophe characters. The Chronicle text never went through the same step.
+
 22 characters appear in the Chronicle's training text and never in Tang/Bennett's. A rule with no training, “if a sentence has one of them, say Chronicle”, gets 98.2% of the test set right. That beats the word model (94.3%, McNemar p ≈ 9e-9) and nearly matches the trigram model (98.9%).
 
-The labels come from where each text came from, so the encoding leaks the label. The fix was to normalize the orthography before trusting any score.
+My labels came from which corpus each sentence was in, so the difference in cleaning leaked the label. The fix: run the dumbest possible baseline before trusting a model, and normalize every source the same way.
+
+What's the simplest baseline that has embarrassed one of your models?
 """
 
 [[post]]
-slug = "trigram_cube"
-scene = "TrigramCube"
-title = "Every trigram is a point in a cube"
-cover_at = 24.0
+slug = "starfield_zoom"
+scene = "StarfieldZoom"
+title = "387,213 points of light"
+cover_at = 22.0
 instagram = """
-Every trigram is a point in a cube: its three characters are its coordinates.
+387,213 points of light: the whole training matrix, one per nonzero entry.
 
-Plot the 250 most common trigrams from each corpus and the apostrophe trigrams sit apart: ’ for the Chronicle, ' for Tang/Bennett.
-
-Fold ’ into ' and they land in the same place.
+6,420 sentences by 7,784 trigrams, 99.2% empty. Group the rows by corpus and the columns by apostrophe, and the spelling split is right there: Tang/Bennett rows have 0 points in the ’ columns.
 """
 linkedin = """
-What does a character trigram look like? Here, a point in a cube.
+You could see the leak before training a model. This is the entire training matrix of my Kaqchikel classifier, one point of light per nonzero entry.
 
-Each axis runs through the same characters in Unicode order, so a trigram's three characters are its coordinates. Plotting the 250 most common trigrams from each Kaqchikel corpus, the letter-only trigrams overlap, but the apostrophe trigrams sit apart: the Chronicle's use ’ (U+2019), Tang/Bennett's use ' (U+0027).
+It has 6,420 sentences by 7,784 character trigrams (the vocabulary of the full dataset) and is 99.2% empty. Each pixel sums a 4×4 block of cells.
 
-Folding ’ into ' puts the apostrophe trigrams of both corpora in the same place. The Chronicle-only trigrams that remain are punctuation and digits, which Tang/Bennett never uses. Keep only characters both corpora share and trigrams trail the plain word model.
+Grouping the rows by corpus and the columns by which apostrophe a trigram contains makes the confound visible without any model:
+• the 510 ’ columns: 33,656 points in Chronicle rows, 0 in Tang/Bennett rows
+• the 588 ' columns: 374 points in Chronicle rows, 46,028 in Tang/Bennett rows
+
+The spelling split is written into the data before training starts. Look at the features before you look at the accuracy.
+"""
+
+[[post]]
+slug = "tug_of_war"
+scene = "TugOfWar"
+title = "Every word pulls"
+cover_at = 16.0
+instagram = """
+Every word pulls.
+
+The word model adds one weight per word: right for the Chronicle, left for Tang/Bennett. It deletes punctuation first, ’ included, so q’atb’äl is counted as qatbäl.
+
+A close call: “Xa majani xeb’i’in ruch’ab’äl dios chi qe” ends at −0.70, the wrong side. The trigram model, which still sees the ’, scores it +340.
+"""
+linkedin = """
+The model that looked honest was honest by accident.
+
+My word-unigram model adds one weight per word. Its tokenizer strips punctuation first, apostrophes included, so q’atb’äl is counted as qatbäl. That is why it never fell for the apostrophe leak.
+
+Two Chronicle sentences from the test set, scored one word at a time:
+• one lands at +1.85 after words pull both ways: correct
+• “Xa majani xeb’i’in ruch’ab’äl dios chi qe” leads toward the Chronicle until ruch’ab’äl, dios, and qe pull it to −0.70: wrong
+
+The character-trigram model scores that second sentence +340. Words can be a close call; the spelling almost never is.
+
+The catch: in Kaqchikel the apostrophe is a letter, marking the glottal stop and ejectives like k’ and q’. The word model avoided the leak by deleting part of the alphabet. The better fix is to write the apostrophe one way in every source, not to throw it away.
 """
 
 [[post]]
@@ -130,50 +194,8 @@ Multinomial Naive Bayes is a linear classifier, and you can see it.
 The score for a sentence is offset + x·w: one weight per trigram, added up. Splitting that sum into three parts (trigrams with an apostrophe, letters only, punctuation and digits) puts every test sentence at a point in 3D, and the decision boundary, score = 0, is a flat plane.
 
 Turned edge-on, the plane becomes a cut on a number line. Replaying the orthography ablation on those histograms: raw text 98.9%, apostrophes folded 94.4%, shared characters only 92.7%, with more sentences crossing the cut each time.
-"""
 
-[[post]]
-slug = "tug_of_war"
-scene = "TugOfWar"
-title = "Every word pulls"
-cover_at = 16.0
-instagram = """
-Every word pulls.
-
-The word model adds one weight per word: right for the Chronicle, left for Tang/Bennett. It deletes punctuation first, ’ included, so q’atb’äl is counted as qatbäl.
-
-A close call: “Xa majani xeb’i’in ruch’ab’äl dios chi qe” ends at −0.70, the wrong side. The trigram model, which still sees the ’, scores it +340.
-"""
-linkedin = """
-Every word pulls: a Naive Bayes score, one word at a time.
-
-The word-unigram model adds one weight per word. Its tokenizer strips punctuation first, including ’, so the model never sees the apostrophe convention; q’atb’äl is counted as qatbäl.
-
-Two Chronicle sentences from the test set:
-• one lands at +1.85 after words pull both ways: correct
-• “Xa majani xeb’i’in ruch’ab’äl dios chi qe” leads toward the Chronicle until ruch’ab’äl, dios, and qe pull it to −0.70: wrong
-
-The character-trigram model scores that second sentence +340. Words can be a close call; the spelling almost never is.
-"""
-
-[[post]]
-slug = "starfield_zoom"
-scene = "StarfieldZoom"
-title = "387,213 points of light"
-cover_at = 22.0
-instagram = """
-387,213 points of light: the whole training matrix, one per nonzero entry.
-
-6,420 sentences by 7,784 trigrams, 99.2% empty. Group the rows by corpus and the columns by apostrophe, and the spelling split is right there: Tang/Bennett rows have 0 points in the ’ columns.
-"""
-linkedin = """
-This is the entire training matrix of my Kaqchikel classifier: 6,420 sentences by 7,784 character trigrams, 99.2% empty, one point of light per nonzero entry (each pixel sums a 4×4 block of cells).
-
-Grouping the rows by corpus and the columns by which apostrophe a trigram contains makes the confound visible without any model:
-• the 510 ’ columns: 33,656 points in Chronicle rows, 0 in Tang/Bennett rows
-• the 588 ' columns: 374 points in Chronicle rows, 46,028 in Tang/Bennett rows
-
-The spelling split is written into the data before training starts.
+This is one reason I like Naive Bayes for a first model on a new language: every weight can be read off and questioned.
 """
 
 [[post]]
@@ -207,11 +229,70 @@ Counting trigrams splits across threads; building the sparse matrix does not. Th
 Naive Bayes training is 81% sparse(transpose(X)) on one thread, so 8 threads measured 0.95×.
 """
 linkedin = """
-Why 8 threads are not 8× faster: Amdahl's law in a real Julia pipeline.
+Why 8 threads are not 8× faster, and a speedup I had to take back.
 
-Feature extraction has a part that splits across threads (counting trigrams per sentence) and a part that does not (building the sparse matrix). The serial part sets a floor: even unlimited threads could make it at most about 2.1× faster. Measured with BenchmarkTools: 1.67× on 8 threads.
+The first version of this project reported that Naive Bayes training ran about 3.2× faster on 8 threads. It didn't. I had timed each version once with @elapsed, and in Julia the first call to a function includes compiling it. I was timing the compiler.
 
-Naive Bayes training is worse: 81% of it is sparse(transpose(X)), which runs on one thread. Only the per-class accumulation is parallel, and 8 threads measured 0.95×, within noise of one thread.
+With a warmup call and 30 BenchmarkTools samples per setting, what's left is Amdahl's law:
+• Feature extraction splits across threads (counting trigrams per sentence) except for one step (building the sparse matrix). That serial step caps it at about 2.1× even with unlimited threads. Measured: 1.67× on 8 threads.
+• Naive Bayes training is 81% sparse(transpose(X)), which runs on one thread. Measured: 0.95× on 8 threads, within noise of one thread.
 
-More threads only speed up the part that splits.
+More threads only speed up the part that splits. And in Julia, never time the first call.
+"""
+
+[[post]]
+slug = "wrap_up"
+title = "Three lessons from one apostrophe"
+still = { slug = "confusion_morph", scene = "ConfusionMorph", at = 38.0 }
+instagram = """
+Three lessons from one apostrophe:
+
+1. Try the dumbest baseline first. A rule with no training scored 98.2%.
+2. Labels taken from where data came from leak where it came from. Clean every source the same way.
+3. In Julia, never time the first call.
+
+Without the spelling cues, the two sources are still about 93–94% separable, mostly by topic. And Kaqchikel is now in Julia's Languages.jl.
+
+Thank you to Kevin Tang and Ryan Bennett for permission to share figures from their corpus.
+"""
+linkedin = """
+Five weeks, one Naive Bayes classifier, and three lessons from Kaqchikel Maya.
+
+1. Try the dumbest baseline first. A rule with no training scored 98.2%, within a point of my 98.9% model.
+2. Labels taken from where data came from leak where it came from. Mine came from which corpus a sentence was in, so anything that differed between the corpora, even how an apostrophe was typed, became a feature. Clean every source the same way before comparing models.
+3. In Julia, warm up before you time anything. My first reported speedup was compile time.
+
+With the spelling cues removed, the two sources are still about 93–94% separable, mostly by topic: Biblical names on one side, Spanish surnames and colonial titles on the other. Whether any of that reflects how Kaqchikel changed over four centuries, this experiment can't say. Answering that needs many documents from each period, matched by genre.
+
+One more output: Kaqchikel is now in Julia's Languages.jl. I added the language and its word lists, and the maintainer, Avik Sengupta, added the trigram profile after the detector first decided my Kaqchikel test sentence was Ilocano.
+
+Thank you to Kevin Tang and Ryan Bennett for permission to share figures from their corpus. Code, paper, and the Languages.jl PRs are in the comments.
+"""
+linkedin_comment = """
+Code, paper, and the data notes behind every number in this series: https://github.com/Chok-Ketzamtzib/18337-project-kaqchikel-NLP
+
+Kaqchikel in Languages.jl: https://github.com/JuliaText/Languages.jl/pull/43 and https://github.com/JuliaText/Languages.jl/pull/46
+"""
+
+# Held back from the main series: it makes the same point as confound_reveal
+# and starfield_zoom. export_social.py reads only [[post]], so this is not
+# exported; move it back into the list above to post it.
+[[extra]]
+slug = "trigram_cube"
+scene = "TrigramCube"
+title = "Every trigram is a point in a cube"
+cover_at = 24.0
+instagram = """
+Every trigram is a point in a cube: its three characters are its coordinates.
+
+Plot the 250 most common trigrams from each corpus and the apostrophe trigrams sit apart: ’ for the Chronicle, ' for Tang/Bennett.
+
+Fold ’ into ' and they land in the same place.
+"""
+linkedin = """
+What does a character trigram look like? Here, a point in a cube.
+
+Each axis runs through the same characters in Unicode order, so a trigram's three characters are its coordinates. Plotting the 250 most common trigrams from each Kaqchikel corpus, the letter-only trigrams overlap, but the apostrophe trigrams sit apart: the Chronicle's use ’ (U+2019), Tang/Bennett's use ' (U+0027).
+
+Folding ’ into ' puts the apostrophe trigrams of both corpora in the same place. The Chronicle-only trigrams that remain are punctuation and digits, which Tang/Bennett never uses. Keep only characters both corpora share and trigrams trail the plain word model.
 """
